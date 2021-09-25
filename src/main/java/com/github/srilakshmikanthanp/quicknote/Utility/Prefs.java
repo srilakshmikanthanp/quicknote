@@ -85,6 +85,31 @@ public class Prefs {
     }
 
     /********************************************************/
+    /**                         Position                   **/
+    /********************************************************/
+
+    public static final String POSITION_PREF_KEY = "POSITION";
+    public static final String TOP_LEFT = "Top-left";
+    public static final String TOP_RIGHT = "Top-right";
+    public static final String BOTTOM_LEFT = "Bottom-left";
+    public static final String BOTTOM_RIGHT = "Bottom-right";
+    public static final String DEFAULT_POSITION = BOTTOM_RIGHT;
+
+    /**
+     * setter of the position of the Note.
+     */
+    public static void setPosition(String position) {
+        Prefs.prefs.put(POSITION_PREF_KEY, position);
+    }
+
+    /**
+     * getter of the position of the Note.
+     */
+    public static String getPosition() {
+        return Prefs.prefs.get(POSITION_PREF_KEY, DEFAULT_POSITION);
+    }
+
+    /********************************************************/
     /**                         Lock Focus                 **/
     /********************************************************/
     

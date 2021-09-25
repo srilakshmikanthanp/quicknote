@@ -45,9 +45,11 @@ public class QuickNote extends Application {
 
         // add Preference Event
         Prefs.prefs.addPreferenceChangeListener(e -> {
-            if(e.getKey().equals(Prefs.TEXT_PREF_KEY)) {
-                Helper.setTheme(pStage.getScene());
-            }
+            Platform.runLater(() -> {
+                if(e.getKey().equals(Prefs.TEXT_PREF_KEY)) {
+                    Helper.setTheme(pStage.getScene());
+                }
+            });
         });
     }
 }

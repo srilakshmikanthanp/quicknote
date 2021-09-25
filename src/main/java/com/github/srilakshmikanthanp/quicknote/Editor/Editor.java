@@ -8,6 +8,7 @@ package com.github.srilakshmikanthanp.quicknote.Editor;
 import com.github.srilakshmikanthanp.quicknote.Utility.Helper;
 import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
 
+import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.geometry.Pos;
@@ -79,6 +80,55 @@ public class Editor extends Stage {
     private double offx = 0, offy = 0;
 
     /**
+     * Set at Prefered Position
+     */
+    private void setPrefsPosition() {
+        var rect2D = Screen.getPrimary().getVisualBounds();
+
+        switch(Prefs.getPosition()) {
+            case Prefs.TOP_LEFT:
+                this.setX(rect2D.getMinX());
+                this.setY(rect2D.getMinY());
+                break;
+            case Prefs.TOP_RIGHT:
+                this.setX(rect2D.getMaxX() - this.getWidth());
+                this.setY(rect2D.getMinY());
+                break;
+            case Prefs.BOTTOM_LEFT:
+                this.setX(rect2D.getMinX());
+                this.setY(rect2D.getHeight() - this.getHeight());                
+                break;
+            case Prefs.BOTTOM_RIGHT:
+                this.setX(rect2D.getWidth() - this.getWidth());
+                this.setY(rect2D.getHeight() - this.getHeight());
+                break;
+        }
+    }
+
+    /**
+     * Update Preference
+     */
+    private void updatePrefs(String key) {
+        var rect2D = Screen.getPrimary().getVisualBounds();
+        switch (key) {
+            case Prefs.HEIGHT_PREF_KEY:
+                this.setHeight(Prefs.getHeight());
+                this.setY(rect2D.getHeight() - this.getHeight());
+                break;
+            case Prefs.WIDTH_PREF_KEY:
+                this.setWidth(Prefs.getWidth());
+                this.setX(rect2D.getWidth() - this.getWidth());
+                break;
+            case Prefs.THEME_PREF_KEY:
+                Helper.setTheme(this.getScene());
+                break;
+            case Prefs.POSITION_PREF_KEY:
+                this.setPrefsPosition();
+                break;
+        }
+    }
+
+    /**
      * Constructor
      */
     public Editor() {
@@ -120,9 +170,7 @@ public class Editor extends Stage {
 
         // Position on the bottom Right
         this.setOnShown(e -> {
-            var rect2D = Screen.getPrimary().getVisualBounds();
-            this.setX(rect2D.getWidth() - this.getWidth());
-            this.setY(rect2D.getHeight() - this.getHeight());
+            this.setPrefsPosition();            
         });
 
         this.setScene(scene);
@@ -131,20 +179,9 @@ public class Editor extends Stage {
 
         // add Event Listener to preference
         Prefs.prefs.addPreferenceChangeListener(e -> {
-            var rect2D = Screen.getPrimary().getVisualBounds();
-            switch (e.getKey()) {
-                case Prefs.HEIGHT_PREF_KEY:
-                    this.setHeight(Prefs.getHeight());
-                    this.setY(rect2D.getHeight() - this.getHeight());
-                    break;
-                case Prefs.WIDTH_PREF_KEY:
-                    this.setWidth(Prefs.getWidth());
-                    this.setX(rect2D.getWidth() - this.getWidth());
-                    break;
-                case Prefs.THEME_PREF_KEY:
-                    Helper.setTheme(scene);
-                    break;
-            }
+            Platform.runLater(
+                () -> this.updatePrefs(e.getKey())
+            );
         });
     }
 }

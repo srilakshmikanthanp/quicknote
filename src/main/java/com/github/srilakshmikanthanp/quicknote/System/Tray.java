@@ -25,7 +25,7 @@ class TrayIconMouseListener  extends MouseInputAdapter {
     private Stage eStage;
 
     /**
-     * ALternate the Editor stage
+     * ALternate the Editor stage on FX Thread
      */
     private void alternateStage() {
         if(eStage.isShowing()) {
@@ -74,17 +74,35 @@ public class Tray {
     );
 
     /**
-     * Lock Event
+     * Primary stage
      */
-    private void setLock(boolean state) {
-        Prefs.setLockFocus(state);
+    private Stage primaryStage;
+
+    /**
+     * Show primary on Event Dispatch Thread
+     */
+    private void showPrimaryStage() {
+        Platform.runLater(
+            () -> this.primaryStage.show()
+        );
     }
 
     /**
-     * Exit Event
+     * Lock Event on Event Dispatch Thread
+     */
+    private void setLock(boolean state) {
+        Platform.runLater(
+            () -> Prefs.setLockFocus(state)
+        );
+    }
+
+    /**
+     * Exit Event on Event Dispatch Thread
      */
     private void exit() {
-        System.exit(0);
+        Platform.runLater(
+            () -> System.exit(0)
+        );
     }
 
     /**
@@ -108,6 +126,10 @@ public class Tray {
      * Tray
      */
     public Tray(Stage pStage, Stage eStage) {
+        // have primary stage
+        this.primaryStage = pStage;
+
+        // create components
         var popUpMenu = new PopupMenu();
         var qNote = new MenuItem("QuickNote");
         var lock = new CheckboxMenuItem("Lock");
@@ -122,13 +144,13 @@ public class Tray {
 
         // add possible event listeners
         qNote.addActionListener(
-            e -> Platform.runLater(() -> pStage.show())
+            e -> this.showPrimaryStage()
         );
         lock.addItemListener(
-            e -> Platform.runLater(() -> setLock(lock.getState()))
+            e -> this.setLock(lock.getState())
         );
         exit.addActionListener(
-            e -> Platform.runLater(() -> exit())
+            e -> this.exit()
         );
         this.trayIcon.addMouseListener(
             new TrayIconMouseListener(eStage)

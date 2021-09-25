@@ -7,9 +7,11 @@ package com.github.srilakshmikanthanp.quicknote.Application;
 
 import com.github.srilakshmikanthanp.quicknote.Utility.*;
 
+import javafx.application.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.collections.*;
 
 /**
  * Preference PAne
@@ -114,6 +116,34 @@ public class PanePrefs extends BorderPane {
         themeTitlepane.setExpanded(true);
         themeTitlepane.setPadding(new Insets(20));
 
+        // Position Prefs
+        var posLable = new Label(
+            "Select Position    "
+        );
+        var posList = new ChoiceBox<String>(
+            FXCollections.observableArrayList(
+                Prefs.TOP_LEFT, Prefs.TOP_RIGHT, 
+                Prefs.BOTTOM_LEFT, Prefs.BOTTOM_RIGHT
+            )
+        );
+
+        posLable.setGraphic(posList);
+        posLable.setContentDisplay(ContentDisplay.RIGHT);
+        posList.setValue(Prefs.getPosition());
+
+        var posPane = new VBox(
+            5,
+            posLable
+        );
+        var posTitlepane = new TitledPane(
+            "Position",
+            posPane
+        );
+
+        posTitlepane.setCollapsible(false);
+        posTitlepane.setExpanded(true);
+        posTitlepane.setPadding(new Insets(20));
+
         // Actions
         var resetButton = new Button(
             "Reset"
@@ -126,11 +156,13 @@ public class PanePrefs extends BorderPane {
             Prefs.setWidth(Prefs.DEFAULT_WIDTH);
             Prefs.setHeight(Prefs.DEFAULT_HEIGHT);
             Prefs.setTheme(Prefs.DEFAULT_THEME);
+            Prefs.setPosition(Prefs.DEFAULT_POSITION);
         });
         saveButton.setOnAction(e -> {
             Prefs.setWidth(widthSlider.getValue());
             Prefs.setHeight(heightSlider.getValue());
             Prefs.setTheme(themesList.getValue());
+            Prefs.setPosition(posList.getValue());
         });
 
         var buttonsPane = new HBox(
@@ -147,22 +179,28 @@ public class PanePrefs extends BorderPane {
             5,
             dimTitlePane,
             themeTitlepane,
+            posTitlepane,
             buttonsPane
         );
 
         // add prrference listsner
         Prefs.prefs.addPreferenceChangeListener(e -> {
-            switch(e.getKey()) {
-                case Prefs.HEIGHT_PREF_KEY:
-                    heightSlider.setValue(Prefs.getHeight());
-                    break;
-                case Prefs.WIDTH_PREF_KEY:
-                    widthSlider.setValue(Prefs.getWidth());
-                    break;
-                case Prefs.THEME_PREF_KEY:
-                    themesList.setValue(Prefs.getTheme());
-                    break;
-            }
+            Platform.runLater(() -> {
+                switch(e.getKey()) {
+                    case Prefs.HEIGHT_PREF_KEY:
+                        heightSlider.setValue(Prefs.getHeight());
+                        break;
+                    case Prefs.WIDTH_PREF_KEY:
+                        widthSlider.setValue(Prefs.getWidth());
+                        break;
+                    case Prefs.THEME_PREF_KEY:
+                        themesList.setValue(Prefs.getTheme());
+                        break;
+                    case Prefs.POSITION_PREF_KEY:
+                        posList.setValue(Prefs.getPosition());
+                        break;
+                }
+            });
         });
 
         // Done
