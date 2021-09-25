@@ -158,6 +158,7 @@ public class Editor extends Stage {
         });
 
         // place items
+        textArea.setStyle("-fx-background-color: transperent;");
         textArea.setPromptText("Place your text here");
         borderPane.setCenter(textArea);
         borderPane.setBottom(draggble);
@@ -176,6 +177,8 @@ public class Editor extends Stage {
         this.setScene(scene);
         this.setWidth(Prefs.getWidth());
         this.setHeight(Prefs.getHeight());
+        this.setAlwaysOnTop(true);
+        Helper.setTheme(scene);
 
         // add Event Listener to preference
         Prefs.prefs.addPreferenceChangeListener(e -> {

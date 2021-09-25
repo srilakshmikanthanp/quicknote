@@ -5,7 +5,6 @@
 
 package com.github.srilakshmikanthanp.quicknote.Utility;
 
-import javafx.collections.*;
 import javafx.scene.Scene;
 
 /**
@@ -23,18 +22,18 @@ public class Helper {
     public static final double MIN_WIN_HEIGHT = 650;
 
     /**
-     * get the Available Themes
-     */
-    public static ObservableList<String> getAvailableThemes() {
-        return FXCollections.observableArrayList(
-            Prefs.DEFAULT_THEME
-        );
-    }
-
-    /**
      * set theme to scene
      */
     public static void setTheme(Scene scene) {
-       // ToDo: set theme
+       switch(Prefs.getTheme()) {
+            case Prefs.MODENA_THEME:
+                scene.getStylesheets().clear();
+                break;
+            case Prefs.CASPIAN_THEME:
+                scene.getStylesheets().add(
+                    Helper.class.getResource("/styles/caspian.css").toExternalForm()
+                );
+                break;
+       }
     }
 }

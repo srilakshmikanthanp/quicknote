@@ -33,6 +33,9 @@ class Navigator extends TreeView<String> {
         // set expanded
         root.setExpanded(true);
 
+        // style view
+        this.setStyle("-fx-background-color: transperent;");
+
         // return the root node
         return root;
     }

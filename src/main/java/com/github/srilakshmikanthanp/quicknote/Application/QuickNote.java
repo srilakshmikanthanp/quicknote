@@ -31,6 +31,7 @@ public class QuickNote extends Application {
         pStage.setScene(new Scene(new PaneMain()));
         pStage.setMinWidth(Helper.MIN_WIN_WIDTH);
         pStage.setMinHeight(Helper.MIN_WIN_HEIGHT);
+        Helper.setTheme(pStage.getScene());
         pStage.getIcons().add(
             new Image(getClass().getResourceAsStream("/images/logo.png"))
         );
@@ -45,11 +46,11 @@ public class QuickNote extends Application {
 
         // add Preference Event
         Prefs.prefs.addPreferenceChangeListener(e -> {
-            Platform.runLater(() -> {
-                if(e.getKey().equals(Prefs.TEXT_PREF_KEY)) {
-                    Helper.setTheme(pStage.getScene());
-                }
-            });
+            if(e.getKey().equals(Prefs.THEME_PREF_KEY)) {
+                Platform.runLater(
+                    () -> Helper.setTheme(pStage.getScene())
+                );
+            }
         });
     }
 }
