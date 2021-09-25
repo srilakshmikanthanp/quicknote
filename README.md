@@ -36,6 +36,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a #href="#prerequisite">Prerequisite</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -65,14 +66,18 @@ Take you Notes Handy with QuickNote !. Quick Note Helps you to take notes in a q
 
 To install QuickNote, follow the instructions below.
 
+## Prerequisite
+
+QuickNote is written in java so make sure your system have Java Virtual Machine to run QuickNote.
+
 ### Installation
 
-**Not Completed Yet.**
+_Not Completed Yet, But It will get ready soon_
 
 <!-- USAGE EXAMPLES -->
 ## Demo
 
-![demo](assets/images/demo.png)
+![demo](/assets/images/demo.png)
 
 <!-- ROADMAP -->
 ## Roadmap
