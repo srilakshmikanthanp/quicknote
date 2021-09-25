@@ -35,6 +35,7 @@ public class QuickNote extends Application {
             new Image(getClass().getResourceAsStream("/images/logo.png"))
         );
 
+        // init Editor stage
         var eStage =  new Editor();
 
         // init the tray
