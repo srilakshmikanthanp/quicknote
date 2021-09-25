@@ -23,8 +23,6 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
@@ -42,15 +40,13 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#demo">Demo</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
-
 
 
 <!-- ABOUT THE PROJECT -->
@@ -75,9 +71,9 @@ To install QuickNote, follow the instructions below.
 **Not Completed Yet.**
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Demo
 
-**Not Completed Yet.**
+![demo](assets/images/demo.png)
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -104,10 +100,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/srilakshmikanthanp/quicknote](https://github.com/srilakshmikanthanp/quicknote)
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* []()
-* []()
-* []()
