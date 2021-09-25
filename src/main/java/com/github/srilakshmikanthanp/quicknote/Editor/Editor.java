@@ -158,16 +158,20 @@ public class Editor extends Stage {
         });
 
         // place items
-        textArea.setStyle("-fx-background-color: transperent; -fx-font-size: 15px");
-        textArea.setPadding(new Insets(10, 10, 0, 10));
+        textArea.setPadding(new Insets(6, 6, 0, 6));
         textArea.setPromptText("Place your text here");
+        textArea.setWrapText(true);
+        textArea.setStyle("-fx-background-color: transperent; -fx-font-size: 14px");
+        draggble.setCursor(Cursor.CLOSED_HAND);
         borderPane.setCenter(textArea);
         borderPane.setBottom(draggble);
 
         // Focus Event
-        this.focusedProperty().addListener((obs, isLost, isGain) -> {
-            if (isLost && !Prefs.getLockFocus())
-                this.hide();
+        this.focusedProperty().addListener(
+            (obs, isLost, isGain) -> {
+                if (isLost && !Prefs.getLockFocus()) {
+                    this.hide();
+                }
         });
 
         // Position on the bottom Right

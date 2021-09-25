@@ -5,6 +5,8 @@
 
 package com.github.srilakshmikanthanp.quicknote.Application;
 
+import java.io.IOException;
+import java.util.*;
 import javafx.geometry.*;
 import javafx.scene.text.*;
 import javafx.scene.image.*;
@@ -42,10 +44,23 @@ public class PaneAbout extends BorderPane {
      * @return String
      */
     private String getBriefString() {
+        final var properties = new Properties();
+        
+        try {
+            properties.load(
+                getClass().getResourceAsStream("/quicknote.properties")
+            );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final var version = properties.getProperty("version");
+
         return  "Take your notes handy with QuickNote. " + 
                 "QuickNote Helps you to Get Your Note " + 
                 "handly in the taskbar Copy or Change " + 
-                "it Whenever you want.";
+                "it Whenever you want.\n" + 
+                "\nVersion : " + version + "\n";
     }
 
     /**

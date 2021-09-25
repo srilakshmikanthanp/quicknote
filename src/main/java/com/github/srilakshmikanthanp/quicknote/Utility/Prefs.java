@@ -21,9 +21,9 @@ public class Prefs {
     /*********************************************************/
 
     public static final String HEIGHT_PREF_KEY = "HEIGHT";
-    public static final double MIN_HEIGHT = 300;
+    public static final double MIN_HEIGHT = 100;
     public static final double MAX_HEIGHT = 500;
-    public static final double DEFAULT_HEIGHT = MIN_HEIGHT;
+    public static final double DEFAULT_HEIGHT = 350;
 
     /**
      * setter of the height of the Note.
@@ -44,9 +44,9 @@ public class Prefs {
     /********************************************************/
 
     public static final String WIDTH_PREF_KEY = "WIDTH";
-    public static final double MIN_WIDTH = 400;
+    public static final double MIN_WIDTH = 100;
     public static final double MAX_WIDTH = 550;
-    public static final double DEFAULT_WIDTH = MIN_WIDTH;
+    public static final double DEFAULT_WIDTH = 350;
 
     /**
      * setter of the width of the Note.
