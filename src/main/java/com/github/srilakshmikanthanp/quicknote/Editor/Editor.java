@@ -11,7 +11,7 @@ import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
 import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
@@ -158,7 +158,8 @@ public class Editor extends Stage {
         });
 
         // place items
-        textArea.setStyle("-fx-background-color: transperent;");
+        textArea.setStyle("-fx-background-color: transperent; -fx-font-size: 15px");
+        textArea.setPadding(new Insets(10, 10, 0, 10));
         textArea.setPromptText("Place your text here");
         borderPane.setCenter(textArea);
         borderPane.setBottom(draggble);
