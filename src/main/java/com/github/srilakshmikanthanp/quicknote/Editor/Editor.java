@@ -47,7 +47,7 @@ class Draggble extends StackPane {
     /**
      * Label
      */
-    private Label lbl = new Label();
+    private Label lbl = new Label("•••");
 
     /**
      * Constructor
