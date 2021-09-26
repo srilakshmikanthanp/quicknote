@@ -1,11 +1,11 @@
 module quicknote {
     // from java std
-    requires transitive java.prefs;
-    requires transitive java.desktop;
+    requires java.prefs;
+    requires java.desktop;
 
     // from javafx
-    requires transitive javafx.controls;
+    requires javafx.controls;
 
-    exports com.github.srilakshmikanthanp.quicknote;
-    exports com.github.srilakshmikanthanp.quicknote.Application;
+    // required ascess
+    opens com.github.srilakshmikanthanp.quicknote.Application;
 }
