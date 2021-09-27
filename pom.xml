@@ -68,7 +68,6 @@
             <configuration>
               <winDirChooser>true</winDirChooser>
               <winMenu>true</winMenu>
-              <winConsole>true</winConsole>
             </configuration>
           </execution>
         </executions>
