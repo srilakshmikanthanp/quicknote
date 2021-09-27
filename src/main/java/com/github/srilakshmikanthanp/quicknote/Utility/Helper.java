@@ -6,6 +6,8 @@
 package com.github.srilakshmikanthanp.quicknote.Utility;
 
 import javafx.scene.Scene;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 /**
  * Helper Class
@@ -25,7 +27,7 @@ public class Helper {
      * set theme to scene
      */
     public static void setTheme(Scene scene) {
-       switch(Prefs.getTheme()) {
+        switch (Prefs.getTheme()) {
             case Prefs.MODENA_THEME:
                 scene.getStylesheets().clear();
                 break;
@@ -34,6 +36,34 @@ public class Helper {
                     Helper.class.getResource("/styles/caspian.css").toExternalForm()
                 );
                 break;
-       }
+        }
+    }
+
+    /**
+     * Is application is running
+     */
+    public static boolean isAppRunning() {
+        try {
+            // check if port is available
+            ServerSocket socket = new ServerSocket(57428);
+
+            // close the socket on stop
+            Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                    }
+                }, "SocketCloser")
+            );
+
+            // if port is available, not running
+            return false;
+        
+        } catch (IOException e) {
+
+            // if port is not available, running
+            return true;
+        }
     }
 }

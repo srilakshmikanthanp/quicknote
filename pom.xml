@@ -48,6 +48,31 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.panteleyev</groupId>
+        <artifactId>jpackage-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <configuration>
+          <name>QuickNote</name>
+          <destination>${project.build.directory}/jpackage</destination>
+          <runtimeImage>${project.build.directory}/image</runtimeImage>
+          <version>${projet.version}</version>
+          <vendor>srilakshmikanthanp</vendor>
+          <module>quicknote/com.github.srilakshmikanthanp.quicknote.QuickNote</module>
+          <icon>assets/images/logo.ico</icon>
+          <licenseFile>LICENSE</licenseFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>win</id>
+            <configuration>
+              <winDirChooser>true</winDirChooser>
+              <winMenu>true</winMenu>
+              <winConsole>true</winConsole>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>

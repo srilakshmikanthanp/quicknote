@@ -11,7 +11,7 @@ import java.util.prefs.*;
  * USer Preference class
  */
 public class Prefs {
-        /**
+    /**
      * Preference node name
      */
     public final static Preferences prefs = Preferences.userNodeForPackage(Prefs.class);

@@ -15,7 +15,8 @@ import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
-import javax.swing.SwingUtilities;
+
+import javax.swing.*;
 
 /**
  * Application
@@ -58,6 +59,19 @@ public class QuickNote extends Application {
      * Main method to start the Application
      */
     public static void main(String[] args) {
+        // check if the application is already running
+        if(Helper.isAppRunning()) {
+            // print error message for debug
+            System.err.println("Application is already running");
+
+            // exit
+            System.exit(0);
+        }
+
+        // launch
         launch(args);
+
+        // exit
+        System.exit(0);
     }
 }

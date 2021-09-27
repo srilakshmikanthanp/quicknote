@@ -102,7 +102,7 @@ public class Tray {
      */
     private void exit() {
         Platform.runLater(
-            () -> System.exit(0)
+            () -> Platform.exit()
         );
     }
 
