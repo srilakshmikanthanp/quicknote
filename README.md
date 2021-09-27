@@ -66,7 +66,7 @@ Take you Notes Handy with QuickNote !. Quick Note Helps you to take notes in a q
 
 To install QuickNote, follow the instructions below.
 
-## Prerequisite
+### Prerequisite
 
 QuickNote is written in java so make sure your system have Java Virtual Machine to run QuickNote.
 
