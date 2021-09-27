@@ -83,15 +83,14 @@ public class Editor extends Stage {
      * Update Preference
      */
     private void updatePrefs(String key) {
-        var rect2D = Screen.getPrimary().getVisualBounds();
+        this.hide();
+
         switch (key) {
             case Prefs.HEIGHT_PREF_KEY:
                 this.setHeight(Prefs.getHeight());
-                this.setY(rect2D.getHeight() - this.getHeight());
                 break;
             case Prefs.WIDTH_PREF_KEY:
                 this.setWidth(Prefs.getWidth());
-                this.setX(rect2D.getWidth() - this.getWidth());
                 break;
             case Prefs.THEME_PREF_KEY:
                 Helper.setTheme(this.getScene());
