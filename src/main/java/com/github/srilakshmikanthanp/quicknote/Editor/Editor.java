@@ -80,32 +80,6 @@ public class Editor extends Stage {
     private double offx = 0, offy = 0;
 
     /**
-     * Set at Prefered Position
-     */
-    private void setPrefsPosition() {
-        var rect2D = Screen.getPrimary().getVisualBounds();
-
-        switch(Prefs.getPosition()) {
-            case Prefs.TOP_LEFT:
-                this.setX(rect2D.getMinX());
-                this.setY(rect2D.getMinY());
-                break;
-            case Prefs.TOP_RIGHT:
-                this.setX(rect2D.getMaxX() - this.getWidth());
-                this.setY(rect2D.getMinY());
-                break;
-            case Prefs.BOTTOM_LEFT:
-                this.setX(rect2D.getMinX());
-                this.setY(rect2D.getHeight() - this.getHeight());                
-                break;
-            case Prefs.BOTTOM_RIGHT:
-                this.setX(rect2D.getWidth() - this.getWidth());
-                this.setY(rect2D.getHeight() - this.getHeight());
-                break;
-        }
-    }
-
-    /**
      * Update Preference
      */
     private void updatePrefs(String key) {
@@ -121,9 +95,6 @@ public class Editor extends Stage {
                 break;
             case Prefs.THEME_PREF_KEY:
                 Helper.setTheme(this.getScene());
-                break;
-            case Prefs.POSITION_PREF_KEY:
-                this.setPrefsPosition();
                 break;
         }
     }
@@ -174,11 +145,6 @@ public class Editor extends Stage {
                 }
         });
 
-        // Position on the bottom Right
-        this.setOnShown(e -> {
-            this.setPrefsPosition();            
-        });
-
         this.setScene(scene);
         this.setWidth(Prefs.getWidth());
         this.setHeight(Prefs.getHeight());
@@ -191,5 +157,32 @@ public class Editor extends Stage {
                 () -> this.updatePrefs(e.getKey())
             );
         });
+    }
+
+    /**
+     * Show on position from the mouse event
+     */
+    public void showOnPosition(double x, double y) {
+        var rect2D = Screen.getPrimary().getVisualBounds();
+        var scaleX = Screen.getPrimary().getOutputScaleX();
+        var scaleY = Screen.getPrimary().getOutputScaleY();
+        var pCalcX = x / scaleX - (this.getWidth() / 2);
+        var pCalcY = y / scaleY - (this.getHeight() / 2);
+        
+        if(pCalcX < rect2D.getMinX()) {
+            pCalcX = rect2D.getMinX();
+        } else if(pCalcX + this.getWidth() > rect2D.getMaxX()) {
+            pCalcX = rect2D.getMaxX() - this.getWidth();
+        }
+
+        if(pCalcY < rect2D.getMinY()) {
+            pCalcY = rect2D.getMinY();
+        } else if(pCalcY + this.getHeight() > rect2D.getMaxY()) {
+            pCalcY = rect2D.getMaxY() - this.getHeight();
+        }
+
+        this.show();
+        this.setX(pCalcX);
+        this.setY(pCalcY);
     }
 }

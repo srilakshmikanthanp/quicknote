@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-package com.github.srilakshmikanthanp.quicknote.Application;
+package com.github.srilakshmikanthanp.quicknote.AppPane;
 
 import javafx.geometry.*;
 import javafx.scene.text.*;

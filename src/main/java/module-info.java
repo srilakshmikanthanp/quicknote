@@ -7,5 +7,5 @@ module quicknote {
     requires javafx.controls;
 
     // required ascess
-    opens com.github.srilakshmikanthanp.quicknote.Application;
+    opens com.github.srilakshmikanthanp.quicknote to javafx.graphics;
 }

@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-package com.github.srilakshmikanthanp.quicknote.Application;
+package com.github.srilakshmikanthanp.quicknote.AppPane;
 
 import java.io.IOException;
 import java.util.*;

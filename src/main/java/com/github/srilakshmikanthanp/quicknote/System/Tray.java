@@ -5,6 +5,7 @@
 
 package com.github.srilakshmikanthanp.quicknote.System;
 
+import com.github.srilakshmikanthanp.quicknote.Editor.Editor;
 import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
 
 import javafx.application.*;
@@ -22,16 +23,16 @@ class TrayIconMouseListener  extends MouseInputAdapter {
     /**
      * Stage of the editor
      */
-    private Stage eStage;
+    private Editor eStage;
 
     /**
      * ALternate the Editor stage on FX Thread
      */
-    private void alternateStage() {
+    private void alternateStage(double x, double y) {
         if(eStage.isShowing()) {
             eStage.hide();
         } else {
-            eStage.show();
+            eStage.showOnPosition(x, y);
         }
     }
 
@@ -39,7 +40,7 @@ class TrayIconMouseListener  extends MouseInputAdapter {
      * Constructor
      * @param stage Stage of the editor
      */
-    public TrayIconMouseListener(Stage stage) {
+    public TrayIconMouseListener(Editor stage) {
         this.eStage = stage;
     }
 
@@ -50,7 +51,7 @@ class TrayIconMouseListener  extends MouseInputAdapter {
     public void mouseClicked(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e)) {
             Platform.runLater(
-                () -> this.alternateStage()
+                () -> this.alternateStage(e.getX(), e.getY())
             );
         }
     }
@@ -125,7 +126,7 @@ public class Tray {
     /**
      * Tray
      */
-    public Tray(Stage pStage, Stage eStage) {
+    public Tray(Stage pStage, Editor eStage) {
         // have primary stage
         this.primaryStage = pStage;
 

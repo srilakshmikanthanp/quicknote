@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-package com.github.srilakshmikanthanp.quicknote.Application;
+package com.github.srilakshmikanthanp.quicknote.AppPane;
 
 import java.util.*;
 import javafx.scene.layout.*;
@@ -52,7 +52,7 @@ class Navigator extends TreeView<String> {
 /**
  * Panes Controller
  */
-class PaneMain extends BorderPane {
+public class MainPane extends BorderPane {
     /**
      * Available navigation sections
      */
@@ -89,7 +89,7 @@ class PaneMain extends BorderPane {
     /**
      * Constructr+or
      */
-    public PaneMain() {
+    public MainPane() {
         // create the navigation bar
         var navigator = new Navigator(this.navSections);
 
