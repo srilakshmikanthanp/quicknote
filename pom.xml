@@ -68,6 +68,7 @@
             <configuration>
               <winDirChooser>true</winDirChooser>
               <winMenu>true</winMenu>
+              <winMenuGroup>QuickNote</winMenuGroup>
             </configuration>
           </execution>
         </executions>
