@@ -68,11 +68,17 @@ To install QuickNote, follow the instructions below.
 
 ### Prerequisite
 
-_Not Completed Yet, But It will get ready soon_
+The is no prerequisites for installing QuickNote.
 
 ### Installation
 
-_Not Completed Yet, But It will get ready soon_
+Follow the instructions below to install QuickNote on different platforms.
+
+#### For Windows
+
+  1. Download the latest version of QuickNote from [Releses](https://github.com/srilakshmikanthanp/QuickNote/releases).
+  2. Double click on the downloaded file to install QuickNote.
+  3. After installation, Add it to system [startup](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd).
 
 <!-- USAGE EXAMPLES -->
 ## Demo
