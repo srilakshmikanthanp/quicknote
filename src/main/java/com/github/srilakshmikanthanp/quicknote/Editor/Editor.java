@@ -83,16 +83,17 @@ public class Editor extends Stage {
      * Update Preference
      */
     private void updatePrefs(String key) {
-        this.hide();
-
         switch (key) {
             case Prefs.HEIGHT_PREF_KEY:
+                this.hide();
                 this.setHeight(Prefs.getHeight());
                 break;
             case Prefs.WIDTH_PREF_KEY:
+                this.hide();
                 this.setWidth(Prefs.getWidth());
                 break;
             case Prefs.THEME_PREF_KEY:
+                this.hide();
                 Helper.setTheme(this.getScene());
                 break;
         }
