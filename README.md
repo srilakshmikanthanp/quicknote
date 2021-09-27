@@ -68,7 +68,7 @@ To install QuickNote, follow the instructions below.
 
 ### Prerequisite
 
-QuickNote is written in java so make sure your system have Java Virtual Machine to run QuickNote.
+_Not Completed Yet, But It will get ready soon_
 
 ### Installation
 
