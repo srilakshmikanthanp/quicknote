@@ -6,8 +6,12 @@
 package com.github.srilakshmikanthanp.quicknote.AppPane;
 
 import java.util.*;
+import javafx.geometry.*;
+import javafx.stage.Stage;
+import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.scene.image.*;
 
 /**
  * Panes Controller
@@ -30,11 +34,9 @@ class Navigator extends TreeView<String> {
             root.getChildren().add(new TreeItem<>(navString));
         }
 
-        // set expanded
+        // init
         root.setExpanded(true);
-
-        // style view
-        this.setStyle("-fx-background-color: transperent;");
+        this.setPadding(new Insets(10));
 
         // return the root node
         return root;
@@ -53,6 +55,16 @@ class Navigator extends TreeView<String> {
  * Panes Controller
  */
 public class MainPane extends BorderPane {
+    /**
+     * position tracker
+     */
+    double offx = 0, offy = 0;
+    
+    /**
+     * Inner Border PAne
+     */
+    final BorderPane innerPane = new BorderPane();
+
     /**
      * Available navigation sections
      */
@@ -75,35 +87,90 @@ public class MainPane extends BorderPane {
     private void setSection(String newVal) {
         switch (newVal) {
             case PaneAbout.navTitle:
-                this.setCenter(this.paneAbout);
+                this.innerPane.setCenter(this.paneAbout);
                 break;
             case PanePrefs.navTitle:
-                this.setCenter(this.panePrefs);
+                this.innerPane.setCenter(this.panePrefs);
                 break;
             case PaneTerms.navTitle:
-                this.setCenter(this.paneTerms);
+                this.innerPane.setCenter(this.paneTerms);
                 break;
         }
     }
 
     /**
+     * get the navigation tree
+     * @return Node
+     */
+    private Node getNavigator() {
+        var title = new Label("QuickNote");
+        var imageView = new ImageView();
+        var nav = new Navigator(this.navSections);
+        var pane = new BorderPane();
+
+        // init title
+        imageView.setImage(
+            new Image(MainPane.class.getResourceAsStream("/images/logo.png"))
+        );
+        imageView.setFitWidth(20);
+        imageView.setFitHeight(20);
+        title.setPadding(new Insets(2, 2, 15, 2));
+        title.setGraphic(imageView);
+        title.setContentDisplay(ContentDisplay.LEFT);
+
+        // inti nav
+        nav.getSelectionModel().select(0);
+        nav.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                this.setSection(newValue.getValue());
+            }
+        );
+
+        // init pane
+        pane.setTop(title);
+        pane.setCenter(nav);
+        pane.setId("qnote-nav-bar");
+
+        return pane;
+    }
+
+    /**
+     * get the topbar
+     */
+    private Node getTopBar(Stage pStage) {
+        var hideButton = new Button("X");
+        hideButton.setOnAction(e -> {
+            pStage.close();
+        });
+        hideButton.setId("qnote-hide-btn");
+
+        var dragButton = new Button("");
+        dragButton.setOpacity(0);
+        dragButton.setMaxWidth(Double.MAX_VALUE);
+        dragButton.setMaxHeight(Double.MAX_VALUE);
+        dragButton.setOnMousePressed(evt -> {
+            this.offx = pStage.getX() - evt.getScreenX();
+            this.offy = pStage.getY() - evt.getScreenY();
+        });
+        dragButton.setOnMouseDragged(evt -> {
+            pStage.setX(evt.getScreenX() + this.offx);
+            pStage.setY(evt.getScreenY() + this.offy);
+        });
+
+        var topBar = new BorderPane();
+        topBar.setRight(hideButton);
+        topBar.setCenter(dragButton);
+        return topBar;
+    }
+
+    /**
      * Constructr+or
      */
-    public MainPane() {
-        // create the navigation bar
-        var navigator = new Navigator(this.navSections);
-
+    public MainPane(Stage pStage) {
         // add navigation
-        this.setLeft(navigator);
-
-        // add default section
-        navigator.getSelectionModel().select(0);
-        this.setCenter(this.paneAbout);
-
-        // eventListener
-        navigator.getSelectionModel().selectedItemProperty()
-            .addListener((observable, oldValue, newValue) -> {
-                this.setSection(newValue.getValue());
-        });
+        this.setLeft(this.getNavigator());
+        this.innerPane.setTop(this.getTopBar(pStage));
+        this.setSection(this.navSections.get(0));
+        this.setCenter(this.innerPane);
     }
 }

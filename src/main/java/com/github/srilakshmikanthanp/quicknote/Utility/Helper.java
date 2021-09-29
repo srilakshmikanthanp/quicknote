@@ -27,16 +27,12 @@ public class Helper {
      * set theme to scene
      */
     public static void setTheme(Scene scene) {
-        switch (Prefs.getTheme()) {
-            case Prefs.MODENA_THEME:
-                scene.getStylesheets().clear();
-                break;
-            case Prefs.CASPIAN_THEME:
-                scene.getStylesheets().add(
-                    Helper.class.getResource("/styles/caspian.css").toExternalForm()
-                );
-                break;
-        }
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(
+            Helper.class.getResource(
+                "/styles/" + Prefs.getTheme() + ".css"
+            ).toExternalForm()
+        );
     }
 
     /**

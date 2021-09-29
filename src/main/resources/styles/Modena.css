@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-@import url("./base_themes/Caspian.css");
+@import url("./base_themes/Modena.css");
 
 /**
  * Close Button
@@ -33,8 +33,8 @@
 }
 
 /**
-* Navigation pane
-*/
+ * Navigation pane
+ */
 #qnote-nav-bar {
   -fx-background-color: white;
 }
@@ -42,6 +42,8 @@
 #qnote-nav-bar .tree-view {
   -fx-background-color: white;
   -fx-border-color: transparent;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
 }
 
 /**

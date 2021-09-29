@@ -16,64 +16,64 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
 /**
- * Empty Stage uset as owner for Editor Stage
- */
-class EmptyStage extends Stage {
-    /**
-     * Constructor
-     */
-    public EmptyStage() {
-        // for taskbar
-        this.initStyle(StageStyle.UTILITY);
-
-        // size
-        this.setHeight(0);
-        this.setWidth(0);
-        this.setOpacity(0);
-
-        // show
-        this.show();
-    }
-}
-
-/**
- * A Botton and Lable
- */
-class Draggble extends StackPane {
-    /**
-     * Button
-     */
-    private Button btn = new Button();
-
-    /**
-     * Label
-     */
-    private Label lbl = new Label("•••");
-
-    /**
-     * Constructor
-     */
-    public Draggble() {
-        btn.setOpacity(0);
-        btn.setMaxWidth(Double.MAX_VALUE);
-        lbl.setAlignment(Pos.CENTER);
-        lbl.setMaxWidth(Double.MAX_VALUE);
-
-        this.getChildren().addAll(lbl, btn);
-    }
-
-    /**
-     * getter of button
-     */
-    public Button getButton() {
-        return this.btn;
-    }
-}
-
-/**
  * Editor Pane
  */
 public class Editor extends Stage {
+    /**
+     * Empty Stage uset as owner for Editor Stage
+     */
+    static class EmptyStage extends Stage {
+        /**
+        * Constructor
+        */
+        public EmptyStage() {
+            // for taskbar
+            this.initStyle(StageStyle.UTILITY);
+
+            // size
+            this.setHeight(0);
+            this.setWidth(0);
+            this.setOpacity(0);
+
+            // show
+            this.show();
+        }
+    }
+
+    /**
+     * A Botton and Lable
+     */
+    static class Draggble extends StackPane {
+        /**
+         * Button
+         */
+        private Button button = new Button();
+
+        /**
+         * Constructor
+         */
+        public Draggble() {
+            // create lable
+            Label label = new Label("•••");
+
+            /// init
+            button.setOpacity(0);
+            button.setMaxWidth(Double.MAX_VALUE);
+            label.setAlignment(Pos.CENTER);
+            label.setMaxWidth(Double.MAX_VALUE);
+
+            // add to stack
+            this.getChildren().addAll(label, button);
+        }
+
+        /**
+         * getter of button
+         */
+        public Button getButton() {
+            return this.button;
+        }
+    }
+
     /**
      * Offset for drag Purpose
      */
@@ -113,12 +113,14 @@ public class Editor extends Stage {
         var borderPane = new BorderPane();
         var scene = new Scene(borderPane);
 
-        // add Text Change Event
         textArea.textProperty().addListener((obs, oldVal, newVal) -> {
             Prefs.setText(newVal);
         });
+        textArea.getStyleClass().add("qnote-focus-color-none");
+        textArea.setPadding(new Insets(6, 6, 0, 6));
+        textArea.setPromptText("Place your text here");
+        textArea.setWrapText(true);
 
-        // add drag Listener
         draggble.getButton().setOnMousePressed(evt -> {
             this.offx = this.getX() - evt.getScreenX();
             this.offy = this.getY() - evt.getScreenY();
@@ -127,13 +129,9 @@ public class Editor extends Stage {
             this.setX(evt.getScreenX() + this.offx);
             this.setY(evt.getScreenY() + this.offy);
         });
-
-        // place items
-        textArea.setPadding(new Insets(6, 6, 0, 6));
-        textArea.setPromptText("Place your text here");
-        textArea.setWrapText(true);
-        textArea.setStyle("-fx-background-color: transperent; -fx-font-size: 14px");
         draggble.setCursor(Cursor.CLOSED_HAND);
+        
+        borderPane.setId("qnote-editor");
         borderPane.setCenter(textArea);
         borderPane.setBottom(draggble);
 

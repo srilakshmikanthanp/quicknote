@@ -23,19 +23,34 @@ import javax.swing.*;
  */
 public class QuickNote extends Application {
     /**
+     * make stage
+     */
+    private void stageInitilizer(Stage pStage) {
+        // init primary stage
+        pStage.initStyle(StageStyle.UNDECORATED);
+        pStage.getIcons().add(
+            new Image(getClass().getResource("/images/logo.png").toExternalForm())
+        );
+
+        // main pane
+        var mainPane = new MainPane(pStage);
+
+        // create scene
+        var scene = new Scene(
+            mainPane,  Helper.MIN_WIN_WIDTH, Helper.MIN_WIN_HEIGHT
+        );
+
+        pStage.setScene(scene);
+    }
+
+    /**
      * Override start method to launch the application
      */
     @Override
     public void start(Stage pStage) throws Exception {
-        // init primary stage
-        pStage.setTitle("QuickNote");
-        pStage.setScene(new Scene(new MainPane()));
-        pStage.setMinWidth(Helper.MIN_WIN_WIDTH);
-        pStage.setMinHeight(Helper.MIN_WIN_HEIGHT);
+        // init
+        this.stageInitilizer(pStage);
         Helper.setTheme(pStage.getScene());
-        pStage.getIcons().add(
-            new Image(getClass().getResourceAsStream("/images/logo.png"))
-        );
 
         // init Editor stage
         var eStage =  new Editor();
@@ -63,7 +78,6 @@ public class QuickNote extends Application {
         if(Helper.isAppRunning()) {
             // print error message for debug
             System.err.println("Application is already running");
-
             // exit
             System.exit(0);
         }

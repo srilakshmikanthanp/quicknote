@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.srilakshmikanthanp.quicknote</groupId>
   <artifactId>quicknote</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.2</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,7 +43,7 @@
           <execution>
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.github.srilakshmikanthanp.quicknote.Launch</mainClass>
+              <mainClass>com.github.srilakshmikanthanp.quicknote.QuickNote</mainClass>
             </configuration>
           </execution>
         </executions>
