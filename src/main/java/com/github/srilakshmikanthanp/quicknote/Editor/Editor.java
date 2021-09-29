@@ -14,70 +14,111 @@ import javafx.scene.*;
 import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
+
+import java.io.*;
 
 /**
  * Editor Pane
  */
 public class Editor extends Stage {
     /**
-     * Empty Stage uset as owner for Editor Stage
-     */
-    static class EmptyStage extends Stage {
-        /**
-        * Constructor
-        */
-        public EmptyStage() {
-            // for taskbar
-            this.initStyle(StageStyle.UTILITY);
-
-            // size
-            this.setHeight(0);
-            this.setWidth(0);
-            this.setOpacity(0);
-
-            // show
-            this.show();
-        }
-    }
-
-    /**
-     * A Botton and Lable
-     */
-    static class Draggble extends StackPane {
-        /**
-         * Button
-         */
-        private Button button = new Button();
-
-        /**
-         * Constructor
-         */
-        public Draggble() {
-            // create lable
-            Label label = new Label("•••");
-
-            /// init
-            button.setOpacity(0);
-            button.setMaxWidth(Double.MAX_VALUE);
-            label.setAlignment(Pos.CENTER);
-            label.setMaxWidth(Double.MAX_VALUE);
-
-            // add to stack
-            this.getChildren().addAll(label, button);
-        }
-
-        /**
-         * getter of button
-         */
-        public Button getButton() {
-            return this.button;
-        }
-    }
-
-    /**
      * Offset for drag Purpose
      */
     private double offx = 0, offy = 0;
+
+    /**
+     * get Empty Stage
+     */
+    private Stage getEmptyStage() {
+        // stage
+        var stage = new Stage();
+
+        // for taskbar
+        stage.initStyle(StageStyle.UTILITY);
+
+        // size
+        stage.setHeight(0);
+        stage.setWidth(0);
+        stage.setOpacity(0);
+
+        // show
+        stage.show();
+
+        // return
+        return stage;
+    }
+
+    /**
+     * get draggble
+     */
+    private Node getDraggble() {
+        // controls
+        var dLabel = new Label("•••");
+        var button = new Button();
+        var pStack = new StackPane();
+
+        // init
+        button.setOpacity(0);
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setMaxHeight(Double.MAX_VALUE);
+
+        // add event listener
+        button.setOnMousePressed(evt -> {
+            this.offx = this.getX() - evt.getScreenX();
+            this.offy = this.getY() - evt.getScreenY();
+        });
+
+        button.setOnMouseDragged(evt -> {
+            this.setX(evt.getScreenX() + this.offx);
+            this.setY(evt.getScreenY() + this.offy);
+        });
+
+        // add to pane
+        pStack.getChildren().addAll(
+            dLabel,
+            button
+        );
+
+        // return
+        return pStack;
+    }
+
+    /**
+     * Save Action
+     */
+    private void saveToFile(String text) {
+        // file chooser
+        var fileChooser = new FileChooser();
+
+        // init
+        fileChooser.setTitle("Save File");
+        fileChooser.getExtensionFilters().add(
+            new FileChooser.ExtensionFilter("Text Files", "*.txt")
+        );
+
+        // show and get the file
+        var selectedFile = fileChooser.showSaveDialog(this);
+
+        // attempt to save
+        if (selectedFile != null) {
+            // stream
+            PrintStream filePrintStream;
+
+            // try to open
+            try {
+                filePrintStream = new PrintStream(selectedFile);
+            } catch (FileNotFoundException e) {
+                return;
+            }
+
+            // write to file
+            filePrintStream.print(text);
+
+            // close
+            filePrintStream.close();
+        }
+    }
 
     /**
      * Update Preference
@@ -105,14 +146,20 @@ public class Editor extends Stage {
     public Editor() {
         // Stage Preerties
         this.initStyle(StageStyle.UNDECORATED);
-        this.initOwner(new EmptyStage());
+        this.initOwner(this.getEmptyStage());
 
         // create things
         var textArea = new TextArea(Prefs.getText());
-        var draggble = new Draggble();
+        var ctrlS = KeyCombination.keyCombination("Ctrl+S");
+        var draggble = this.getDraggble();
         var borderPane = new BorderPane();
         var scene = new Scene(borderPane);
 
+        textArea.setOnKeyPressed(evt -> {
+            if (ctrlS.match(evt)) {
+                this.saveToFile(textArea.getText());
+            }
+        });
         textArea.textProperty().addListener((obs, oldVal, newVal) -> {
             Prefs.setText(newVal);
         });
@@ -121,26 +168,15 @@ public class Editor extends Stage {
         textArea.setPromptText("Place your text here");
         textArea.setWrapText(true);
 
-        draggble.getButton().setOnMousePressed(evt -> {
-            this.offx = this.getX() - evt.getScreenX();
-            this.offy = this.getY() - evt.getScreenY();
-        });
-        draggble.getButton().setOnMouseDragged(evt -> {
-            this.setX(evt.getScreenX() + this.offx);
-            this.setY(evt.getScreenY() + this.offy);
-        });
-        draggble.setCursor(Cursor.CLOSED_HAND);
-        
         borderPane.setId("qnote-editor");
         borderPane.setCenter(textArea);
         borderPane.setBottom(draggble);
 
         // Focus Event
-        this.focusedProperty().addListener(
-            (obs, isLost, isGain) -> {
-                if (isLost && !Prefs.getLockFocus()) {
-                    this.hide();
-                }
+        this.focusedProperty().addListener((obs, isLost, isGain) -> {
+            if (isLost && !Prefs.getLockFocus()) {
+                this.hide();
+            }
         });
 
         this.setScene(scene);
@@ -151,9 +187,7 @@ public class Editor extends Stage {
 
         // add Event Listener to preference
         Prefs.prefs.addPreferenceChangeListener(e -> {
-            Platform.runLater(
-                () -> this.updatePrefs(e.getKey())
-            );
+            Platform.runLater(() -> this.updatePrefs(e.getKey()));
         });
     }
 
@@ -166,16 +200,16 @@ public class Editor extends Stage {
         var scaleY = Screen.getPrimary().getOutputScaleY();
         var pCalcX = x / scaleX - (this.getWidth() / 2);
         var pCalcY = y / scaleY - (this.getHeight() / 2);
-        
-        if(pCalcX < rect2D.getMinX()) {
+
+        if (pCalcX < rect2D.getMinX()) {
             pCalcX = rect2D.getMinX();
-        } else if(pCalcX + this.getWidth() > rect2D.getMaxX()) {
+        } else if (pCalcX + this.getWidth() > rect2D.getMaxX()) {
             pCalcX = rect2D.getMaxX() - this.getWidth();
         }
 
-        if(pCalcY < rect2D.getMinY()) {
+        if (pCalcY < rect2D.getMinY()) {
             pCalcY = rect2D.getMinY();
-        } else if(pCalcY + this.getHeight() > rect2D.getMaxY()) {
+        } else if (pCalcY + this.getHeight() > rect2D.getMaxY()) {
             pCalcY = rect2D.getMaxY() - this.getHeight();
         }
 

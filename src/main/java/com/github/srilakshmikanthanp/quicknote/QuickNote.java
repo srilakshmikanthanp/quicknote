@@ -5,11 +5,10 @@
 
 package com.github.srilakshmikanthanp.quicknote;
 
-import com.github.srilakshmikanthanp.quicknote.AppPane.MainPane;
-import com.github.srilakshmikanthanp.quicknote.Editor.Editor;
-import com.github.srilakshmikanthanp.quicknote.System.Tray;
-import com.github.srilakshmikanthanp.quicknote.Utility.Helper;
-import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
+import com.github.srilakshmikanthanp.quicknote.AppPane.*;
+import com.github.srilakshmikanthanp.quicknote.Editor.*;
+import com.github.srilakshmikanthanp.quicknote.System.*;
+import com.github.srilakshmikanthanp.quicknote.Utility.*;
 
 import javafx.application.*;
 import javafx.stage.*;

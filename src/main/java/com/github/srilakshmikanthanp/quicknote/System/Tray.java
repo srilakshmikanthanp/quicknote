@@ -5,8 +5,8 @@
 
 package com.github.srilakshmikanthanp.quicknote.System;
 
-import com.github.srilakshmikanthanp.quicknote.Editor.Editor;
-import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
+import com.github.srilakshmikanthanp.quicknote.Editor.*;
+import com.github.srilakshmikanthanp.quicknote.Utility.*;
 
 import javafx.application.*;
 import javafx.stage.*;
@@ -16,51 +16,11 @@ import javax.swing.*;
 import java.awt.TrayIcon.MessageType;
 import javax.swing.event.MouseInputAdapter;
 
-/**
- * MouseListener
- */
-class TrayIconMouseListener  extends MouseInputAdapter {
-    /**
-     * Stage of the editor
-     */
-    private Editor eStage;
-
-    /**
-     * ALternate the Editor stage on FX Thread
-     */
-    private void alternateStage(double x, double y) {
-        if(eStage.isShowing()) {
-            eStage.hide();
-        } else {
-            eStage.showOnPosition(x, y);
-        }
-    }
-
-    /**
-     * Constructor
-     * @param stage Stage of the editor
-     */
-    public TrayIconMouseListener(Editor stage) {
-        this.eStage = stage;
-    }
-
-    /**
-     * Listener for mouse click
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            Platform.runLater(
-                () -> this.alternateStage(e.getX(), e.getY())
-            );
-        }
-    }
-}
 
 /**
  * Quick Note System Tray onle from awt thread
  */
-public class Tray {
+public class Tray extends MouseInputAdapter {
     /**
      * SystemTRay
      */
@@ -77,14 +37,30 @@ public class Tray {
     /**
      * Primary stage
      */
-    private Stage primaryStage;
+    private Stage pStage;
+
+    /**
+     * EDitor stage
+     */
+    private Editor eStage;
+
+    /**
+     * Show editor
+     * @param x pos x
+     * @param y pos y
+     */
+    private void showEditor(double x, double y) {
+        Platform.runLater(
+            () -> this.eStage.showOnPosition(x, y)
+        );
+    }
 
     /**
      * Show primary on Event Dispatch Thread
      */
     private void showPrimaryStage() {
         Platform.runLater(
-            () -> this.primaryStage.show()
+            () -> this.pStage.show()
         );
     }
 
@@ -128,7 +104,8 @@ public class Tray {
      */
     public Tray(Stage pStage, Editor eStage) {
         // have primary stage
-        this.primaryStage = pStage;
+        this.pStage = pStage;
+        this.eStage = eStage;
 
         // create components
         var popUpMenu = new PopupMenu();
@@ -153,9 +130,7 @@ public class Tray {
         exit.addActionListener(
             e -> this.exit()
         );
-        this.trayIcon.addMouseListener(
-            new TrayIconMouseListener(eStage)
-        );
+        this.trayIcon.addMouseListener(this);
 
         // init tray
         this.trayIcon.setImageAutoSize(true);
@@ -163,5 +138,15 @@ public class Tray {
 
         // Add to system tray
         this.addToTray();
+    }
+
+    /**
+     * Listener for mouse click
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (SwingUtilities.isLeftMouseButton(e)) {
+            this.showEditor(e.getX(), e.getY());
+        }
     }
 }
