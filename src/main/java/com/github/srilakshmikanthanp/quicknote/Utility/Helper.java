@@ -24,18 +24,6 @@ public class Helper {
     public static final double MIN_WIN_HEIGHT = 650;
 
     /**
-     * set theme to scene
-     */
-    public static void setTheme(Scene scene) {
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(
-            Helper.class.getResource(
-                "/styles/" + Prefs.getTheme() + ".css"
-            ).toExternalForm()
-        );
-    }
-
-    /**
      * Is application is running
      */
     public static boolean isAppRunning() {
@@ -61,5 +49,17 @@ public class Helper {
             // if port is not available, running
             return true;
         }
+    }
+
+    /**
+     * set theme to scene
+     */
+    public static void setTheme(Scene scene) {
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(
+            Helper.class.getResource(
+                "/styles/" + Prefs.getTheme() + ".css"
+            ).toExternalForm()
+        );
     }
 }

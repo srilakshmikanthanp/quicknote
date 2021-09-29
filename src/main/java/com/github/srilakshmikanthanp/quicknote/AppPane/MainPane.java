@@ -114,7 +114,7 @@ public class MainPane extends BorderPane {
         );
         imageView.setFitWidth(20);
         imageView.setFitHeight(20);
-        title.setPadding(new Insets(2, 2, 15, 2));
+        title.setPadding(new Insets(5, 10, 15, 10));
         title.setGraphic(imageView);
         title.setContentDisplay(ContentDisplay.LEFT);
 

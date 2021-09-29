@@ -48,6 +48,7 @@
 * Editor
 */
 #qnote-editor .text-area {
+  -fx-font-size: 1.1em;
   -fx-border-color: transparent;
   -fx-focus-color: transparent;
   -fx-faint-focus-color: transparent;

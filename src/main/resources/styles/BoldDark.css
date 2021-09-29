@@ -5,24 +5,25 @@
  * https://opensource.org/licenses/MIT
  */
 
-@import url("./base_themes/Modena.css");
+/**
+ * Copyright (c) 2021 Sri Lakshmi Kanthan P
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import url("./base_themes/BoldDark.css");
 
 /**
- * Close Button
- */
+  * Close Button
+  */
 #qnote-hide-btn {
   -fx-border-color: transparent;
   -fx-border-width: 0;
   -fx-background-radius: 0;
   -fx-background-color: transparent;
   -fx-font-size: 1.3em; /* 12 */
-  -fx-text-fill: ladder(
-    -text-background,
-    black 60%,
-    black 100%,
-    white 0%,
-    white 59%
-  );
+  -fx-text-fill: white;
   -fx-min-width: 40px;
   -fx-min-height: 20px;
 }
@@ -36,22 +37,23 @@
  * Navigation pane
  */
 #qnote-nav-bar {
-  -fx-background-color: white;
+  -fx-background-color: #1A1A1A;
 }
 
 #qnote-nav-bar .tree-view {
-  -fx-background-color: white;
+  -fx-background-color: #1A1A1A;
   -fx-border-color: transparent;
-  -fx-focus-color: transparent;
-  -fx-faint-focus-color: transparent;
 }
 
 /**
-* Editor
-*/
+ * Editor
+ */
 #qnote-editor .text-area {
-  -fx-font-size: 1.1em;
+  -fx-prompt-text-fill: gray;
+  -fx-control-inner-background: #1A1A1A;
   -fx-border-color: transparent;
   -fx-focus-color: transparent;
   -fx-faint-focus-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-size: 1.1em;
 }
