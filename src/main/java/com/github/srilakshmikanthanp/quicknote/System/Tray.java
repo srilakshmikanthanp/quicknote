@@ -50,18 +50,23 @@ public class Tray extends MouseInputAdapter {
      * @param y pos y
      */
     private void showEditor(double x, double y) {
-        Platform.runLater(
-            () -> this.eStage.showOnPosition(x, y)
-        );
+        Platform.runLater(() ->  {
+            if(this.eStage.isShowing()) {
+                this.eStage.hide();
+            } else {
+                this.eStage.showOnPosition(x, y);
+            }
+        });
     }
 
     /**
      * Show primary on Event Dispatch Thread
      */
     private void showPrimaryStage() {
-        Platform.runLater(
-            () -> this.pStage.show()
-        );
+        Platform.runLater(() -> {
+            this.pStage.show();
+            this.pStage.toFront();
+        });
     }
 
     /**

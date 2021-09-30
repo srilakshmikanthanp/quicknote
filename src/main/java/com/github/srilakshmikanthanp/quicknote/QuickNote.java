@@ -49,8 +49,11 @@ public class QuickNote extends Application {
     public void start(Stage pStage) throws Exception {
         // init
         this.stageInitilizer(pStage);
+        new Resizer(pStage, 10, 7);
         Helper.setTheme(pStage.getScene());
-
+        pStage.setMinWidth(Helper.MIN_WIN_WIDTH);
+        pStage.setMinHeight(Helper.MIN_WIN_HEIGHT);
+        
         // init Editor stage
         var eStage =  new Editor();
 

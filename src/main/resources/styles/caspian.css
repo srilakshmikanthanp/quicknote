@@ -8,21 +8,15 @@
 @import url("./base_themes/Caspian.css");
 
 /**
- * Close Button
- */
+  * Close Button
+  */
 #qnote-hide-btn {
   -fx-border-color: transparent;
   -fx-border-width: 0;
   -fx-background-radius: 0;
   -fx-background-color: transparent;
-  -fx-font-size: 1.3em; /* 12 */
-  -fx-text-fill: ladder(
-    -text-background,
-    black 60%,
-    black 100%,
-    white 0%,
-    white 59%
-  );
+  -fx-font-size: 1.2em; /* 12 */
+  -fx-text-fill: black;
   -fx-min-width: 40px;
   -fx-min-height: 20px;
 }
@@ -30,6 +24,42 @@
 #qnote-hide-btn:hover {
   -fx-background-color: red;
   -fx-text-fill: white;
+}
+
+/**
+    * siz Button
+    */
+#qnote-size-btn {
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-background-radius: 0;
+  -fx-background-color: transparent;
+  -fx-font-size: 1.2em; /* 12 */
+  -fx-text-fill: black;
+  -fx-min-width: 40px;
+  -fx-min-height: 20px;
+}
+
+#qnote-size-btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+/**
+    * min Button
+    */
+#qnote-mini-btn {
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-background-radius: 0;
+  -fx-background-color: transparent;
+  -fx-font-size: 1.2em; /* 12 */
+  -fx-text-fill: black;
+  -fx-min-width: 40px;
+  -fx-min-height: 20px;
+}
+
+#qnote-mini-btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
 }
 
 /**

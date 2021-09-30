@@ -106,6 +106,7 @@ public class MainPane extends BorderPane {
         var title = new Label("QuickNote");
         var imageView = new ImageView();
         var nav = new Navigator(this.navSections);
+        var navPane = new BorderPane(nav);
         var pane = new BorderPane();
 
         // init title
@@ -117,6 +118,7 @@ public class MainPane extends BorderPane {
         title.setPadding(new Insets(5, 10, 15, 10));
         title.setGraphic(imageView);
         title.setContentDisplay(ContentDisplay.LEFT);
+        navPane.setPadding(new Insets(5));
 
         // inti nav
         nav.getSelectionModel().select(0);
@@ -128,7 +130,7 @@ public class MainPane extends BorderPane {
 
         // init pane
         pane.setTop(title);
-        pane.setCenter(nav);
+        pane.setCenter(navPane);
         pane.setId("qnote-nav-bar");
 
         return pane;
@@ -138,28 +140,28 @@ public class MainPane extends BorderPane {
      * get the topbar
      */
     private Node getTopBar(Stage pStage) {
-        var hideButton = new Button("X");
+        var hideButton = new Button("✕");
         hideButton.setOnAction(e -> {
             pStage.close();
         });
         hideButton.setId("qnote-hide-btn");
-
-        var dragButton = new Button("");
-        dragButton.setOpacity(0);
-        dragButton.setMaxWidth(Double.MAX_VALUE);
-        dragButton.setMaxHeight(Double.MAX_VALUE);
-        dragButton.setOnMousePressed(evt -> {
-            this.offx = pStage.getX() - evt.getScreenX();
-            this.offy = pStage.getY() - evt.getScreenY();
+        var sizButton = new Button("🗖");
+        sizButton.setOnAction(e -> {
+            pStage.setMaximized(!pStage.isMaximized()); 
         });
-        dragButton.setOnMouseDragged(evt -> {
-            pStage.setX(evt.getScreenX() + this.offx);
-            pStage.setY(evt.getScreenY() + this.offy);
+        sizButton.setId("qnote-size-btn");
+        var minButton = new Button("🗕");
+        minButton.setOnAction(e -> {
+            pStage.setIconified(true);
         });
+        minButton.setId("qnote-mini-btn");
 
-        var topBar = new BorderPane();
-        topBar.setRight(hideButton);
-        topBar.setCenter(dragButton);
+        var topBar = new HBox(
+            minButton, sizButton, hideButton
+        );
+        topBar.setSpacing(10);
+        topBar.setAlignment(Pos.CENTER_RIGHT);
+
         return topBar;
     }
 

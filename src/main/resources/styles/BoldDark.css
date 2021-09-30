@@ -22,7 +22,7 @@
   -fx-border-width: 0;
   -fx-background-radius: 0;
   -fx-background-color: transparent;
-  -fx-font-size: 1.3em; /* 12 */
+  -fx-font-size: 1.2em; /* 12 */
   -fx-text-fill: white;
   -fx-min-width: 40px;
   -fx-min-height: 20px;
@@ -34,14 +34,52 @@
 }
 
 /**
+  * siz Button
+  */
+#qnote-size-btn {
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-background-radius: 0;
+  -fx-background-color: transparent;
+  -fx-font-size: 1.2em; /* 12 */
+  -fx-text-fill: white;
+  -fx-min-width: 40px;
+  -fx-min-height: 20px;
+}
+
+#qnote-size-btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+  -fx-text-fill: white;
+}
+
+/**
+  * min Button
+  */
+#qnote-mini-btn {
+  -fx-border-color: transparent;
+  -fx-border-width: 0;
+  -fx-background-radius: 0;
+  -fx-background-color: transparent;
+  -fx-font-size: 1.2em; /* 12 */
+  -fx-text-fill: white;
+  -fx-min-width: 40px;
+  -fx-min-height: 20px;
+}
+
+#qnote-mini-btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.5);
+  -fx-text-fill: white;
+}
+
+/**
  * Navigation pane
  */
 #qnote-nav-bar {
-  -fx-background-color: #1A1A1A;
+  -fx-background-color: #1a1a1a;
 }
 
 #qnote-nav-bar .tree-view {
-  -fx-background-color: #1A1A1A;
+  -fx-background-color: #1a1a1a;
   -fx-border-color: transparent;
 }
 
@@ -50,7 +88,7 @@
  */
 #qnote-editor .text-area {
   -fx-prompt-text-fill: gray;
-  -fx-control-inner-background: #1A1A1A;
+  -fx-control-inner-background: #1a1a1a;
   -fx-border-color: transparent;
   -fx-focus-color: transparent;
   -fx-faint-focus-color: transparent;

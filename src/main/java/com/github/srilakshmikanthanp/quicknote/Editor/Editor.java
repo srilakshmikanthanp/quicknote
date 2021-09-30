@@ -7,6 +7,7 @@ package com.github.srilakshmikanthanp.quicknote.Editor;
 
 import com.github.srilakshmikanthanp.quicknote.Utility.Helper;
 import com.github.srilakshmikanthanp.quicknote.Utility.Prefs;
+import com.github.srilakshmikanthanp.quicknote.Utility.Resizer;
 
 import javafx.application.*;
 import javafx.stage.*;
@@ -22,11 +23,6 @@ import java.io.*;
  * Editor Pane
  */
 public class Editor extends Stage {
-    /**
-     * Offset for drag Purpose
-     */
-    private double offx = 0, offy = 0;
-
     /**
      * get Empty Stage
      */
@@ -50,41 +46,6 @@ public class Editor extends Stage {
     }
 
     /**
-     * get draggble
-     */
-    private Node getDraggble() {
-        // controls
-        var dLabel = new Label("•••");
-        var button = new Button();
-        var pStack = new StackPane();
-
-        // init
-        button.setOpacity(0);
-        button.setMaxWidth(Double.MAX_VALUE);
-        button.setMaxHeight(Double.MAX_VALUE);
-
-        // add event listener
-        button.setOnMousePressed(evt -> {
-            this.offx = this.getX() - evt.getScreenX();
-            this.offy = this.getY() - evt.getScreenY();
-        });
-
-        button.setOnMouseDragged(evt -> {
-            this.setX(evt.getScreenX() + this.offx);
-            this.setY(evt.getScreenY() + this.offy);
-        });
-
-        // add to pane
-        pStack.getChildren().addAll(
-            dLabel,
-            button
-        );
-
-        // return
-        return pStack;
-    }
-
-    /**
      * Save Action
      */
     private void saveToFile(String text) {
@@ -92,9 +53,9 @@ public class Editor extends Stage {
         var fileChooser = new FileChooser();
 
         // init
-        fileChooser.setTitle("Save File");
+        fileChooser.setTitle("Save to File");
         fileChooser.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Text Files", "*.txt")
+            new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
 
         // show and get the file
@@ -126,15 +87,12 @@ public class Editor extends Stage {
     private void updatePrefs(String key) {
         switch (key) {
             case Prefs.HEIGHT_PREF_KEY:
-                this.hide();
                 this.setHeight(Prefs.getHeight());
                 break;
             case Prefs.WIDTH_PREF_KEY:
-                this.hide();
                 this.setWidth(Prefs.getWidth());
                 break;
             case Prefs.THEME_PREF_KEY:
-                this.hide();
                 Helper.setTheme(this.getScene());
                 break;
         }
@@ -150,13 +108,12 @@ public class Editor extends Stage {
 
         // create things
         var textArea = new TextArea(Prefs.getText());
-        var ctrlS = KeyCombination.keyCombination("Ctrl+S");
-        var draggble = this.getDraggble();
+        var ctrlShiftS = KeyCombination.keyCombination("Ctrl+Shift+S");
         var borderPane = new BorderPane();
         var scene = new Scene(borderPane);
 
         textArea.setOnKeyPressed(evt -> {
-            if (ctrlS.match(evt)) {
+            if (ctrlShiftS.match(evt)) {
                 this.saveToFile(textArea.getText());
             }
         });
@@ -170,7 +127,7 @@ public class Editor extends Stage {
 
         borderPane.setId("qnote-editor");
         borderPane.setCenter(textArea);
-        borderPane.setBottom(draggble);
+        borderPane.setPadding(new Insets(12, 7, 7, 7));
 
         // Focus Event
         this.focusedProperty().addListener((obs, isLost, isGain) -> {
@@ -179,10 +136,27 @@ public class Editor extends Stage {
             }
         });
 
+        // dimension
+        this.widthProperty().addListener(
+            (obs, oldVal, newVal) -> {
+                Prefs.setWidth(newVal.doubleValue());
+            }
+        );
+        this.heightProperty().addListener(
+            (obs, oldVal, newVal) -> {
+                Prefs.setHeight(newVal.doubleValue());
+            }
+        );
+
         this.setScene(scene);
         this.setWidth(Prefs.getWidth());
         this.setHeight(Prefs.getHeight());
+        this.setMinWidth(Prefs.MIN_WIDTH);
+        this.setMinHeight(Prefs.MIN_HEIGHT);
+        this.setMaxWidth(Prefs.MAX_WIDTH);
+        this.setMaxHeight(Prefs.MAX_HEIGHT);
         this.setAlwaysOnTop(true);
+        new Resizer(this, 10, 7);
         Helper.setTheme(scene);
 
         // add Event Listener to preference
