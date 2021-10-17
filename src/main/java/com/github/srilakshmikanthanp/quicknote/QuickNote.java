@@ -14,6 +14,7 @@ import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
+import javafx.scene.paint.Color;
 
 import javax.swing.*;
 
@@ -26,7 +27,7 @@ public class QuickNote extends Application {
      */
     private void stageInitilizer(Stage pStage) {
         // init primary stage
-        pStage.initStyle(StageStyle.UNDECORATED);
+        pStage.initStyle(StageStyle.TRANSPARENT);
         pStage.getIcons().add(
             new Image(getClass().getResource("/images/logo.png").toExternalForm())
         );
@@ -39,6 +40,8 @@ public class QuickNote extends Application {
             mainPane,  Helper.MIN_WIN_WIDTH, Helper.MIN_WIN_HEIGHT
         );
 
+        scene.setFill(Color.TRANSPARENT);
+
         pStage.setScene(scene);
     }
 
@@ -49,10 +52,12 @@ public class QuickNote extends Application {
     public void start(Stage pStage) throws Exception {
         // init
         this.stageInitilizer(pStage);
-        new Resizer(pStage, 10, 7);
         Helper.setTheme(pStage.getScene());
         pStage.setMinWidth(Helper.MIN_WIN_WIDTH);
         pStage.setMinHeight(Helper.MIN_WIN_HEIGHT);
+
+        // add Resizer
+        new Resizer(pStage, 10, 7);
         
         // init Editor stage
         var eStage =  new Editor();

@@ -16,6 +16,7 @@ import javafx.geometry.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.paint.Color;
 
 import java.io.*;
 
@@ -103,7 +104,7 @@ public class Editor extends Stage {
      */
     public Editor() {
         // Stage Preerties
-        this.initStyle(StageStyle.UNDECORATED);
+        this.initStyle(StageStyle.TRANSPARENT);
         this.initOwner(this.getEmptyStage());
 
         // create things
@@ -121,13 +122,14 @@ public class Editor extends Stage {
             Prefs.setText(newVal);
         });
         textArea.getStyleClass().add("qnote-focus-color-none");
-        textArea.setPadding(new Insets(6, 6, 0, 6));
         textArea.setPromptText("Place your text here");
         textArea.setWrapText(true);
 
         borderPane.setId("qnote-editor");
         borderPane.setCenter(textArea);
-        borderPane.setPadding(new Insets(12, 7, 7, 7));
+        borderPane.setPadding(new Insets(10, 5, 5, 5));
+
+        scene.setFill(Color.TRANSPARENT);
 
         // Focus Event
         this.focusedProperty().addListener((obs, isLost, isGain) -> {
@@ -156,8 +158,9 @@ public class Editor extends Stage {
         this.setMaxWidth(Prefs.MAX_WIDTH);
         this.setMaxHeight(Prefs.MAX_HEIGHT);
         this.setAlwaysOnTop(true);
-        new Resizer(this, 10, 7);
         Helper.setTheme(scene);
+
+        new Resizer(this, 10, 5);
 
         // add Event Listener to preference
         Prefs.prefs.addPreferenceChangeListener(e -> {

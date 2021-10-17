@@ -97,9 +97,8 @@ public class PanePrefs extends BorderPane {
         );
         var themesList = new ChoiceBox<String>(
             FXCollections.observableArrayList(
-                Prefs.MODENA_THEME,
-                Prefs.CASPIAN_THEME,
-                Prefs.BOLDDARK_THEME
+                Prefs.LIGHT_THEME,
+                Prefs.DARK_THEME
             )
         );
 

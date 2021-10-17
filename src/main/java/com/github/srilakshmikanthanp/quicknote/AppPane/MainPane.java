@@ -170,6 +170,7 @@ public class MainPane extends BorderPane {
      */
     public MainPane(Stage pStage) {
         // add navigation
+        this.setId("qnote-main-pane");
         this.setLeft(this.getNavigator());
         this.innerPane.setTop(this.getTopBar(pStage));
         this.setSection(this.navSections.get(0));

@@ -12,7 +12,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-@import url("./base_themes/BoldDark.css");
+@import url("./base_themes/Dark.css");
 
 /**
   * Close Button
@@ -86,7 +86,13 @@
 /**
  * Editor
  */
+#qnote-editor {
+  -fx-background-radius: 10;
+}
+
 #qnote-editor .text-area {
+  -fx-background-radius: 10;
+  -fx-border-radius: 15;
   -fx-prompt-text-fill: gray;
   -fx-control-inner-background: #1a1a1a;
   -fx-border-color: transparent;
@@ -94,4 +100,14 @@
   -fx-faint-focus-color: transparent;
   -fx-text-fill: white;
   -fx-font-size: 1.1em;
+}
+
+#qnote-editor .text-area .scroll-pane {
+  -fx-background-color: transparent;
+}
+#qnote-editor .text-area .scroll-pane .viewport{
+  -fx-background-color: transparent;
+}
+#qnote-editor .text-area .scroll-pane .content{
+  -fx-background-color: transparent;
 }

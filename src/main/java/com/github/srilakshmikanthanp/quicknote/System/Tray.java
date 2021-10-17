@@ -20,7 +20,7 @@ import javax.swing.event.MouseInputAdapter;
 /**
  * Quick Note System Tray onle from awt thread
  */
-public class Tray extends MouseInputAdapter {
+public class Tray {
     /**
      * SystemTRay
      */
@@ -135,7 +135,14 @@ public class Tray extends MouseInputAdapter {
         exit.addActionListener(
             e -> this.exit()
         );
-        this.trayIcon.addMouseListener(this);
+        this.trayIcon.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    Tray.this.showEditor(e.getX(), e.getY());
+                }
+            }
+        });
 
         // init tray
         this.trayIcon.setImageAutoSize(true);
@@ -143,15 +150,5 @@ public class Tray extends MouseInputAdapter {
 
         // Add to system tray
         this.addToTray();
-    }
-
-    /**
-     * Listener for mouse click
-     */
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            this.showEditor(e.getX(), e.getY());
-        }
     }
 }

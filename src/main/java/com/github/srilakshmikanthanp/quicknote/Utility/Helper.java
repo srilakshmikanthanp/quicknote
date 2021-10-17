@@ -55,11 +55,22 @@ public class Helper {
      * set theme to scene
      */
     public static void setTheme(Scene scene) {
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(
-            Helper.class.getResource(
-                "/styles/" + Prefs.getTheme() + ".css"
-            ).toExternalForm()
+        var prefsTheme =  Helper.class.getResource(
+            "/styles/" + Prefs.getTheme() + ".css"
         );
+        var defltTheme =  Helper.class.getResource(
+            "/styles/" + Prefs.DEFAULT_THEME + ".css"
+        );
+        var sceneStyle = scene.getStylesheets();
+
+        scene.getStylesheets().clear();
+
+        if(prefsTheme != null) {
+            sceneStyle.add(prefsTheme.toExternalForm());
+            return;
+        }
+        
+        Prefs.setTheme(Prefs.DEFAULT_THEME);
+        sceneStyle.add(defltTheme.toExternalForm());
     }
 }

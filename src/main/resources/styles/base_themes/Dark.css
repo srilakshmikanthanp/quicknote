@@ -1,4 +1,4 @@
-@import url("./Modena.css");
+@import url("./Light.css");
 
 .root{
     -fx-background-color: #2D2D30;
@@ -381,8 +381,8 @@
     -fx-pref-width: 20;
     -fx-pref-height: 20;
     -fx-padding: 1;
-    -fx-cursor: HAND;
 }
+
 .tree-cell:selected{
     -fx-background-color: #3E3E40;
 }

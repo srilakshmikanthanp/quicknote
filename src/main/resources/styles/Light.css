@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-@import url("./base_themes/Caspian.css");
+@import url("./base_themes/Light.css");
 
 /**
   * Close Button
@@ -27,8 +27,8 @@
 }
 
 /**
-    * siz Button
-    */
+ * siz Button
+ */
 #qnote-size-btn {
   -fx-border-color: transparent;
   -fx-border-width: 0;
@@ -45,8 +45,8 @@
 }
 
 /**
-    * min Button
-    */
+ * min Button
+ */
 #qnote-mini-btn {
   -fx-border-color: transparent;
   -fx-border-width: 0;
@@ -63,8 +63,8 @@
 }
 
 /**
-* Navigation pane
-*/
+ * Navigation pane
+ */
 #qnote-nav-bar {
   -fx-background-color: white;
 }
@@ -72,12 +72,19 @@
 #qnote-nav-bar .tree-view {
   -fx-background-color: white;
   -fx-border-color: transparent;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
 }
 
 /**
 * Editor
 */
+#qnote-editor {
+  -fx-background-radius: 10;
+}
+
 #qnote-editor .text-area {
+  -fx-background-radius: 10;
   -fx-font-size: 1.1em;
   -fx-border-color: transparent;
   -fx-focus-color: transparent;

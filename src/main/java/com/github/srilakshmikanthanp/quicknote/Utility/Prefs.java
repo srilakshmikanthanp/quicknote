@@ -67,10 +67,9 @@ public class Prefs {
     /********************************************************/
 
     public static final String THEME_PREF_KEY = "THEME";
-    public static final String MODENA_THEME = "Modena";
-    public static final String CASPIAN_THEME = "Caspian";
-    public static final String BOLDDARK_THEME = "BoldDark";
-    public static final String DEFAULT_THEME = MODENA_THEME;
+    public static final String LIGHT_THEME = "Light";
+    public static final String DARK_THEME = "Dark";
+    public static final String DEFAULT_THEME = DARK_THEME;
 
 
     /**
