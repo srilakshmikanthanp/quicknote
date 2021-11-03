@@ -158,6 +158,7 @@ public class Editor extends Stage {
         this.setMaxWidth(Prefs.MAX_WIDTH);
         this.setMaxHeight(Prefs.MAX_HEIGHT);
         this.setAlwaysOnTop(true);
+        
         Helper.setTheme(scene);
 
         new Resizer(this, 10, 5);
@@ -175,19 +176,20 @@ public class Editor extends Stage {
         var rect2D = Screen.getPrimary().getVisualBounds();
         var scaleX = Screen.getPrimary().getOutputScaleX();
         var scaleY = Screen.getPrimary().getOutputScaleY();
+        var margin = 15;
         var pCalcX = x / scaleX - (this.getWidth() / 2);
         var pCalcY = y / scaleY - (this.getHeight() / 2);
 
         if (pCalcX < rect2D.getMinX()) {
-            pCalcX = rect2D.getMinX();
+            pCalcX = rect2D.getMinX() + margin;
         } else if (pCalcX + this.getWidth() > rect2D.getMaxX()) {
-            pCalcX = rect2D.getMaxX() - this.getWidth();
+            pCalcX = rect2D.getMaxX() - this.getWidth() - margin;
         }
 
         if (pCalcY < rect2D.getMinY()) {
-            pCalcY = rect2D.getMinY();
+            pCalcY = rect2D.getMinY() + margin;
         } else if (pCalcY + this.getHeight() > rect2D.getMaxY()) {
-            pCalcY = rect2D.getMaxY() - this.getHeight();
+            pCalcY = rect2D.getMaxY() - this.getHeight() - margin;
         }
 
         this.show();

@@ -88,6 +88,7 @@
  */
 #qnote-editor {
   -fx-background-radius: 10;
+  -fx-background-color: #1f1e1e;
 }
 
 #qnote-editor .text-area {
