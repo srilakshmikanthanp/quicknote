@@ -5,10 +5,8 @@
 
 package com.github.srilakshmikanthanp.quicknote;
 
-import com.github.srilakshmikanthanp.quicknote.AppPane.*;
-import com.github.srilakshmikanthanp.quicknote.Editor.*;
-import com.github.srilakshmikanthanp.quicknote.System.*;
-import com.github.srilakshmikanthanp.quicknote.Utility.*;
+
+import javax.swing.*;
 
 import javafx.application.*;
 import javafx.stage.*;
@@ -16,7 +14,10 @@ import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 
-import javax.swing.*;
+import com.github.srilakshmikanthanp.quicknote.AppPane.*;
+import com.github.srilakshmikanthanp.quicknote.Editor.*;
+import com.github.srilakshmikanthanp.quicknote.System.*;
+import com.github.srilakshmikanthanp.quicknote.Utility.*;
 
 /**
  * Application
@@ -82,15 +83,9 @@ public class QuickNote extends Application {
      */
     public static void main(String[] args) {
         // check if the application is already running
-        if(Helper.isAppRunning()) {
-            // print error message for debug
-            System.err.println("Application is already running");
-            // exit
-            System.exit(0);
+        if(!Helper.isAppRunning()) {
+            launch(args);
         }
-
-        // launch
-        launch(args);
 
         // exit
         System.exit(0);
