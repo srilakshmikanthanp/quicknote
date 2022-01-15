@@ -10,8 +10,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.control.*;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.DropShadow;
 
 import com.github.srilakshmikanthanp.quicknote.consts.*;
 import com.github.srilakshmikanthanp.quicknote.utility.*;
@@ -62,9 +60,7 @@ public class NoteEditor extends Stage {
         // if the current theme is light
         if(Preference.getTheme().equals(Preference.LIGHT_THEME)) {
             Preference.setTheme(Preference.DARK_THEME);
-        } 
-        // if the current theme is dark
-        else {
+        } else { // if the current theme is dark
             Preference.setTheme(Preference.LIGHT_THEME);
         }
     }
@@ -119,6 +115,9 @@ public class NoteEditor extends Stage {
         var saver = KeyCombination.keyCombination(saveShortcut);
         var textArea = new TextArea(Preference.getText());
 
+        // ser prompt text
+        textArea.setPromptText("Put Your Text here");
+
         // set the shortcuts
         textArea.setOnKeyPressed(evt -> {
             if (saver.match(evt)) {
@@ -135,6 +134,8 @@ public class NoteEditor extends Stage {
         return textArea;
     }
 
+
+
     /**
      * get the Pane for Editor.
      * 
@@ -146,9 +147,9 @@ public class NoteEditor extends Stage {
         var stackPane = new StackPane(container);
 
         // intialize
-        container.setId("qnote-editor-pane");
-        stackPane.getStyleClass().add("stackpane");
+        container.setId("noteditor");
         container.getStyleClass().add("container");
+        stackPane.getStyleClass().add("stackpane");
         
         // return
         return stackPane;
@@ -228,11 +229,11 @@ public class NoteEditor extends Stage {
         this.setMaxWidth(AppConsts.MAX_WIDTH);
         this.setMaxHeight(AppConsts.MAX_HEIGHT);
 
-        // add resizer
-        AppResizer.addResizer(this, 10, 10);
-
         // add listeners
         this.addListeners();
+
+        // add resizer
+        AppResizer.addResizer(this, 10, 10);
     }
 
     /**

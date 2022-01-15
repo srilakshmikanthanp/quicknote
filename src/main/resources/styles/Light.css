@@ -1,1 +1,6 @@
-@import url('./Both.css')
+@import url('./Both.css');
+
+* {
+    -fx-bg-color: white;
+    -fx-tumb-color: #cfcccc;
+}
