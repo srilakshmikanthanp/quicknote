@@ -1,4 +1,4 @@
-package com.github.srilakshmikanthanp.quicknote.Editor;
+package com.github.srilakshmikanthanp.quicknote.editor;
 
 import javafx.stage.*;
 
