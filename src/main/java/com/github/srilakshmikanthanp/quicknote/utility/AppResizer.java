@@ -187,13 +187,22 @@ public class AppResizer {
    * @param dt    - The area (in px) where the user can drag the window.
    * @param rt    - The area (in px) where the user can resize the window.
    */
-  public AppResizer(Stage stage, int dt, int rt) {
+  private AppResizer(Stage stage, int dt, int rt) {
     this.TR = rt;
     this.TM = dt + rt;
     this.STAGE = stage;
     this.SCENE = stage.getScene();
+  }
 
-    this.createListener();
-    this.launch();
+  /**
+   * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
+   * your job is to create an padding for the Stage so the user can resize it.
+   *
+   * @param stage - The JavaFX Stage.
+   */
+  public static void addResizer(Stage stage, int dt, int rt) {
+    var resizer = new AppResizer(stage, dt, rt);
+    resizer.createListener();
+    resizer.launch();
   }
 }
