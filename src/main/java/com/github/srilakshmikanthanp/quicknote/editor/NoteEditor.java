@@ -14,12 +14,16 @@ import javafx.scene.control.*;
 import com.github.srilakshmikanthanp.quicknote.consts.*;
 import com.github.srilakshmikanthanp.quicknote.utility.*;
 
+
 /**
  * Note Editor For Application.
  */
 public class NoteEditor extends Stage {
     // shortcut to save the text
     private static final String saveShortcut = "Ctrl+S";
+
+    // shortcut to change theme
+    private static final String themeShortcut = "ALT+T";
 
     // singletone instance
     private static NoteEditor instance;
@@ -30,19 +34,36 @@ public class NoteEditor extends Stage {
      * @param key Key of the Preference
      */
     private void preferenceChanged(String key) {
+        //  update the height
         if(key.equals(Preference.HEIGHT_KEY)) {
             this.setHeight(Preference.getHeight());
             return;
         }
         
+        //  update the width
         if(key.equals(Preference.WIDTH_KEY)) {
             this.setWidth(Preference.getWidth());
             return;
         }
         
+        //  update the themes
         if(key.equals(Preference.THEME_KEY)) {
             Utilityfuncs.setTheme(this.getScene());
             return;
+        }
+    }
+
+    /**
+     * Inverts the theme of the editor.
+     */
+    private void invertTheme() {
+        // if the current theme is light
+        if(Preference.getTheme().equals(Preference.LIGHT_THEME)) {
+            Preference.setTheme(Preference.DARK_THEME);
+        } 
+        // if the current theme is dark
+        else {
+            Preference.setTheme(Preference.LIGHT_THEME);
         }
     }
 
@@ -51,7 +72,7 @@ public class NoteEditor extends Stage {
      * 
      * @param text data
      */
-    private void saveText(String text) {
+    private void saveTexttoFile(String text) {
         // file chooser
         var fileChooser = new FileChooser();
 
@@ -93,19 +114,19 @@ public class NoteEditor extends Stage {
      */
     private TextArea getTextArea() {
         // define the text area
-        var ctrlShiftS = KeyCombination.keyCombination(saveShortcut);
+        var saver = KeyCombination.keyCombination(saveShortcut);
         var textArea = new TextArea(Preference.getText());
 
         // set the shortcuts
         textArea.setOnKeyPressed(e -> {
-            if (ctrlShiftS.match(e)) {
-                this.saveText(textArea.getText());
+            if (saver.match(e)) {
+                this.saveTexttoFile(textArea.getText());
             }
         });
 
         // set the text listener
         textArea.textProperty().addListener((obs, oldVal, newVal) -> {
-                Preference.setText(newVal);
+            Preference.setText(newVal);
         });
 
         // return the text area
@@ -117,7 +138,7 @@ public class NoteEditor extends Stage {
      * 
      * @return Pane
      */
-    private Pane getPane() {
+    private Pane getEditorPane() {
         // define
         var container = new BorderPane(this.getTextArea());
         var stackPane = new StackPane(container);
@@ -132,13 +153,60 @@ public class NoteEditor extends Stage {
     }
 
     /**
+     * Gets the Stage scene
+     * 
+     * @return Scene
+     */
+    private Scene getEditorScene() {
+        // create scene
+        var theme = KeyCombination.keyCombination(themeShortcut);
+        var scene = new Scene(this.getEditorPane());
+
+        // add key listener
+        scene.setOnKeyPressed(e -> {
+            if(theme.match(e)) {
+                this.invertTheme();
+            }
+        });
+
+        // return
+        return scene;
+    }
+
+    /**
+     * Adds the nessary listeners to the stage.
+     */
+    private void addListeners() {
+        // focus listener
+        this.focusedProperty().addListener((obs, isLost, isGained) -> {
+            if (isLost && !Preference.getLock()) this.hide();
+        });
+
+        // width listener
+        this.widthProperty().addListener((obs, oldValue, newValue) -> {
+            Preference.setWidth(newValue.doubleValue());
+        });
+        
+        // height listener
+        this.heightProperty().addListener((obs, oldValue, newValue) -> {
+            Preference.setHeight(newValue.doubleValue());
+        });
+
+        // add Event Listener to preference
+        Preference.addPreferenceChangeListener(e -> {
+            Platform.runLater(() -> this.preferenceChanged(e.getKey()));
+        });
+    }
+
+    /**
      * Constructor FOR Note Editor.
      * 
      * @param owner - Owner Stage.
      */
     private NoteEditor() {
-        // create scene
-        var scene = new Scene(this.getPane());
+        // initlize
+        this.setScene(this.getEditorScene());
+        this.setAlwaysOnTop(true);
 
         // dimensions of app
         this.setWidth(Preference.getWidth());
@@ -152,32 +220,11 @@ public class NoteEditor extends Stage {
         this.setMaxWidth(AppConsts.MAX_WIDTH);
         this.setMaxHeight(AppConsts.MAX_HEIGHT);
 
-        // initlize
-        this.setScene(scene);
-        this.setAlwaysOnTop(true);
-
         // add resizer
         AppResizer.addResizer(this, 10, 10);
 
-        // add Event Listener to preference
-        Preference.addPreferenceChangeListener(e -> {
-            Platform.runLater(() -> this.preferenceChanged(e.getKey()));
-        });
-
-        // focus listener
-        this.focusedProperty().addListener((obs, isLost, isGain) -> {
-            if (isLost && !Preference.getLock()) this.hide();
-        });
-
-        // width listener
-        this.widthProperty().addListener((obs, oldVal, newVal) -> {
-            Preference.setWidth(newVal.doubleValue());
-        });
-        
-        // height listener
-        this.heightProperty().addListener((obs, oldVal, newVal) -> {
-            Preference.setHeight(newVal.doubleValue());
-        });
+        // add listeners
+        this.addListeners();
     }
 
     /**

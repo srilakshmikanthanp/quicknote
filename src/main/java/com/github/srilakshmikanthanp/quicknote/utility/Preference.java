@@ -7,6 +7,7 @@ package com.github.srilakshmikanthanp.quicknote.utility;
 
 import java.util.prefs.Preferences;
 import java.util.prefs.PreferenceChangeListener;
+import com.github.srilakshmikanthanp.quicknote.consts.AppConsts;
 
 /**
  * User Preference class
@@ -22,8 +23,8 @@ public class Preference {
     /*********************************************************/
 
     public static final String HEIGHT_KEY = "HEIGHT";
-    public static final double MIN_HEIGHT = 100;
-    public static final double MAX_HEIGHT = 500;
+    public static final double MIN_HEIGHT = AppConsts.MIN_HEIGHT;
+    public static final double MAX_HEIGHT = AppConsts.MAX_HEIGHT;
     public static final double DEFAULT_HEIGHT = 350;
 
     /**
@@ -45,8 +46,8 @@ public class Preference {
     /********************************************************/
 
     public static final String WIDTH_KEY = "WIDTH";
-    public static final double MIN_WIDTH = 100;
-    public static final double MAX_WIDTH = 550;
+    public static final double MIN_WIDTH = AppConsts.MIN_WIDTH;
+    public static final double MAX_WIDTH = AppConsts.MAX_WIDTH;
     public static final double DEFAULT_WIDTH = 350;
 
     /**
