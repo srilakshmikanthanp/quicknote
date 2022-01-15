@@ -1,5 +1,17 @@
 package com.github.srilakshmikanthanp.quicknote.Editor;
 
-public class NoteEditor {
-    
+import javafx.stage.*;
+
+/**
+ * Main Editor for QuickNote.
+ */
+public class NoteEditor extends Stage {
+    /**
+     * Constructor for NoteEditor.
+     * 
+     * @param owner Window
+     */
+    public NoteEditor(Window owner) {
+
+    }
 }
