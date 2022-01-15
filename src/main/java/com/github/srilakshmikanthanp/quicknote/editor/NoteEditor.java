@@ -1,6 +1,7 @@
 package com.github.srilakshmikanthanp.quicknote.editor;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 import javafx.application.Platform;
 import javafx.geometry.*;
