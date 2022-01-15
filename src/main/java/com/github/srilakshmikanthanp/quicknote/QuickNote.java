@@ -1,93 +1,87 @@
-// Copyright (c) 2021 Sri Lakshmi Kanthan P
-// 
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
-
 package com.github.srilakshmikanthanp.quicknote;
-
-
-import javax.swing.*;
 
 import javafx.application.*;
 import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.image.*;
-import javafx.scene.paint.Color;
 
-import com.github.srilakshmikanthanp.quicknote.AppPane.*;
-import com.github.srilakshmikanthanp.quicknote.Editor.*;
-import com.github.srilakshmikanthanp.quicknote.System.*;
-import com.github.srilakshmikanthanp.quicknote.Utility.*;
+import com.github.srilakshmikanthanp.quicknote.editor.*;
+import com.github.srilakshmikanthanp.quicknote.system.*;
+import com.github.srilakshmikanthanp.quicknote.utility.*;
 
 /**
- * Application
+ * Quick Note Application
  */
 public class QuickNote extends Application {
+    // Note Editor
+    private NoteEditor noteEditor = NoteEditor.getInstance();
+
+    // System Stay
+    private Systemtray tray = Systemtray.getInstance();
+
     /**
-     * make stage
+     * Initilize the Primary Stage
+     * 
+     * @param pStage
      */
-    private void stageInitilizer(Stage pStage) {
-        // init primary stage
-        pStage.initStyle(StageStyle.TRANSPARENT);
-        pStage.getIcons().add(
-            new Image(getClass().getResource("/images/logo.png").toExternalForm())
-        );
-
-        // main pane
-        var mainPane = new MainPane(pStage);
-
-        // create scene
-        var scene = new Scene(
-            mainPane,  Helper.MIN_WIN_WIDTH, Helper.MIN_WIN_HEIGHT
-        );
-
-        scene.setFill(Color.TRANSPARENT);
-
-        pStage.setScene(scene);
+    private void initPrimaryStage(Stage pStage) {
+        pStage.initStyle(StageStyle.UTILITY);
+        pStage.setMaxWidth(0);
+        pStage.setMaxHeight(0);
+        pStage.setOpacity(0);
+        pStage.setX(Double.MAX_VALUE);
+        pStage.show();
     }
 
     /**
-     * Override start method to launch the application
+     * Initialize the Note Editor
+     * 
+     * @param pStage stage
+     */
+    private void initNoteEditor(Stage pStage) {
+        noteEditor.initOwner(pStage);
+        noteEditor.initStyle(StageStyle.TRANSPARENT);
+    }
+
+    /**
+     * Initialize the System Tray
+     * 
+     * @param pStage stage
+     */
+    private void initSystemTray() {
+        tray.setNoteEditor(noteEditor);
+        tray.addToSystemTray();
+    }
+
+    /**
+     * Stater
      */
     @Override
-    public void start(Stage pStage) throws Exception {
-        // init
-        this.stageInitilizer(pStage);
-        Helper.setTheme(pStage.getScene());
-        pStage.setMinWidth(Helper.MIN_WIN_WIDTH);
-        pStage.setMinHeight(Helper.MIN_WIN_HEIGHT);
-
-        // add Resizer
-        new Resizer(pStage, 10, 7);
-        
-        // init Editor stage
-        var eStage =  new Editor();
-
-        // init the tray
-        SwingUtilities.invokeLater(() -> {
-            new Tray(pStage, eStage);
-        });
-
-        // add Preference Event
-        Prefs.prefs.addPreferenceChangeListener(e -> {
-            if(e.getKey().equals(Prefs.THEME_PREF_KEY)) {
-                Platform.runLater(
-                    () -> Helper.setTheme(pStage.getScene())
-                );
-            }
-        });
+    public void start(Stage pStage) {
+        this.initPrimaryStage(pStage);
+        this.initNoteEditor(pStage);
+        this.initSystemTray();
     }
 
     /**
-     * Main method to start the Application
+     * stopper
+     */
+    @Override
+    public void stop() {
+        // Remove the Tray Icon
+        tray.removeFromSystemTray();
+    }
+
+    /**
+     * Main Function to start the application
+     * 
+     * @param args args
      */
     public static void main(String[] args) {
-        // check if the application is already running
-        if(!Helper.isAppRunning()) {
+        // If app is not running
+        if(!Utilityfuncs.isAppRunning()) {
             launch(args);
         }
 
-        // exit
+        // exit the app
         System.exit(0);
     }
 }

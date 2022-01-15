@@ -1,7 +1,7 @@
-package com.github.srilakshmikanthanp.quicknote.Utility;
+package com.github.srilakshmikanthanp.quicknote.utility;
 
 /**
- *   _____ _                 _    _             
+ *  _____ _                 _    _             
  * |_   _| |__   __ _ _ __ | | _(_)_ __   __ _ 
  *   | | | '_ \ / _` | '_ \| |/ / | '_ \ / _` |
  *   | | | | | | (_| | | | |   <| | | | | (_| |
@@ -12,87 +12,32 @@ package com.github.srilakshmikanthanp.quicknote.Utility;
  *   that is modified as needed.
  */
 
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-
 import java.util.HashMap;
+
+import javafx.event.EventHandler;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.input.MouseEvent;
+
 
 /**
  * @author Simon Reinisch
  * @version 0.0.2
  */
-public class Resizer {
-
+public class AppResizer {
   private final HashMap<Cursor, EventHandler<MouseEvent>> LISTENER = new HashMap<>();
   private final Stage STAGE;
   private final Scene SCENE;
   private final int TR;
   private final int TM;
-  private final double SCREEN_WIDTH, SCREEN_HEIGHT;
 
   private double mPresSceneX, mPresSceneY;
   private double mPresScreeX, mPresScreeY;
   private double mPresStageW, mPresStageH;
 
-  private boolean mIsMaximized = false;
-  private double mWidthStore, mHeightStore, mXStore, mYStore;
-
   /**
-   * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
-   * your job is to create an padding for the Stage so the user can resize it.
-   *
-   * @param stage - The JavaFX Stage.
-   * @param dt    - The area (in px) where the user can drag the window.
-   * @param rt    - The area (in px) where the user can resize the window.
+   * Creates the Listener for the Stage.
    */
-  public Resizer(Stage stage, int dt, int rt) {
-    this.TR = rt;
-    this.TM = dt + rt;
-    this.STAGE = stage;
-    this.SCENE = stage.getScene();
-
-    this.SCREEN_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
-    this.SCREEN_WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
-
-    createListener();
-    launch();
-  }
-
-  /**
-   * Minimize the stage.
-   */
-  public void minimize() {
-    STAGE.setIconified(true);
-  }
-
-  /**
-   * If the stage is maximized, it will be restored to the last postition with
-   * heigth and width. Otherwise it will be maximized to fullscreen.
-   */
-  public void switchWindowedMode() {
-    if (mIsMaximized) {
-      STAGE.setY(mYStore);
-      STAGE.setX(mXStore);
-      STAGE.setWidth(mWidthStore);
-      STAGE.setHeight(mHeightStore);
-    } else {
-      mXStore = STAGE.getX();
-      mYStore = STAGE.getY();
-      mWidthStore = STAGE.getWidth();
-      mHeightStore = STAGE.getHeight();
-
-      STAGE.setY(0);
-      STAGE.setX(0);
-      STAGE.setWidth(SCREEN_WIDTH);
-      STAGE.setHeight(SCREEN_HEIGHT);
-    }
-    mIsMaximized = !mIsMaximized;
-  }
-
   private void createListener() {
     LISTENER.put(Cursor.NW_RESIZE, event -> {
 
@@ -175,8 +120,10 @@ public class Resizer {
     });
   }
 
+  /**
+   * Launch the Resizer.
+   */
   private void launch() {
-
     SCENE.setOnMousePressed(event -> {
       mPresSceneX = event.getSceneX();
       mPresSceneY = event.getSceneY();
@@ -220,6 +167,10 @@ public class Resizer {
     });
   }
 
+  /**
+   * Fires the action associated with the cursor.
+   * @param c the cursor
+   */
   private void fireAction(Cursor c) {
     SCENE.setCursor(c);
     if (c != Cursor.DEFAULT)
@@ -228,4 +179,30 @@ public class Resizer {
       SCENE.setOnMouseDragged(null);
   }
 
+  /**
+   * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
+   * your job is to create an padding for the Stage so the user can resize it.
+   *
+   * @param stage - The JavaFX Stage.
+   * @param dt    - The area (in px) where the user can drag the window.
+   * @param rt    - The area (in px) where the user can resize the window.
+   */
+  private AppResizer(Stage stage, int dt, int rt) {
+    this.TR = rt;
+    this.TM = dt + rt;
+    this.STAGE = stage;
+    this.SCENE = stage.getScene();
+  }
+
+  /**
+   * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
+   * your job is to create an padding for the Stage so the user can resize it.
+   *
+   * @param stage - The JavaFX Stage.
+   */
+  public static void addResizer(Stage stage, int dt, int rt) {
+    var resizer = new AppResizer(stage, dt, rt);
+    resizer.createListener();
+    resizer.launch();
+  }
 }
