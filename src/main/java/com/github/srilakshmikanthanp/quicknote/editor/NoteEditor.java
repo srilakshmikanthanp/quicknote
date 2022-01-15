@@ -5,12 +5,12 @@ import java.io.*;
 import javafx.application.Platform;
 import javafx.geometry.*;
 import javafx.stage.*;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
-import com.github.srilakshmikanthanp.quicknote.consts.AppConsts;
+import com.github.srilakshmikanthanp.quicknote.consts.*;
 import com.github.srilakshmikanthanp.quicknote.utility.*;
 
 /**
