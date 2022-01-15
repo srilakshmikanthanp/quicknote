@@ -1,0 +1,8 @@
+.stackpane {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.container {
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0), ;
+}

@@ -4,12 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 
 import javafx.application.Platform;
-import javafx.geometry.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.control.*;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.DropShadow;
 
 import com.github.srilakshmikanthanp.quicknote.consts.*;
 import com.github.srilakshmikanthanp.quicknote.utility.*;
@@ -77,7 +79,7 @@ public class NoteEditor extends Stage {
         var fileChooser = new FileChooser();
 
         // init
-        fileChooser.setTitle("Save to File");
+        fileChooser.setTitle("Save Text File");
         fileChooser.getExtensionFilters().add(
             new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
@@ -118,8 +120,8 @@ public class NoteEditor extends Stage {
         var textArea = new TextArea(Preference.getText());
 
         // set the shortcuts
-        textArea.setOnKeyPressed(e -> {
-            if (saver.match(e)) {
+        textArea.setOnKeyPressed(evt -> {
+            if (saver.match(evt)) {
                 this.saveTexttoFile(textArea.getText());
             }
         });
@@ -144,10 +146,10 @@ public class NoteEditor extends Stage {
         var stackPane = new StackPane(container);
 
         // intialize
-        stackPane.setPadding(new Insets(20));
+        container.setId("qnote-editor-pane");
         stackPane.getStyleClass().add("stackpane");
         container.getStyleClass().add("container");
-
+        
         // return
         return stackPane;
     }
@@ -162,12 +164,18 @@ public class NoteEditor extends Stage {
         var theme = KeyCombination.keyCombination(themeShortcut);
         var scene = new Scene(this.getEditorPane());
 
+        // set the Fill Color
+        scene.setFill(Color.TRANSPARENT);
+
         // add key listener
         scene.setOnKeyPressed(e -> {
             if(theme.match(e)) {
                 this.invertTheme();
             }
         });
+
+        // set the theme
+        Utilityfuncs.setTheme(scene);
 
         // return
         return scene;
