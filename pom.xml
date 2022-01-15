@@ -17,6 +17,11 @@
       <artifactId>javafx-controls</artifactId>
       <version>13</version>
     </dependency>
+    <dependency>
+      <groupId>org.jfxtras</groupId>
+      <artifactId>jmetro</artifactId>
+      <version>11.6.15</version>
+    </dependency>
   </dependencies>
 
   <build>
