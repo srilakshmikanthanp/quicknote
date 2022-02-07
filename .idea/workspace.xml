@@ -4,51 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d88b36f-0e22-42b4-8466-9b701c6d83c9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_5_31.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_common_1_5_31.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_5_31.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_5_31.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_17_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/QuickNote.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/srilakshmikanthanp/quicknote/QuickNote.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/demo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/logo.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/QuickNote.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/consts/AppConsts.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/editor/NoteEditor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/system/Systemtray.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/utility/AppResizer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/utility/Preference.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/srilakshmikanthanp/quicknote/utility/Utilityfuncs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/license.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/quicknote.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/Both.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/Dark.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/styles/Light.css" beforeDir="false" />
+    <list default="true" id="5d88b36f-0e22-42b4-8466-9b701c6d83c9" name="Changes" comment="Init the kotlin port">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/quicknote.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/github/srilakshmikanthanp/quicknote/QuickNoteKt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,8 +40,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RunManager">
     <configuration name="QuickNoteKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
@@ -106,6 +66,21 @@
       <option name="presentableId" value="Default" />
       <updated>1644239189991</updated>
     </task>
+    <task id="LOCAL-00001" summary="Init the kotlin port">
+      <created>1644240971412</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1644240971412</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Init the kotlin port">
+      <created>1644241175735</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1644241175735</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -113,10 +88,26 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="ktport" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Init the kotlin port" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init the kotlin port" />
   </component>
 </project>
