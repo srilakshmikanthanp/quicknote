@@ -1,0 +1,38 @@
+.stackpane {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.container {
+    -fx-effect: dropshadow(two-pass-box, black, 10, 0, 0, 0);
+}
+
+#noteditor {
+    -fx-background-radius: 10;
+    -fx-background-color: -fx-bg-color;
+}
+
+#noteditor .text-area {
+    -fx-border-radius: 15;
+    -fx-border-insets: 3;
+    -fx-border-color: -fx-bg-color;
+    -fx-background-radius: 10;
+    -fx-background-color: -fx-bg-color;
+    -fx-control-inner-background: -fx-bg-color;
+    -fx-faint-focus-color: transparent;
+    -fx-font-size: 1.1em;
+    -fx-prompt-text-fill: gray;
+}
+
+#noteditor .text-area .content {
+    -fx-background-radius: 0 ;
+}
+
+#noteditor .text-area .viewport, 
+#noteditor .text-area .scroll-pane .corner,
+#noteditor .text-area .scroll-pane .scroll-bar {
+    -fx-background-color: -fx-bg-color;
+}
+#noteditor .text-area .scroll-pane .scroll-bar .thumb  {
+    -fx-background-color: -fx-tumb-color;
+}
