@@ -1,4 +1,5 @@
-package com.github.srilakshmikanthanp.quicknote.appconsts
+package com.github.srilakshmikanthanp.quicknote.consts
+
 
 /**
  * A Singleton instance that Holds the Constants of the Application

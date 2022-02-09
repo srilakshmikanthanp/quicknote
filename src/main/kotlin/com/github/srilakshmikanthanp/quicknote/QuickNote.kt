@@ -1,5 +1,5 @@
 package com.github.srilakshmikanthanp.quicknote
 
-fun main() {
-    print("Hello, World")
+fun main(args: Array<String>) {
+    println("Hello, World")
 }
