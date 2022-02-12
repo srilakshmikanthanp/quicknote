@@ -25,7 +25,7 @@ import java.util.HashMap;
  * @author Simon Reinisch
  * @version 0.0.2
  */
-public class WinResizer {
+public class StageSizer {
     private final HashMap<Cursor, EventHandler<MouseEvent>> LISTENER = new HashMap<>();
     private final Stage STAGE;
     private final Scene SCENE;
@@ -44,7 +44,7 @@ public class WinResizer {
      * @param dt    - The area (in px) where the user can drag the window.
      * @param rt    - The area (in px) where the user can resize the window.
      */
-    private WinResizer(Stage stage, int dt, int rt) {
+    private StageSizer(Stage stage, int dt, int rt) {
         this.TR = rt;
         this.TM = dt + rt;
         this.STAGE = stage;
@@ -58,7 +58,7 @@ public class WinResizer {
      * @param stage - The JavaFX Stage.
      */
     public static void addResizer(Stage stage, int dt, int rt) {
-        var resizer = new WinResizer(stage, dt, rt);
+        var resizer = new StageSizer(stage, dt, rt);
         resizer.createListener();
         resizer.launch();
     }

@@ -115,7 +115,7 @@ object Preference {
     /**
      * Add a preference Change Listener
      *
-     * @param listsner
+     * @param listener
      */
     fun addPreferenceListener(listener: PreferenceChangeListener) = prefEngine.addPreferenceChangeListener(listener)
 }
