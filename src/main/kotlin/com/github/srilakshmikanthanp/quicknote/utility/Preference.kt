@@ -16,97 +16,97 @@ object Preference {
     /*******************************
      *   Width of the Editor       *
      ******************************/
-    const val PREF_Width_KEY = "HEIGHT"
+    const val WIDTH_KEY = "WIDTH"
 
     /**
      * Width Getter from preference
      *
      * @return Height
      */
-    fun getWidth() = prefEngine.getDouble(PREF_Width_KEY, AppConsts.DEF_HEIGHT)
+    fun getWidth() = prefEngine.getDouble(WIDTH_KEY, AppConsts.DEF_HEIGHT)
 
     /**
      * Width Setter to preference
      *
      * @param width
      */
-    fun setWidth(width: Double) = prefEngine.putDouble(PREF_Width_KEY, width)
+    fun setWidth(width: Double) = prefEngine.putDouble(WIDTH_KEY, width)
 
     /*******************************
      *   Height of the Editor      *
      ******************************/
-    const val PREF_HEIGHT_KEY = "HEIGHT"
+    const val HEIGHT_KEY = "HEIGHT"
 
     /**
      * Height Getter from preference
      *
      * @return Height
      */
-    fun getHeight() = prefEngine.getDouble(PREF_HEIGHT_KEY, AppConsts.DEF_HEIGHT)
+    fun getHeight() = prefEngine.getDouble(HEIGHT_KEY, AppConsts.DEF_HEIGHT)
 
     /**
      * Height Setter to preference
      *
      * @param height
      */
-    fun setHeight(height:Double) = prefEngine.putDouble(PREF_HEIGHT_KEY, height)
+    fun setHeight(height:Double) = prefEngine.putDouble(HEIGHT_KEY, height)
 
     /******************************
      *  Dark MODE of the Editor   *
      *****************************/
-    const val PREF_DARK_KEY = "DARK_THEME"
+    const val DARK_KEY = "DARK_THEME"
 
     /**
      * Theme getter from preference
      *
      * @return true if dark else false
      */
-    fun isDark() = prefEngine.getBoolean(PREF_DARK_KEY, AppConsts.DEF_THEME)
+    fun isDark() = prefEngine.getBoolean(DARK_KEY, AppConsts.DEF_THEME)
 
     /**
      * Theme setter to Preference
      *
      * @param isDark
      */
-    fun setDark(isDark:Boolean) = prefEngine.putBoolean(PREF_DARK_KEY, isDark)
+    fun setDark(isDark:Boolean) = prefEngine.putBoolean(DARK_KEY, isDark)
 
     /******************************
      *  Lock of the Editor        *
      *****************************/
-    const val PREF_LOCK_KEY = "LOCKED"
+    const val LOCK_KEY = "LOCKED"
 
     /**
      * Lock getter from preference
      *
      * @return lock
      */
-    fun isLocked() = prefEngine.getBoolean(PREF_LOCK_KEY, AppConsts.DEF_LOCK)
+    fun isLocked() = prefEngine.getBoolean(LOCK_KEY, AppConsts.DEF_LOCK)
 
     /**
      * Lock setter to preference
      *
      * @param isLocked
      */
-    fun setLocked(isLocked:Boolean) = prefEngine.putBoolean(PREF_LOCK_KEY, isLocked)
+    fun setLocked(isLocked:Boolean) = prefEngine.putBoolean(LOCK_KEY, isLocked)
 
     /*****************************
      * Text of the Editor        *
      ****************************/
-    const val PREF_TEXT_KEY = "TEXT_VAL"
+    const val TEXT_KEY = "TEXT_VAL"
 
     /**
      * Text getter from preference
      *
      * @return text
      */
-    fun getText() = prefEngine.get(PREF_TEXT_KEY, AppConsts.DEF_TEXT)
+    fun getText() = prefEngine.get(TEXT_KEY, AppConsts.DEF_TEXT)
 
     /**
      * Text setter to preference
      *
      * @param text
      */
-    fun setText(text:String) = prefEngine.put(PREF_TEXT_KEY, text)
+    fun setText(text:String) = prefEngine.put(TEXT_KEY, text)
 
     /***************************
      * Preference Listener     *
@@ -117,5 +117,7 @@ object Preference {
      *
      * @param listener
      */
-    fun addPreferenceListener(listener: PreferenceChangeListener) = prefEngine.addPreferenceChangeListener(listener)
+    fun addPreferenceListener(listener: PreferenceChangeListener) {
+        prefEngine.addPreferenceChangeListener(listener)
+    }
 }
