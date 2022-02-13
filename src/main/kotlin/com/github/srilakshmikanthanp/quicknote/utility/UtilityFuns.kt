@@ -12,7 +12,7 @@ object UtilityFuns {
      *
      * @param scene
      */
-    public fun syncTheme(scene: Scene) {
+    public fun syncTheme(scene: Scene) : Scene {
         // clear the previoue theme
         scene.stylesheets.clear();
 
@@ -35,5 +35,8 @@ object UtilityFuns {
             alert.contentText = "StyleSheet Not Found";
             alert.showAndWait();
         }
+
+        // return
+        return scene
     }
 }

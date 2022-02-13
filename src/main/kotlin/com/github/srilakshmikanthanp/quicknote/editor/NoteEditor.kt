@@ -1,10 +1,17 @@
 package com.github.srilakshmikanthanp.quicknote.editor
 
+import com.github.srilakshmikanthanp.quicknote.consts.AppConsts
 import com.github.srilakshmikanthanp.quicknote.utility.Preference
+import com.github.srilakshmikanthanp.quicknote.utility.StageSizer
 import com.github.srilakshmikanthanp.quicknote.utility.UtilityFuns
-import javafx.stage.FileChooser
-import javafx.stage.Screen
-import javafx.stage.Stage
+
+import javafx.scene.control.*
+import javafx.scene.layout.*
+import javafx.scene.*
+import javafx.stage.*
+import javafx.scene.input.KeyCombination
+import javafx.scene.paint.Color
+
 import java.io.FileNotFoundException
 import java.io.PrintStream
 
@@ -19,12 +26,39 @@ object NoteEditor : Stage() {
     private const val modeShortCut = "ALT+T"
 
     /**
-     * Handler for the Preference Change
-     *
-     * @param key
+     * Saves the Text to File
+     * @param text
      */
-    private fun preferenceChanged(key: String) {
-        when (key) {
+    private fun saveTextToFile(text: String): Unit {
+        // define the required values
+        val chooseFile = FileChooser()
+        val extFilters = FileChooser.ExtensionFilter(
+            "Text Files", "*.txt"
+        )
+
+        // init the file chooser
+        chooseFile.title = "Save to File"
+        chooseFile.initialFileName = "content.txt"
+        chooseFile.extensionFilters.add(extFilters)
+
+        // get the selected file
+        val file = chooseFile.showSaveDialog(this) ?: return;
+
+        // try to save the text
+        try {
+            val printer = PrintStream(file)
+            printer.use { printer.print(text) }
+        } catch (exp: FileNotFoundException) {
+            return;
+        }
+    }
+
+    /**
+     * Handler for the Preference Change
+     * @param prefKey
+     */
+    private fun preferenceChanged(prefKey: String) : Unit {
+        when (prefKey) {
             Preference.WIDTH_KEY -> this.width = Preference.getWidth()
             Preference.HEIGHT_KEY -> this.height = Preference.getHeight()
             Preference.DARK_KEY -> UtilityFuns.syncTheme(this.scene)
@@ -32,31 +66,76 @@ object NoteEditor : Stage() {
     }
 
     /**
-     * Saves the Text to File
-     *
-     * @param text
+     * Returns the Text area from Javafx
+     * @return TextArea
      */
-    private fun saveTextToFile(text: String) {
-        // define
-        val fileChoose = FileChooser()
-        val extFilters = FileChooser.ExtensionFilter("Text Files", "*.txt")
+    private fun getTextArea(): TextArea {
+        val saver = KeyCombination.keyCombination(saveShortCut);
+        val textArea = TextArea(Preference.getText())
 
-        // init
-        fileChoose.title = "Save to File"
-        fileChoose.initialFileName = "quicknote.txt"
-        fileChoose.extensionFilters.add(extFilters)
+        textArea.promptText = "Put your Text Here"
+        textArea.textProperty().addListener { _, _, newText ->
+            Preference.setText(newText)
+        }
+        textArea.setOnKeyPressed {
+            if (saver.match(it)) saveTextToFile(textArea.text)
+        }
 
-        // get the file
-        val selectedFile = fileChoose.showSaveDialog(this)
+        return textArea
+    }
 
-        // try to save the text
-        selectedFile?.let {
-            try {
-                val printer = PrintStream(selectedFile)
-                printer.use { it.print(text) }
-            } catch (exp: FileNotFoundException) {
-                return;
+    /**
+     * Return the Editor Pane from Javafx
+     * @return Pane
+     */
+    private fun getEditorPane(): Pane {
+        // define the panes
+        val container = BorderPane(getTextArea())
+        val stackPane = StackPane(container)
+
+        container.id = "noteditor"
+        container.styleClass.add("container")
+        stackPane.styleClass.add("stackpane")
+
+        return stackPane
+    }
+
+    /**
+     * Return the Scene from the JavaFx
+     * @return Scene
+     */
+    private fun getEditorScene(): Scene {
+        val theme = KeyCombination.keyCombination(modeShortCut)
+        val scene = Scene(getEditorPane())
+
+        scene.fill = Color.TRANSPARENT
+        scene.setOnKeyPressed {
+            if (theme.match(it)) {
+                Preference.setDark(!Preference.isDark())
             }
+        }
+
+        return UtilityFuns.syncTheme(scene)
+    }
+
+    /**
+     * Adds the Listeners to Editor
+     */
+    private fun addListenersAndHandlers() : Unit {
+        this.focusedProperty().addListener { _, isLost, _ ->
+            if (isLost && !Preference.isLocked()) hide()
+        }
+
+        this.widthProperty().addListener { _, _, width ->
+            Preference.setWidth(width.toDouble())
+        }
+
+        this.heightProperty().addListener { _, _, height ->
+            Preference.setHeight(height.toDouble())
+        }
+
+        Preference.addPreferenceListener {
+            this.preferenceChanged(it.key)
         }
     }
 
@@ -64,7 +143,21 @@ object NoteEditor : Stage() {
      * Initilizer Block
      */
     init {
+        this.width = Preference.getWidth()
+        this.height = Preference.getHeight()
 
+        this.minWidth = AppConsts.MIN_WIDTH
+        this.minHeight = AppConsts.MIN_HEIGHT
+
+        this.maxWidth = AppConsts.MAX_WIDTH
+        this.maxHeight = AppConsts.MAX_HEIGHT
+
+        this.scene = getEditorScene()
+        this.isAlwaysOnTop = true
+
+        this.addListenersAndHandlers()
+
+        StageSizer.addResizer(this, 15, 15)
     }
 
     /**
