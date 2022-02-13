@@ -8,6 +8,7 @@ import java.awt.CheckboxMenuItem
 import java.awt.MenuItem
 import java.awt.PopupMenu
 import java.awt.TrayIcon
+import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.ImageIcon
 import javax.swing.SwingUtilities
@@ -28,7 +29,7 @@ object SystrayIcon : TrayIcon(ImageIcon(SystrayIcon.javaClass.getResource("/imag
      * Notifies the Listsners
      */
     private fun notifyListsners(evt: MouseEvent) {
-        for(listsner in clickListeners) {
+        for (listsner in clickListeners) {
             listsner.mouseClicked(evt.x, evt.y)
         }
     }
@@ -58,11 +59,16 @@ object SystrayIcon : TrayIcon(ImageIcon(SystrayIcon.javaClass.getResource("/imag
     }
 
     /**
-     * Mouse Click Action
+     * Initilizer Block
      */
-    private fun mouseClicked(evt: MouseEvent) {
-        if (SwingUtilities.isLeftMouseButton(evt)) {
-            notifyListsners(evt)
+    init {
+        val mouseListsner = object : MouseAdapter() {
+            override fun mouseClicked(evt: MouseEvent) {
+                if (SwingUtilities.isLeftMouseButton(evt)) notifyListsners(evt)
+            }
         }
+
+        this.initilizeTrayPopupMenu()
+        this.addMouseListener(mouseListsner)
     }
 }

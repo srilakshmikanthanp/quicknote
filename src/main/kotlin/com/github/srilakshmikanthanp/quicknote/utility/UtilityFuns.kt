@@ -62,11 +62,12 @@ object UtilityFuns {
     /**
      * Open the webPage in default Browser
      */
-    fun browseURI(url: String) = try {
+    fun browseURI(url: String) : Unit = try {
         Desktop.getDesktop().browse(URI(url))
     } catch (exp: IOException) {
         val alert = Alert(Alert.AlertType.ERROR)
         alert.contentText = "Cannot open webpage"
         alert.showAndWait()
+        Unit // return unit
     }
 }
