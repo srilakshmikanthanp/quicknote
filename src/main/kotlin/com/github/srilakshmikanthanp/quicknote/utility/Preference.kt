@@ -1,6 +1,6 @@
 package com.github.srilakshmikanthanp.quicknote.utility
 
-import com.github.srilakshmikanthanp.quicknote.consts.AppConsts
+import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
 import java.util.prefs.Preferences
 import java.util.prefs.PreferenceChangeListener
 

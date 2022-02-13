@@ -1,8 +1,10 @@
 package com.github.srilakshmikanthanp.quicknote.utility
 
-import com.github.srilakshmikanthanp.quicknote.consts.AppConsts
+import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
+
 import javafx.scene.Scene
 import javafx.scene.control.Alert
+
 import java.io.IOException
 import java.net.ServerSocket
 

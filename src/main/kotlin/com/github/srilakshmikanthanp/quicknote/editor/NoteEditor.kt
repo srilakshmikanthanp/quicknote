@@ -1,141 +1,113 @@
 package com.github.srilakshmikanthanp.quicknote.editor
 
-import com.github.srilakshmikanthanp.quicknote.consts.AppConsts
+import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
 import com.github.srilakshmikanthanp.quicknote.utility.Preference
-import com.github.srilakshmikanthanp.quicknote.utility.StageSizer
 import com.github.srilakshmikanthanp.quicknote.utility.UtilityFuns
 
 import javafx.scene.control.*
+import javafx.scene.input.*
 import javafx.scene.layout.*
 import javafx.scene.*
 import javafx.stage.*
-import javafx.scene.input.KeyCombination
 import javafx.scene.paint.Color
 
-import java.io.FileNotFoundException
 import java.io.PrintStream
 
 /**
- * Note Editor for the Application
+ * QuickNote Editor
  */
-object NoteEditor : Stage() {
-    // save shortcut string
-    private const val saveShortCut = "CTRL+S"
-
-    // theme change shortcut
-    private const val modeShortCut = "ALT+T"
-
+class NoteEditor : Stage() {
     /**
-     * Saves the Text to File
-     * @param text
+     * Saves the text to File with JavaFx
+     * @param text String
      */
-    private fun saveTextToFile(text: String){
+    private fun saveTextToFile(text: String) {
         // define the required values
         val chooseFile = FileChooser()
-        val extFilters = FileChooser.ExtensionFilter(
-            "Text Files", "*.txt"
-        )
+        val extFilters = FileChooser.ExtensionFilter("Text File", "*.txt")
 
         // init the file chooser
         chooseFile.title = "Save to File"
-        chooseFile.initialFileName = "content.txt"
+        chooseFile.initialFileName = "content"
         chooseFile.extensionFilters.add(extFilters)
 
         // get the selected file
         val file = chooseFile.showSaveDialog(this) ?: return
 
-        // try to save the text
-        try {
-            val printer = PrintStream(file)
-            printer.use { printer.print(text) }
-        } catch (exp: FileNotFoundException) {
-            return
-        }
+        // save the text to file
+        val printer = PrintStream(file)
+        printer.use { printer.print(text) }
     }
 
     /**
-     * Handler for the Preference Change
-     * @param prefKey
+     * Initilize the Editor Secne
      */
-    private fun preferenceChanged(prefKey: String) {
-        when (prefKey) {
-            Preference.WIDTH_KEY -> this.width = Preference.getWidth()
-            Preference.HEIGHT_KEY -> this.height = Preference.getHeight()
-            Preference.DARK_KEY -> UtilityFuns.syncTheme(this.scene)
-        }
-    }
-
-    /**
-     * Returns the Text area from Javafx
-     * @return TextArea
-     */
-    private fun getTextArea(): TextArea {
-        val saver = KeyCombination.keyCombination(saveShortCut)
+    private fun initilizeStageScene() {
+        // Initilize the Tezt Area
+        val saver = KeyCombination.keyCombination("CTRL+S")
         val textArea = TextArea(Preference.getText())
 
         textArea.promptText = "Put your Text Here"
-        textArea.textProperty().addListener {
-            _, _, newText -> Preference.setText(newText)
+        textArea.textProperty().addListener { _, _, newText ->
+            Preference.setText(newText)
         }
         textArea.setOnKeyPressed {
             if (saver.match(it)) saveTextToFile(textArea.text)
         }
 
-        return textArea
-    }
-
-    /**
-     * Return the Editor Pane from Javafx
-     * @return Pane
-     */
-    private fun getEditorPane(): Pane {
-        // define the panes
-        val container = BorderPane(getTextArea())
+        // Initilize the Panes
+        val container = BorderPane(textArea)
         val stackPane = StackPane(container)
 
         container.id = "noteditor"
         container.styleClass.add("container")
         stackPane.styleClass.add("stackpane")
 
-        return stackPane
-    }
-
-    /**
-     * Return the Scene from the JavaFx
-     * @return Scene
-     */
-    private fun getEditorScene(): Scene {
-        val theme = KeyCombination.keyCombination(modeShortCut)
-        val scene = Scene(getEditorPane())
+        // Initilize the Scene
+        val theme = KeyCombination.keyCombination("ALT+T")
+        val scene = Scene(stackPane)
 
         scene.fill = Color.TRANSPARENT
         scene.setOnKeyPressed {
-            if (theme.match(it)) {
-                Preference.setDark(!Preference.isDark())
-            }
+            if (!theme.match(it)) return@setOnKeyPressed
+            Preference.setDark(!Preference.isDark())
+            UtilityFuns.syncTheme(this.scene)
         }
 
-        return UtilityFuns.syncTheme(scene)
+        // set theme and return
+        this.scene = UtilityFuns.syncTheme(scene)
     }
 
     /**
-     * Adds the Listeners to Editor
+     * Initilize the Stage Dimension
      */
-    private fun addListenersAndHandlers() {
-        this.focusedProperty().addListener {
-            _, isLost, _ -> if (isLost && !Preference.isLocked()) hide()
-        }
+    private fun initlizeStageDimension() {
+        // minimum constrains
+        this.minWidth = AppConsts.MIN_WIDTH
+        this.minHeight = AppConsts.MIN_HEIGHT
+        // default constrains
+        this.width = Preference.getWidth()
+        this.height = Preference.getHeight()
+        // maximum constrins
+        this.maxWidth = AppConsts.MAX_WIDTH
+        this.maxHeight = AppConsts.MAX_HEIGHT
+    }
 
-        this.widthProperty().addListener {
-            _, _, width -> Preference.setWidth(width.toDouble())
+    /**
+     * Initilize the Handlers
+     */
+    private fun initilizeStageHandlers() {
+        // add focus listenet to hide stage on focus lost
+        this.focusedProperty().addListener { _, isLost, _ ->
+            if (isLost && !Preference.isLocked()) hide()
         }
-
-        this.heightProperty().addListener {
-           _, _, height -> Preference.setHeight(height.toDouble())
+        // activity save the width of stage to prefs
+        this.widthProperty().addListener { _, _, width ->
+            Preference.setWidth(width.toDouble())
         }
-
-        Preference.addPreferenceListener {
-            this.preferenceChanged(it.key)
+        // activity save the height of stage to prefs
+        this.heightProperty().addListener { _, _, height ->
+            Preference.setHeight(height.toDouble())
         }
     }
 
@@ -143,26 +115,14 @@ object NoteEditor : Stage() {
      * Initilizer Block
      */
     init {
-        this.width = Preference.getWidth()
-        this.height = Preference.getHeight()
-
-        this.minWidth = AppConsts.MIN_WIDTH
-        this.minHeight = AppConsts.MIN_HEIGHT
-
-        this.maxWidth = AppConsts.MAX_WIDTH
-        this.maxHeight = AppConsts.MAX_HEIGHT
-
-        this.scene = getEditorScene()
         this.isAlwaysOnTop = true
-
-        this.addListenersAndHandlers()
-
-        StageSizer.addResizer(this, 15, 15)
+        this.initlizeStageDimension()
+        this.initilizeStageScene()
+        this.initilizeStageHandlers()
     }
 
     /**
      * Show the Editor on the Position
-     *
      * @param x position-x
      * @param y position-y
      */
@@ -174,18 +134,18 @@ object NoteEditor : Stage() {
         var pCalcY = y / scaleY - (this.width / 2)
         val margin = 15
 
-        // if x position is low or high
-        if (pCalcX < rect2d.minX) {
-            pCalcX = rect2d.minX + margin
-        } else if (pCalcX + this.width > rect2d.maxX) {
+        // if x position is high or low
+        if (pCalcX + this.width > rect2d.maxX) {
             pCalcX = rect2d.maxX - this.width - margin
+        } else if (pCalcX < rect2d.minX) {
+            pCalcX = rect2d.minX + margin
         }
 
-        // if y position is low or high
-        if (pCalcY < rect2d.minY) {
-            pCalcY = rect2d.minY + margin
-        } else if (pCalcY + this.height > rect2d.maxY) {
+        // if y position is high or low
+        if (pCalcY + this.height > rect2d.maxY) {
             pCalcY = rect2d.maxY - this.height - margin
+        } else if (pCalcY < rect2d.minY) {
+            pCalcY = rect2d.minY + margin
         }
 
         // show the editor

@@ -1,4 +1,4 @@
-package com.github.srilakshmikanthanp.quicknote.consts
+package com.github.srilakshmikanthanp.quicknote.appconsts
 
 
 /**
@@ -9,6 +9,11 @@ object AppConsts {
      * A Constant for the Home Page of Application
      */
     const val APP_HOME = "https://github.com/srilakshmikanthanp/QuickNote"
+
+    /**
+     * Applicatio Resource Port
+     */
+    const val APP_PORT = 57428
 
     /**
      * A Constant for the Min Width of Editor
@@ -54,9 +59,4 @@ object AppConsts {
      * A Constant for the Dfault Text
      */
     const val DEF_TEXT = ""
-
-    /**
-     * Applicatio Resource Port
-     */
-    const val APP_PORT = 57428
 }
