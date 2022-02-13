@@ -74,8 +74,8 @@ object NoteEditor : Stage() {
         val textArea = TextArea(Preference.getText())
 
         textArea.promptText = "Put your Text Here"
-        textArea.textProperty().addListener { _, _, newText ->
-            Preference.setText(newText)
+        textArea.textProperty().addListener {
+            _, _, newText -> Preference.setText(newText)
         }
         textArea.setOnKeyPressed {
             if (saver.match(it)) saveTextToFile(textArea.text)
@@ -122,16 +122,16 @@ object NoteEditor : Stage() {
      * Adds the Listeners to Editor
      */
     private fun addListenersAndHandlers() {
-        this.focusedProperty().addListener { _, isLost, _ ->
-            if (isLost && !Preference.isLocked()) hide()
+        this.focusedProperty().addListener {
+            _, isLost, _ -> if (isLost && !Preference.isLocked()) hide()
         }
 
-        this.widthProperty().addListener { _, _, width ->
-            Preference.setWidth(width.toDouble())
+        this.widthProperty().addListener {
+            _, _, width -> Preference.setWidth(width.toDouble())
         }
 
-        this.heightProperty().addListener { _, _, height ->
-            Preference.setHeight(height.toDouble())
+        this.heightProperty().addListener {
+           _, _, height -> Preference.setHeight(height.toDouble())
         }
 
         Preference.addPreferenceListener {
