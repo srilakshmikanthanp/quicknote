@@ -16,20 +16,20 @@ import java.io.FileNotFoundException
 import java.io.PrintStream
 
 /**
- * Note Editor for the Appliction
+ * Note Editor for the Application
  */
 object NoteEditor : Stage() {
     // save shortcut string
     private const val saveShortCut = "CTRL+S"
 
-    // theme change shorcut
+    // theme change shortcut
     private const val modeShortCut = "ALT+T"
 
     /**
      * Saves the Text to File
      * @param text
      */
-    private fun saveTextToFile(text: String): Unit {
+    private fun saveTextToFile(text: String){
         // define the required values
         val chooseFile = FileChooser()
         val extFilters = FileChooser.ExtensionFilter(
@@ -42,14 +42,14 @@ object NoteEditor : Stage() {
         chooseFile.extensionFilters.add(extFilters)
 
         // get the selected file
-        val file = chooseFile.showSaveDialog(this) ?: return;
+        val file = chooseFile.showSaveDialog(this) ?: return
 
         // try to save the text
         try {
             val printer = PrintStream(file)
             printer.use { printer.print(text) }
         } catch (exp: FileNotFoundException) {
-            return;
+            return
         }
     }
 
@@ -57,7 +57,7 @@ object NoteEditor : Stage() {
      * Handler for the Preference Change
      * @param prefKey
      */
-    private fun preferenceChanged(prefKey: String) : Unit {
+    private fun preferenceChanged(prefKey: String) {
         when (prefKey) {
             Preference.WIDTH_KEY -> this.width = Preference.getWidth()
             Preference.HEIGHT_KEY -> this.height = Preference.getHeight()
@@ -70,7 +70,7 @@ object NoteEditor : Stage() {
      * @return TextArea
      */
     private fun getTextArea(): TextArea {
-        val saver = KeyCombination.keyCombination(saveShortCut);
+        val saver = KeyCombination.keyCombination(saveShortCut)
         val textArea = TextArea(Preference.getText())
 
         textArea.promptText = "Put your Text Here"
@@ -121,7 +121,7 @@ object NoteEditor : Stage() {
     /**
      * Adds the Listeners to Editor
      */
-    private fun addListenersAndHandlers() : Unit {
+    private fun addListenersAndHandlers() {
         this.focusedProperty().addListener { _, isLost, _ ->
             if (isLost && !Preference.isLocked()) hide()
         }
@@ -166,7 +166,7 @@ object NoteEditor : Stage() {
      * @param x position-x
      * @param y position-y
      */
-    public fun show(x: Double, y: Double) {
+    fun show(x: Double, y: Double) {
         val rect2d = Screen.getPrimary().visualBounds
         val scaleX = Screen.getPrimary().outputScaleX
         val scaleY = Screen.getPrimary().outputScaleY
@@ -191,6 +191,6 @@ object NoteEditor : Stage() {
         // show the editor
         this.show()
         this.x = pCalcX
-        this.y = pCalcX
+        this.y = pCalcY
     }
 }

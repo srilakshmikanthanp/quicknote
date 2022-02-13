@@ -54,4 +54,9 @@ object AppConsts {
      * A Constant for the Dfault Text
      */
     const val DEF_TEXT = ""
+
+    /**
+     * Applicatio Resource Port
+     */
+    const val APP_PORT = 57428
 }

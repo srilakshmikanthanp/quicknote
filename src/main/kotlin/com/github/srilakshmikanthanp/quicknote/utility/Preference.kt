@@ -23,7 +23,7 @@ object Preference {
      *
      * @return Height
      */
-    fun getWidth() = prefEngine.getDouble(WIDTH_KEY, AppConsts.DEF_HEIGHT)
+    fun getWidth() = prefEngine.getDouble(WIDTH_KEY, AppConsts.DEF_WIDTH)
 
     /**
      * Width Setter to preference
@@ -99,7 +99,7 @@ object Preference {
      *
      * @return text
      */
-    fun getText() = prefEngine.get(TEXT_KEY, AppConsts.DEF_TEXT)
+    fun getText() : String = prefEngine.get(TEXT_KEY, AppConsts.DEF_TEXT)
 
     /**
      * Text setter to preference
