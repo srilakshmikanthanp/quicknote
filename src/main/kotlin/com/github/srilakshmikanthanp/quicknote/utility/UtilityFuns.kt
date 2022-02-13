@@ -4,9 +4,11 @@ import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
 
 import javafx.scene.Scene
 import javafx.scene.control.Alert
+import java.awt.Desktop
 
 import java.io.IOException
 import java.net.ServerSocket
+import java.net.URI
 
 /**
  * Utility functions for the Application
@@ -21,15 +23,15 @@ object UtilityFuns {
         scene.stylesheets.clear()
 
         // Assume user selects Light
-        var cssSheet = "/styles/Light.css"
+        var css = "/styles/Light.css"
 
         // get the theme from prefs
         if (Preference.isDark()) {
-            cssSheet = "/styles/Dark.css"
+            css = "/styles/Dark.css"
         }
 
         // get the styleSheet
-        val styleSheet = UtilityFuns.javaClass.getResource(cssSheet)
+        val styleSheet = UtilityFuns.javaClass.getResource(css)
 
         // set the Theme to scene
         if (styleSheet != null) {
@@ -50,9 +52,21 @@ object UtilityFuns {
      */
     fun isApplicationIsRunning(): Boolean = try {
         val socket = ServerSocket(AppConsts.APP_PORT)
-        Runtime.getRuntime().addShutdownHook(Thread { socket.close() })
+        val thread = Thread { socket.close() }
+        Runtime.getRuntime().addShutdownHook(thread)
         false
     } catch (exp: IOException) {
         true
+    }
+
+    /**
+     * Open the webPage in default Browser
+     */
+    fun browseURI(url: String) = try {
+        Desktop.getDesktop().browse(URI(url))
+    } catch (exp: IOException) {
+        val alert = Alert(Alert.AlertType.ERROR)
+        alert.contentText = "Cannot open webpage"
+        alert.showAndWait()
     }
 }
