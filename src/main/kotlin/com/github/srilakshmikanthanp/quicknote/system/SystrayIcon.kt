@@ -21,14 +21,14 @@ import javax.swing.SwingUtilities
  */
 object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/logo.png")).image) {
     // listeners
-    private var clickListeners = listOf<(x: Int, y: Int) -> Unit>()
+    private var clickListeners = listOf<(x: Double, y: Double) -> Unit>()
 
     /**
      * Notifies the Listsners
      */
     private fun notifyListsners(evt: MouseEvent) {
         for (listsner in clickListeners) {
-            Platform.runLater { listsner(evt.x, evt.y) }
+            Platform.runLater { listsner(evt.x.toDouble(), evt.y.toDouble()) }
         }
     }
 
@@ -49,7 +49,7 @@ object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images
         popupMenu.add(exit)
 
         about.addActionListener { UtilityFuns.browseURI(AppConsts.APP_HOME) }
-        lock.addActionListener { Preference.setLocked(lock.state) }
+        lock.addItemListener { Preference.setLocked(lock.state) }
         exit.addActionListener { Platform.runLater(Platform::exit) }
 
         this.popupMenu = popupMenu
@@ -72,17 +72,17 @@ object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images
 
     /**
      * Add Click Listeners
-     * @param listsner (x:Int, y:Int) -> Unit
+     * @param lis (x:Double, y:Double) -> Unit
      */
-    fun addClickListsner(listsner: (x: Int, y: Int) -> Unit) {
-        this.clickListeners += listsner
+    fun addClickListsner(lis: (x: Double, y: Double) -> Unit) {
+        this.clickListeners += lis
     }
 
     /**
      * Remove the Click Listener
-     * @param listener (x:Int, y:Int) -> Unit
+     * @param lis (x:Double, y:Double) -> Unit
      */
-    fun removeClickListsnser(listener: (x: Int, y: Int) -> Unit) {
-        this.clickListeners -= listener
+    fun removeClickListsnser(lis: (x: Double, y: Double) -> Unit) {
+        this.clickListeners -= lis
     }
 }

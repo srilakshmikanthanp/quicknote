@@ -154,4 +154,18 @@ class NoteEditor : Stage() {
         this.x = pCalcX
         this.y = pCalcY
     }
+
+    /**
+     * Invert the Showing status
+     * @param x location-x
+     * @param y location-y
+     */
+    fun invert(x:Double, y:Double) {
+        if(this.isShowing) {
+            this.hide()
+            return
+        }
+
+        this.show(x, y)
+    }
 }
