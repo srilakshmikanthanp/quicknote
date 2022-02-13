@@ -1,6 +1,12 @@
-package com.github.srilakshmikanthanp.quicknote.utility;
+package com.github.srilakshmikanthanp.quicknote.utility
 
-/*
+import javafx.event.EventHandler
+import javafx.scene.Cursor
+import javafx.scene.Scene
+import javafx.scene.input.MouseEvent
+import javafx.stage.Stage
+
+/**
  *  _____ _                 _    _
  * |_   _| |__   __ _ _ __ | | _(_)_ __   __ _
  *   | | | '_ \ / _` | '_ \| |/ / | '_ \ / _` |
@@ -10,189 +16,130 @@ package com.github.srilakshmikanthanp.quicknote.utility;
  *   @Simonwep for resizer this source is available at
  *   https://gist.github.com/Simonwep/642587d0e307de6da6347ba56f396231
  *   that is modified as needed.
+ *   @author Simon Reinisch
+ *   @version 0.0.2
  */
-
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-
-import java.util.HashMap;
-
-
-/**
- * @author Simon Reinisch
- * @version 0.0.2
- */
-public class StageSizer {
-    private final HashMap<Cursor, EventHandler<MouseEvent>> LISTENER = new HashMap<>();
-    private final Stage STAGE;
-    private final Scene SCENE;
-    private final int TR;
-    private final int TM;
-
-    private double mPresSceneX, mPresSceneY;
-    private double mPresScreeX, mPresScreeY;
-    private double mPresStageW, mPresStageH;
+class StageSizer private constructor(stage: Stage, dt: Int, private val TR: Int) {
+    private val listeners = HashMap<Cursor, EventHandler<MouseEvent>>()
+    private val stage: Stage
+    private val scene: Scene
+    private val tm: Int
+    private var mPresSceneX = 0.0
+    private var mPresSceneY = 0.0
+    private var mPresScreeX = 0.0
+    private var mPresScreeY = 0.0
+    private var mPresStageW = 0.0
+    private var mPresStageH = 0.0
 
     /**
      * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
      * your job is to create an padding for the Stage so the user can resize it.
-     *
-     * @param stage - The JavaFX Stage.
-     * @param dt    - The area (in px) where the user can drag the window.
-     * @param rt    - The area (in px) where the user can resize the window.
      */
-    private StageSizer(Stage stage, int dt, int rt) {
-        this.TR = rt;
-        this.TM = dt + rt;
-        this.STAGE = stage;
-        this.SCENE = stage.getScene();
-    }
-
-    /**
-     * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
-     * your job is to create an padding for the Stage so the user can resize it.
-     *
-     * @param stage - The JavaFX Stage.
-     */
-    public static void addResizer(Stage stage, int dt, int rt) {
-        var resizer = new StageSizer(stage, dt, rt);
-        resizer.createListener();
-        resizer.launch();
+    init {
+        tm = dt + TR
+        this.stage = stage
+        scene = stage.scene
     }
 
     /**
      * Creates the Listener for the Stage.
      */
-    private void createListener() {
-        LISTENER.put(Cursor.NW_RESIZE, event -> {
-
-            double newWidth = mPresStageW - (event.getScreenX() - mPresScreeX);
-            double newHeight = mPresStageH - (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight()) {
-                STAGE.setY(event.getScreenY() - mPresSceneY);
-                STAGE.setHeight(newHeight);
+    private fun createListener() {
+        listeners[Cursor.NW_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW - (event.screenX - mPresScreeX)
+            val newHeight = mPresStageH - (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) {
+                stage.y = event.screenY - mPresSceneY
+                stage.height = newHeight
             }
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth()) {
-                STAGE.setX(event.getScreenX() - mPresSceneX);
-                STAGE.setWidth(newWidth);
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) {
+                stage.x = event.screenX - mPresSceneX
+                stage.width = newWidth
             }
-        });
-
-        LISTENER.put(Cursor.NE_RESIZE, event -> {
-
-            double newWidth = mPresStageW - (event.getScreenX() - mPresScreeX);
-            double newHeight = mPresStageH + (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight())
-                STAGE.setHeight(newHeight);
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth()) {
-                STAGE.setX(event.getScreenX() - mPresSceneX);
-                STAGE.setWidth(newWidth);
+        }
+        listeners[Cursor.NE_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW - (event.screenX - mPresScreeX)
+            val newHeight = mPresStageH + (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) stage.height = newHeight
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) {
+                stage.x = event.screenX - mPresSceneX
+                stage.width = newWidth
             }
-        });
-
-        LISTENER.put(Cursor.SW_RESIZE, event -> {
-
-            double newWidth = mPresStageW + (event.getScreenX() - mPresScreeX);
-            double newHeight = mPresStageH - (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight()) {
-                STAGE.setHeight(newHeight);
-                STAGE.setY(event.getScreenY() - mPresSceneY);
+        }
+        listeners[Cursor.SW_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW + (event.screenX - mPresScreeX)
+            val newHeight = mPresStageH - (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) {
+                stage.height = newHeight
+                stage.y = event.screenY - mPresSceneY
             }
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth())
-                STAGE.setWidth(newWidth);
-        });
-
-        LISTENER.put(Cursor.SE_RESIZE, event -> {
-            double newWidth = mPresStageW + (event.getScreenX() - mPresScreeX);
-            double newHeight = mPresStageH + (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight())
-                STAGE.setHeight(newHeight);
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth())
-                STAGE.setWidth(newWidth);
-        });
-
-        LISTENER.put(Cursor.E_RESIZE, event -> {
-            double newWidth = mPresStageW - (event.getScreenX() - mPresScreeX);
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth()) {
-                STAGE.setX(event.getScreenX() - mPresSceneX);
-                STAGE.setWidth(newWidth);
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) stage.width = newWidth
+        }
+        listeners[Cursor.SE_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW + (event.screenX - mPresScreeX)
+            val newHeight = mPresStageH + (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) stage.height = newHeight
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) stage.width = newWidth
+        }
+        listeners[Cursor.E_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW - (event.screenX - mPresScreeX)
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) {
+                stage.x = event.screenX - mPresSceneX
+                stage.width = newWidth
             }
-        });
-
-        LISTENER.put(Cursor.W_RESIZE, event -> {
-            double newWidth = mPresStageW + (event.getScreenX() - mPresScreeX);
-            if (newWidth > STAGE.getMinWidth() && newWidth < STAGE.getMaxWidth())
-                STAGE.setWidth(newWidth);
-        });
-
-        LISTENER.put(Cursor.N_RESIZE, event -> {
-            double newHeight = mPresStageH - (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight()) {
-                STAGE.setY(event.getScreenY() - mPresSceneY);
-                STAGE.setHeight(newHeight);
+        }
+        listeners[Cursor.W_RESIZE] = EventHandler { event: MouseEvent ->
+            val newWidth = mPresStageW + (event.screenX - mPresScreeX)
+            if (newWidth > stage.minWidth && newWidth < stage.maxWidth) stage.width = newWidth
+        }
+        listeners[Cursor.N_RESIZE] = EventHandler { event: MouseEvent ->
+            val newHeight = mPresStageH - (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) {
+                stage.y = event.screenY - mPresSceneY
+                stage.height = newHeight
             }
-        });
-
-        LISTENER.put(Cursor.S_RESIZE, event -> {
-            double newHeight = mPresStageH + (event.getScreenY() - mPresScreeY);
-            if (newHeight > STAGE.getMinHeight() && newHeight < STAGE.getMaxHeight())
-                STAGE.setHeight(newHeight);
-        });
-
-        LISTENER.put(Cursor.OPEN_HAND, event -> {
-            STAGE.setX(event.getScreenX() - mPresSceneX);
-            STAGE.setY(event.getScreenY() - mPresSceneY);
-        });
+        }
+        listeners[Cursor.S_RESIZE] = EventHandler { event: MouseEvent ->
+            val newHeight = mPresStageH + (event.screenY - mPresScreeY)
+            if (newHeight > stage.minHeight && newHeight < stage.maxHeight) stage.height = newHeight
+        }
+        listeners[Cursor.OPEN_HAND] = EventHandler { event: MouseEvent ->
+            stage.x = event.screenX - mPresSceneX
+            stage.y = event.screenY - mPresSceneY
+        }
     }
 
     /**
      * Launch the Resizer.
      */
-    private void launch() {
-        SCENE.setOnMousePressed(event -> {
-            mPresSceneX = event.getSceneX();
-            mPresSceneY = event.getSceneY();
+    private fun launch() {
+        scene.onMousePressed = EventHandler { event: MouseEvent ->
+            mPresSceneX = event.sceneX
+            mPresSceneY = event.sceneY
+            mPresScreeX = event.screenX
+            mPresScreeY = event.screenY
+            mPresStageW = stage.width
+            mPresStageH = stage.height
+        }
+        scene.onMouseMoved = EventHandler { event: MouseEvent ->
+            val sx = event.sceneX
+            val sy = event.sceneY
+            val lTrigger = sx > 0 && sx < TR
+            val rTrigger = sx < scene.width && sx > scene.width - TR
+            val uTrigger = sy < scene.height && sy > scene.height - TR
+            val dTrigger = sy > 0 && sy < TR
 
-            mPresScreeX = event.getScreenX();
-            mPresScreeY = event.getScreenY();
-
-            mPresStageW = STAGE.getWidth();
-            mPresStageH = STAGE.getHeight();
-        });
-
-        SCENE.setOnMouseMoved(event -> {
-            double sx = event.getSceneX();
-            double sy = event.getSceneY();
-
-            boolean l_trigger = sx > 0 && sx < TR;
-            boolean r_trigger = sx < SCENE.getWidth() && sx > SCENE.getWidth() - TR;
-            boolean u_trigger = sy < SCENE.getHeight() && sy > SCENE.getHeight() - TR;
-            boolean d_trigger = sy > 0 && sy < TR;
-
-            if (l_trigger && d_trigger)
-                fireAction(Cursor.NW_RESIZE);
-            else if (l_trigger && u_trigger)
-                fireAction(Cursor.NE_RESIZE);
-            else if (r_trigger && d_trigger)
-                fireAction(Cursor.SW_RESIZE);
-            else if (r_trigger && u_trigger)
-                fireAction(Cursor.SE_RESIZE);
-            else if (l_trigger)
-                fireAction(Cursor.E_RESIZE);
-            else if (r_trigger)
-                fireAction(Cursor.W_RESIZE);
-            else if (d_trigger)
-                fireAction(Cursor.N_RESIZE);
-            else if (sy < TM && !u_trigger)
-                fireAction(Cursor.OPEN_HAND);
-            else if (u_trigger)
-                fireAction(Cursor.S_RESIZE);
-            else
-                fireAction(Cursor.DEFAULT);
-        });
+            if (lTrigger && dTrigger) fireAction(Cursor.NW_RESIZE)
+            else if (lTrigger && uTrigger) fireAction(Cursor.NE_RESIZE)
+            else if (rTrigger && dTrigger) fireAction(Cursor.SW_RESIZE)
+            else if (rTrigger && uTrigger) fireAction(Cursor.SE_RESIZE)
+            else if (lTrigger) fireAction(Cursor.E_RESIZE)
+            else if (rTrigger) fireAction(Cursor.W_RESIZE)
+            else if (dTrigger) fireAction(Cursor.N_RESIZE)
+            else if (sy < tm && !uTrigger) fireAction(Cursor.OPEN_HAND)
+            else if (uTrigger) fireAction(Cursor.S_RESIZE)
+            else fireAction(Cursor.DEFAULT)
+        }
     }
 
     /**
@@ -200,11 +147,22 @@ public class StageSizer {
      *
      * @param c the cursor
      */
-    private void fireAction(Cursor c) {
-        SCENE.setCursor(c);
-        if (c != Cursor.DEFAULT)
-            SCENE.setOnMouseDragged(LISTENER.get(c));
-        else
-            SCENE.setOnMouseDragged(null);
+    private fun fireAction(c: Cursor) {
+        scene.cursor = c
+        if (c !== Cursor.DEFAULT) scene.onMouseDragged = listeners[c] else scene.onMouseDragged = null
+    }
+
+    companion object {
+        /**
+         * Create an FXResizeHelper for undecoreated JavaFX Stages. The only wich is
+         * your job is to create an padding for the Stage so the user can resize it.
+         *
+         * @param stage - The JavaFX Stage.
+         */
+        fun addResizer(stage: Stage, dt: Int, rt: Int) {
+            val resizer = StageSizer(stage, dt, rt)
+            resizer.createListener()
+            resizer.launch()
+        }
     }
 }
