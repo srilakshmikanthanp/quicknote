@@ -1,77 +1,106 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.srilakshmikanthanp.quicknote</groupId>
+
+  <groupId>com.github.srilakshmikanthanp</groupId>
   <artifactId>quicknote</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
+  <name>quicknote</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <junit.version>5.8.1</junit.version>
+    <kotlin.version>1.5.31</kotlin.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>13</version>
+      <version>17.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>17.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
     </dependency>
   </dependencies>
 
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
+    <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.8.1</version>
         <configuration>
-          <release>11</release>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.6</version>
+        <version>0.0.8</version>
         <executions>
           <execution>
+            <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.github.srilakshmikanthanp.quicknote.QuickNote</mainClass>
+              <mainClass>
+                quicknote/com.github.srilakshmikanthanp.quicknote.QuickNoteKt
+              </mainClass>
+              <launcher>QuickNote</launcher>
+              <jlinkZipName>QuickNote</jlinkZipName>
+              <jlinkImageName>QuickNote</jlinkImageName>
+              <noManPages>true</noManPages>
+              <stripDebug>true</stripDebug>
+              <noHeaderFiles>true</noHeaderFiles>
             </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.panteleyev</groupId>
-        <artifactId>jpackage-maven-plugin</artifactId>
-        <version>1.4.0</version>
-        <configuration>
-          <name>QuickNote</name>
-          <destination>${project.build.directory}/jpackage</destination>
-          <runtimeImage>${project.build.directory}/image</runtimeImage>
-          <version>${projet.version}</version>
-          <vendor>srilakshmikanthanp</vendor>
-          <module>quicknote/com.github.srilakshmikanthanp.quicknote.QuickNote</module>
-          <icon>assets/images/logo.ico</icon>
-          <licenseFile>LICENSE</licenseFile>
-        </configuration>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
         <executions>
           <execution>
-            <id>win</id>
-            <configuration>
-              <winDirChooser>true</winDirChooser>
-              <winMenu>true</winMenu>
-              <winMenuGroup>QuickNote</winMenuGroup>
-            </configuration>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
           </execution>
         </executions>
+        <configuration>
+          <jvmTarget>11</jvmTarget>
+        </configuration>
       </plugin>
     </plugins>
   </build>
