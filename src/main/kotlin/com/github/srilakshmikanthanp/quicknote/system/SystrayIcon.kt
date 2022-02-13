@@ -3,34 +3,32 @@ package com.github.srilakshmikanthanp.quicknote.system
 import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
 import com.github.srilakshmikanthanp.quicknote.utility.Preference
 import com.github.srilakshmikanthanp.quicknote.utility.UtilityFuns
+
 import javafx.application.Platform
+
 import java.awt.CheckboxMenuItem
 import java.awt.MenuItem
 import java.awt.PopupMenu
 import java.awt.TrayIcon
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
+
 import javax.swing.ImageIcon
 import javax.swing.SwingUtilities
 
 /**
  * System Tray Icon
  */
-object SystrayIcon : TrayIcon(ImageIcon(SystrayIcon.javaClass.getResource("/images/logo.png")).image) {
-    // interface for listining click event
-    fun interface ClickListeners {
-        fun mouseClicked(x: Int, y: Int)
-    }
-
+object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/logo.png")).image) {
     // listeners
-    private val clickListeners = listOf<ClickListeners>()
+    private var clickListeners = listOf<(x: Int, y: Int) -> Unit>()
 
     /**
      * Notifies the Listsners
      */
     private fun notifyListsners(evt: MouseEvent) {
         for (listsner in clickListeners) {
-            listsner.mouseClicked(evt.x, evt.y)
+            Platform.runLater { listsner(evt.x, evt.y) }
         }
     }
 
@@ -70,5 +68,21 @@ object SystrayIcon : TrayIcon(ImageIcon(SystrayIcon.javaClass.getResource("/imag
 
         this.initilizeTrayPopupMenu()
         this.addMouseListener(mouseListsner)
+    }
+
+    /**
+     * Add Click Listeners
+     * @param listsner (x:Int, y:Int) -> Unit
+     */
+    fun addClickListsner(listsner: (x: Int, y: Int) -> Unit) {
+        this.clickListeners += listsner
+    }
+
+    /**
+     * Remove the Click Listener
+     * @param listener (x:Int, y:Int) -> Unit
+     */
+    fun removeClickListsnser(listener: (x: Int, y: Int) -> Unit) {
+        this.clickListeners -= listener
     }
 }
