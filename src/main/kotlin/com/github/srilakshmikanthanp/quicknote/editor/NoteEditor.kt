@@ -40,6 +40,22 @@ class NoteEditor : Stage() {
     }
 
     /**
+     * Initilize the Stage Dimension
+     */
+    private fun initlizeStageDimension() {
+        // minimum constrains
+        this.minWidth = AppConsts.MIN_WIDTH
+        this.minHeight = AppConsts.MIN_HEIGHT
+        // default constrains
+        this.width = Preference.getWidth()
+        this.height = Preference.getHeight()
+        // maximum constrins
+        this.maxWidth = AppConsts.MAX_WIDTH
+        this.maxHeight = AppConsts.MAX_HEIGHT
+    }
+
+
+    /**
      * Initilize the Editor Secne
      */
     private fun initilizeStageScene() {
@@ -76,21 +92,6 @@ class NoteEditor : Stage() {
 
         // set theme and return
         this.scene = UtilityFuns.syncTheme(scene)
-    }
-
-    /**
-     * Initilize the Stage Dimension
-     */
-    private fun initlizeStageDimension() {
-        // minimum constrains
-        this.minWidth = AppConsts.MIN_WIDTH
-        this.minHeight = AppConsts.MIN_HEIGHT
-        // default constrains
-        this.width = Preference.getWidth()
-        this.height = Preference.getHeight()
-        // maximum constrins
-        this.maxWidth = AppConsts.MAX_WIDTH
-        this.maxHeight = AppConsts.MAX_HEIGHT
     }
 
     /**
