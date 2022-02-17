@@ -23,19 +23,23 @@ import java.io.PrintStream
  * @param insets Insets
  */
 class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
+    /************************************
+     *      Class States                *
+     ***********************************/
+
     // The Start Position
     private var resizePosition: Positions = Positions.NORMAL
 
     /**
      * Positions of the cursor
      */
-    private enum class Positions {
-        TOP, BOTTOM, LEFT, RIGHT, NORMAL
-    }
+    private enum class Positions { TOP, BOTTOM, LEFT, RIGHT, NORMAL }
+
 
     /************************************
      *      Utility functions           *
      ***********************************/
+
 
     /**
      * Saves the text to File with JavaFx
@@ -92,9 +96,11 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
         this.y = pCalcY
     }
 
+
     /************************************
      *      Resizer Functions           *
      ***********************************/
+
 
     /**
      * Detect the position of the cursor
@@ -119,12 +125,14 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
      * Changes the Mouse Icon to indicate
      * @param evt Mouse Event
      */
-    private fun changeCursorIcon(evt: MouseEvent) = when (detectCursorPosition(evt)) {
-        Positions.LEFT -> this.scene.cursor = Cursor.W_RESIZE
-        Positions.TOP -> this.scene.cursor = Cursor.S_RESIZE
-        Positions.RIGHT -> this.scene.cursor = Cursor.E_RESIZE
-        Positions.BOTTOM -> this.scene.cursor = Cursor.N_RESIZE
-        Positions.NORMAL -> this.scene.cursor = Cursor.DEFAULT
+    private fun changeCursorIcon(evt: MouseEvent) {
+        when (detectCursorPosition(evt)) {
+            Positions.LEFT -> this.scene.cursor = Cursor.W_RESIZE
+            Positions.TOP -> this.scene.cursor = Cursor.S_RESIZE
+            Positions.RIGHT -> this.scene.cursor = Cursor.E_RESIZE
+            Positions.BOTTOM -> this.scene.cursor = Cursor.N_RESIZE
+            Positions.NORMAL -> this.scene.cursor = Cursor.DEFAULT
+        }
     }
 
     /**
@@ -136,42 +144,66 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
     }
 
     /**
+     * Resize the window on left
+     * @param evt Mouse Event
+     */
+    private fun resizeLeft(evt: MouseEvent) {
+        val dx = evt.screenX - this.x
+        val width = this.width - dx
+        if (width < this.maxWidth && width > this.minWidth) {
+            this.width = width
+            this.x += dx
+        }
+    }
+
+    /**
+     * Resize the window on top
+     * @param evt Mouse Event
+     */
+    private fun resizeTop(evt: MouseEvent) {
+        val dy = evt.screenY - this.y
+        val height = this.height - dy
+        if (height < this.maxHeight && height > this.minHeight) {
+            this.height = height
+            this.y += dy
+        }
+    }
+
+    /**
+     * Resize the window on right
+     * @param evt Mouse Event
+     */
+    private fun resizeRight(evt: MouseEvent) {
+        val dx = evt.screenX - this.x - this.width
+        val width = this.width + dx
+        if (width < this.maxWidth && width > this.minWidth) {
+            this.width = width
+        }
+    }
+
+    /**
+     * Resize the window on bottom
+     * @param evt Mouse Event
+     */
+    private fun resizeBottom(evt: MouseEvent) {
+        val dy = evt.screenY - this.y - this.height
+        val height = this.height + dy
+        if (height < this.maxHeight && height > this.minHeight) {
+            this.height = height
+        }
+    }
+
+    /**
      * Resize the Window while the drag
      * @param evt Mouse Event
      */
     private fun resizeWindow(evt: MouseEvent) {
         when (resizePosition) {
-            Positions.LEFT -> {
-                val dx = evt.screenX - this.x
-                val width = this.width - dx
-                if (width < this.maxWidth && width > this.minWidth) {
-                    this.width = width
-                    this.x += dx
-                }
-            }
-            Positions.TOP -> {
-                val dy = evt.screenY - this.y
-                val height = this.height - dy
-                if (height < this.maxHeight && height > this.minHeight) {
-                    this.height = height
-                    this.y += dy
-                }
-            }
-            Positions.RIGHT -> {
-                val dx = evt.screenX - this.x - this.width
-                val width = this.width + dx
-                if (width < this.maxWidth && width > this.minWidth) {
-                    this.width = width
-                }
-            }
-            Positions.BOTTOM -> {
-                val dy = evt.screenY - this.y - this.height
-                val height = this.height + dy
-                if (height < this.maxHeight && height > this.minHeight) {
-                    this.height = height
-                }
-            }
             Positions.NORMAL -> return
+            Positions.LEFT -> resizeLeft(evt)
+            Positions.TOP -> resizeTop(evt)
+            Positions.RIGHT -> resizeRight(evt)
+            Positions.BOTTOM -> resizeBottom(evt)
         }
     }
 
