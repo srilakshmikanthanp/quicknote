@@ -2,7 +2,6 @@ package com.github.srilakshmikanthanp.quicknote
 
 import com.github.srilakshmikanthanp.quicknote.editor.NoteEditor
 import com.github.srilakshmikanthanp.quicknote.system.SystrayIcon
-import com.github.srilakshmikanthanp.quicknote.utility.StageSizer
 
 import javafx.application.Application
 import javafx.stage.Stage
@@ -30,9 +29,7 @@ class QuickNote : Application() {
 
         // Initilize the Note Editor
         val note: NoteEditor = NoteEditor()
-        StageSizer.addResizer(note, 15, 15)
         note.initOwner(primaryStage)
-        note.initStyle(StageStyle.TRANSPARENT)
 
         // initilize TrayIcon
         SystrayIcon.addClickListsner(note::invert)

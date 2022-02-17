@@ -3,20 +3,40 @@ package com.github.srilakshmikanthanp.quicknote.editor
 import com.github.srilakshmikanthanp.quicknote.appconsts.AppConsts
 import com.github.srilakshmikanthanp.quicknote.utility.Preference
 import com.github.srilakshmikanthanp.quicknote.utility.UtilityFuns
-
-import javafx.scene.control.*
-import javafx.scene.input.*
-import javafx.scene.layout.*
-import javafx.scene.*
-import javafx.stage.*
+import javafx.geometry.Insets
+import javafx.scene.Cursor
+import javafx.scene.Scene
+import javafx.scene.control.TextArea
+import javafx.scene.input.KeyCombination
+import javafx.scene.input.MouseEvent
+import javafx.scene.layout.BorderPane
+import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
-
+import javafx.stage.FileChooser
+import javafx.stage.Screen
+import javafx.stage.Stage
+import javafx.stage.StageStyle
 import java.io.PrintStream
 
 /**
- * QuickNote Editor
+ * QuickNote Editor Component
+ * @param insets Insets
  */
-class NoteEditor : Stage() {
+class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
+    // The Start Position
+    private var resizePosition: Positions = Positions.NORMAL
+
+    /**
+     * Positions of the cursor
+     */
+    private enum class Positions {
+        TOP, BOTTOM, LEFT, RIGHT, NORMAL
+    }
+
+    /************************************
+     *      Utility functions           *
+     ***********************************/
+
     /**
      * Saves the text to File with JavaFx
      * @param text String
@@ -38,6 +58,134 @@ class NoteEditor : Stage() {
         val printer = PrintStream(file)
         printer.use { printer.print(text) }
     }
+
+    /**
+     * Show the Editor on the Position
+     * @param x position-x
+     * @param y position-y
+     */
+    private fun show(x: Double, y: Double) {
+        val rect2d = Screen.getPrimary().visualBounds
+        val scaleX = Screen.getPrimary().outputScaleX
+        val scaleY = Screen.getPrimary().outputScaleY
+        var pCalcX = x / scaleX - (this.height / 2)
+        var pCalcY = y / scaleY - (this.width / 2)
+        val margin = 15
+
+        // if x position is high or low
+        if (pCalcX + this.width > rect2d.maxX) {
+            pCalcX = rect2d.maxX - this.width - margin
+        } else if (pCalcX < rect2d.minX) {
+            pCalcX = rect2d.minX + margin
+        }
+
+        // if y position is high or low
+        if (pCalcY + this.height > rect2d.maxY) {
+            pCalcY = rect2d.maxY - this.height - margin
+        } else if (pCalcY < rect2d.minY) {
+            pCalcY = rect2d.minY + margin
+        }
+
+        // show the editor
+        this.show()
+        this.x = pCalcX
+        this.y = pCalcY
+    }
+
+    /************************************
+     *      Resizer Functions           *
+     ***********************************/
+
+    /**
+     * Detect the position of the cursor
+     * @param evt Mouse Event
+     * @return Position of the cursor
+     */
+    private fun detectCursorPosition(evt: MouseEvent): Positions {
+        return if (evt.y > this.height - insets.bottom) {
+            Positions.BOTTOM // In bottom Resize Position
+        } else if (evt.x < insets.left) {
+            Positions.LEFT   // In left Resize Position
+        } else if (evt.y < insets.top) {
+            Positions.TOP    // In top Resize Position
+        } else if (evt.x > this.width - insets.right) {
+            Positions.RIGHT  // In right Resize Position
+        } else {
+            Positions.NORMAL // In Normal Position
+        }
+    }
+
+    /**
+     * Changes the Mouse Icon to indicate
+     * @param evt Mouse Event
+     */
+    private fun changeCursorIcon(evt: MouseEvent) = when (detectCursorPosition(evt)) {
+        Positions.LEFT -> this.scene.cursor = Cursor.W_RESIZE
+        Positions.TOP -> this.scene.cursor = Cursor.S_RESIZE
+        Positions.RIGHT -> this.scene.cursor = Cursor.E_RESIZE
+        Positions.BOTTOM -> this.scene.cursor = Cursor.N_RESIZE
+        Positions.NORMAL -> this.scene.cursor = Cursor.DEFAULT
+    }
+
+    /**
+     * Start to resize the window
+     * @param evt Mouse Event
+     */
+    private fun resizeStart(evt: MouseEvent) {
+        resizePosition = detectCursorPosition(evt)
+    }
+
+    /**
+     * Resize the Window while the drag
+     * @param evt Mouse Event
+     */
+    private fun resizeWindow(evt: MouseEvent) {
+        when (resizePosition) {
+            Positions.LEFT -> {
+                val dx = evt.screenX - this.x
+                val width = this.width - dx
+                if (width < this.maxWidth && width > this.minWidth) {
+                    this.width = width
+                    this.x += dx
+                }
+            }
+            Positions.TOP -> {
+                val dy = evt.screenY - this.y
+                val height = this.height - dy
+                if (height < this.maxHeight && height > this.minHeight) {
+                    this.height = height
+                    this.y += dy
+                }
+            }
+            Positions.RIGHT -> {
+                val dx = evt.screenX - this.x - this.width
+                val width = this.width + dx
+                if (width < this.maxWidth && width > this.minWidth) {
+                    this.width = width
+                }
+            }
+            Positions.BOTTOM -> {
+                val dy = evt.screenY - this.y - this.height
+                val height = this.height + dy
+                if (height < this.maxHeight && height > this.minHeight) {
+                    this.height = height
+                }
+            }
+            Positions.NORMAL -> return
+        }
+    }
+
+    /**
+     * Stop to resize the window
+     * @param evt Mouse Event
+     */
+    private fun resizeStop(evt: MouseEvent) {
+        resizePosition = Positions.NORMAL
+    }
+
+    /************************************
+     *      Initilizer Functions        *
+     ***********************************/
 
     /**
      * Initilize the Stage Dimension
@@ -76,6 +224,7 @@ class NoteEditor : Stage() {
         val stackPane = StackPane(container)
 
         container.id = "noteditor"
+        container.padding = insets
         container.styleClass.add("container")
         stackPane.styleClass.add("stackpane")
 
@@ -90,7 +239,7 @@ class NoteEditor : Stage() {
             UtilityFuns.syncTheme(this.scene)
         }
 
-        // set theme and return
+        // set theme and scene
         this.scene = UtilityFuns.syncTheme(scene)
     }
 
@@ -110,49 +259,24 @@ class NoteEditor : Stage() {
         this.heightProperty().addListener { _, _, height ->
             Preference.setHeight(height.toDouble())
         }
+
+        // add mouse listener to handle mouse move event
+        this.scene.setOnMouseMoved(this::changeCursorIcon)
+        this.scene.setOnMousePressed(this::resizeStart)
+        this.scene.setOnMouseDragged(this::resizeWindow)
+        this.scene.setOnMouseReleased(this::resizeStop)
     }
+
 
     /**
      * Initilizer Block
      */
     init {
         this.isAlwaysOnTop = true
+        this.initStyle(StageStyle.TRANSPARENT)
         this.initlizeStageDimension()
         this.initilizeStageScene()
         this.initilizeStageHandlers()
-    }
-
-    /**
-     * Show the Editor on the Position
-     * @param x position-x
-     * @param y position-y
-     */
-    fun show(x: Double, y: Double) {
-        val rect2d = Screen.getPrimary().visualBounds
-        val scaleX = Screen.getPrimary().outputScaleX
-        val scaleY = Screen.getPrimary().outputScaleY
-        var pCalcX = x / scaleX - (this.height / 2)
-        var pCalcY = y / scaleY - (this.width / 2)
-        val margin = 15
-
-        // if x position is high or low
-        if (pCalcX + this.width > rect2d.maxX) {
-            pCalcX = rect2d.maxX - this.width - margin
-        } else if (pCalcX < rect2d.minX) {
-            pCalcX = rect2d.minX + margin
-        }
-
-        // if y position is high or low
-        if (pCalcY + this.height > rect2d.maxY) {
-            pCalcY = rect2d.maxY - this.height - margin
-        } else if (pCalcY < rect2d.minY) {
-            pCalcY = rect2d.minY + margin
-        }
-
-        // show the editor
-        this.show()
-        this.x = pCalcX
-        this.y = pCalcY
     }
 
     /**
@@ -160,12 +284,11 @@ class NoteEditor : Stage() {
      * @param x location-x
      * @param y location-y
      */
-    fun invert(x:Double, y:Double) {
-        if(this.isShowing) {
+    fun invert(x: Double, y: Double) {
+        if (this.isShowing) {
             this.hide()
-            return
+        } else {
+            this.show(x, y)
         }
-
-        this.show(x, y)
     }
 }
