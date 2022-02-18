@@ -66,10 +66,9 @@
             <id>default-cli</id>
             <configuration>
               <mainClass>
-                quicknote/com.github.srilakshmikanthanp.quicknote.QuickNoteKt
+                quicknote/com.github.srilakshmikanthanp.quicknote.LauncherKt
               </mainClass>
               <launcher>QuickNote</launcher>
-              <jlinkZipName>QuickNote</jlinkZipName>
               <jlinkImageName>QuickNote</jlinkImageName>
               <noManPages>true</noManPages>
               <stripDebug>true</stripDebug>
@@ -101,6 +100,32 @@
         <configuration>
           <jvmTarget>11</jvmTarget>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.panteleyev</groupId>
+        <artifactId>jpackage-maven-plugin</artifactId>
+        <version>1.4.0</version>
+        <configuration>
+          <name>QuickNote</name>
+          <destination>${project.build.directory}/jpackage</destination>
+          <runtimeImage>${project.build.directory}/QuickNote</runtimeImage>
+          <!--suppress UnresolvedMavenProperty -->
+          <appVersion>${projet.version}</appVersion>
+          <vendor>srilakshmikanthanp</vendor>
+          <module>quicknote/com.github.srilakshmikanthanp.quicknote.LauncherKt</module>
+          <icon>assets/images/logo.ico</icon>
+          <licenseFile>LICENSE</licenseFile>
+        </configuration>
+        <executions>
+          <execution>
+            <id>win</id>
+            <configuration>
+              <winDirChooser>true</winDirChooser>
+              <winMenu>true</winMenu>
+              <winMenuGroup>QuickNote</winMenuGroup>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

@@ -74,7 +74,7 @@ object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images
      * Add Click Listeners
      * @param lis (x:Double, y:Double) -> Unit
      */
-    fun addClickListsner(lis: (x: Double, y: Double) -> Unit) {
+    fun addListsner(lis: (x: Double, y: Double) -> Unit) {
         this.clickListeners += lis
     }
 
@@ -82,7 +82,7 @@ object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images
      * Remove the Click Listener
      * @param lis (x:Double, y:Double) -> Unit
      */
-    fun removeClickListsnser(lis: (x: Double, y: Double) -> Unit) {
+    fun removeListsnser(lis: (x: Double, y: Double) -> Unit) {
         this.clickListeners -= lis
     }
 }

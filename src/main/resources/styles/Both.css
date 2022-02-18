@@ -4,7 +4,7 @@
 }
 
 .container {
-    -fx-effect: dropshadow(two-pass-box, black, 10, 0, 0, 0);
+    -fx-effect: dropshadow(two-pass-box, black, 5, 0, 0, 0);
 }
 
 #noteditor {

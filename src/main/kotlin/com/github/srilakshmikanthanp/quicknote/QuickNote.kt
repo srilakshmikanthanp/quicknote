@@ -29,17 +29,19 @@ class QuickNote : Application() {
 
         // Initilize the Note Editor
         val note: NoteEditor = NoteEditor()
+        val tray = SystemTray.getSystemTray()
         note.initOwner(primaryStage)
 
         // initilize TrayIcon
-        SystrayIcon.addClickListsner(note::invert)
-        SystemTray.getSystemTray().add(SystrayIcon)
+        SystrayIcon.addListsner(note::invert)
+        tray.add(SystrayIcon)
     }
 
     /**
      * Call back for the Application Stop
      */
     override fun stop() {
-        SystemTray.getSystemTray().remove(SystrayIcon)
+        val tray = SystemTray.getSystemTray()
+        tray.remove(SystrayIcon)
     }
 }

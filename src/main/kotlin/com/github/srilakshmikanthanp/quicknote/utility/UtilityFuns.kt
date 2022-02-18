@@ -50,7 +50,7 @@ object UtilityFuns {
      * Is Application is Aldersy Running
      * @return true if it is, false if not
      */
-    fun isApplicationIsRunning(): Boolean = try {
+    fun isApplicationAlreadyRunning(): Boolean = try {
         val socket = ServerSocket(AppConsts.APP_PORT)
         val thread = Thread { socket.close() }
         Runtime.getRuntime().addShutdownHook(thread)
