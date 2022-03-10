@@ -72,8 +72,8 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
         val rect2d = Screen.getPrimary().visualBounds
         val scaleX = Screen.getPrimary().outputScaleX
         val scaleY = Screen.getPrimary().outputScaleY
-        var pCalcX = x / scaleX - (this.height / 2)
-        var pCalcY = y / scaleY - (this.width / 2)
+        var pCalcX = x / scaleX - (this.width / 2)
+        var pCalcY = y / scaleY - (this.height / 2)
         val margin = 15
 
         // if x position is high or low

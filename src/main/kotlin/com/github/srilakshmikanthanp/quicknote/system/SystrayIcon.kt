@@ -28,7 +28,7 @@ object SystrayIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images
      */
     private fun notifyListsners(evt: MouseEvent) {
         for (listsner in clickListeners) {
-            Platform.runLater { listsner(evt.x.toDouble(), evt.y.toDouble()) }
+            Platform.runLater { listsner(evt.xOnScreen.toDouble(), evt.yOnScreen.toDouble()) }
         }
     }
 
