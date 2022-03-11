@@ -17,6 +17,7 @@ import javafx.stage.Screen
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import java.io.PrintStream
+import kotlin.math.ceil
 
 /**
  * QuickNote Editor Component
@@ -27,19 +28,17 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
      *      Class States                *
      ***********************************/
 
-    // The Start Position
-    private var resizePosition: Positions = Positions.NORMAL
-
     /**
      * Positions of the cursor
      */
     private enum class Positions { TOP, BOTTOM, LEFT, RIGHT, NORMAL }
 
+    // The Start Position
+    private var resizePosition: Positions = Positions.NORMAL
 
     /************************************
      *      Utility functions           *
      ***********************************/
-
 
     /**
      * Saves the text to File with JavaFx
@@ -151,8 +150,8 @@ class NoteEditor(private val insets: Insets = Insets(4.0)) : Stage() {
         val dx = evt.screenX - this.x
         val width = this.width - dx
         if (width < this.maxWidth && width > this.minWidth) {
-            this.width = width
             this.x += dx
+            this.width = width
         }
     }
 
