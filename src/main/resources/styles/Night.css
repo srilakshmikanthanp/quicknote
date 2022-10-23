@@ -1,4 +1,5 @@
-@import url('./Style.css');
+@import url('./BaseStyle.css');
+@import url('./Editor.css');
 
 * {
     -fx-tumb-color: #363535;

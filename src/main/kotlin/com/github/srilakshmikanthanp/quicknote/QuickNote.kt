@@ -1,16 +1,14 @@
 package com.github.srilakshmikanthanp.quicknote
 
-
-import com.github.srilakshmikanthanp.quicknote.constants.Constants
-import com.github.srilakshmikanthanp.quicknote.taskbar.NoteIcon
 import com.github.srilakshmikanthanp.quicknote.components.NoteEditor
+import com.github.srilakshmikanthanp.quicknote.taskbar.NoteIcon
 import com.github.srilakshmikanthanp.quicknote.interfaces.TextStore
 import com.github.srilakshmikanthanp.quicknote.settings.Settings
 import com.github.srilakshmikanthanp.quicknote.storage.FileStore
+import com.github.srilakshmikanthanp.quicknote.utilities.applyTheme
 import java.awt.SystemTray
 import javafx.application.Application
 import javafx.application.Platform
-import javafx.scene.control.Alert
 import javafx.scene.input.KeyCombination
 import javafx.stage.Stage
 import javafx.stage.StageStyle
@@ -24,34 +22,6 @@ class QuickNote : Application() {
 
     // Text Store
     private val textStore   : TextStore         =   FileStore
-
-    // Light css
-    private val lightCss    : String            =   "/styles/Light.css"
-
-    // Dark css
-    private val darkCss     : String            =   "/styles/Night.css"
-
-    /**
-    * Apply the Theme to Scene
-    * @param dark is dark
-    */
-    private fun applyTheme(dark: Boolean) {
-        // get the styleSheet
-        val styleSheet = object {}.javaClass.getResource(if (dark) darkCss else lightCss)
-        val sheets = noteEditor.scene.stylesheets
-
-        // set the Theme to scene
-        if (styleSheet != null) {
-            sheets.clear(); sheets.add(styleSheet.toExternalForm())
-            return
-        }
-
-        // Inform Error to user
-        val alert = Alert(Alert.AlertType.ERROR)
-        alert.contentText = "Please Report to Quicknote By clicking Issue"
-        alert.title = "StyleSheet Not Found"
-        alert.showAndWait()
-    }
 
     /**
      * SystemTray Mouse event
@@ -68,6 +38,14 @@ class QuickNote : Application() {
      * Initilize Block
      */
     init {
+        // Settings Event Listeners (Only For Theme)
+        Settings.addPreferenceListener { evt ->
+            if (evt.key == Settings.DARK_KEY) {
+                Platform.runLater { applyTheme(noteEditor.scene, Settings.isDark()) }
+            }
+        }
+
+
         // NoteEditor Event Handlers
         noteEditor.getTextArea().textProperty().addListener { _, _, newVal ->
             textStore.setText(newVal)
@@ -81,14 +59,6 @@ class QuickNote : Application() {
             Settings.setWidth(newVal.toDouble())
         }
 
-
-        // Settings Event Listeners (Only For Theme)
-        Settings.addPreferenceListener { evt ->
-            if (evt.key == Settings.DARK_KEY) {
-                Platform.runLater { this.applyTheme(Settings.isDark()) }
-            }
-        }
-
         noteEditor.scene.setOnKeyPressed {
             if (themeSwitch.match(it)) {
                 Settings.setDark(!Settings.isDark())
@@ -97,10 +67,10 @@ class QuickNote : Application() {
 
 
         // Set Initial Values
-        noteEditor.getTextArea().text = textStore.getText()
+        applyTheme(this.noteEditor.scene, Settings.isDark())
         noteEditor.width = Settings.getWidth()
         noteEditor.height = Settings.getHeight()
-        this.applyTheme(Settings.isDark())
+        noteEditor.getTextArea().text = textStore.getText()
     }
 
     /**

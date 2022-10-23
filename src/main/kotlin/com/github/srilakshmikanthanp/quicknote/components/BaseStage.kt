@@ -6,8 +6,9 @@ import javafx.scene.input.*
 import javafx.scene.*
 import javafx.stage.*
 import javafx.stage.StageStyle
+import javafx.stage.Screen
 
-open class NoteStage(private val insets: Insets): Stage() {
+open class BaseStage(private val insets: Insets): Stage() {
     // The Resizing Position
     private var resizePos: Positions = Positions.NORMAL
 
@@ -33,7 +34,9 @@ open class NoteStage(private val insets: Insets): Stage() {
      * @return Position of the cursor
      */
     private fun detectPos(evt: MouseEvent): Positions {
-        return if (evt.y > this.height - insets.bottom) {
+        return if( !this.isResizable ) {
+            Positions.NORMAL
+        } else if (evt.y > this.height - insets.bottom) {
             Positions.BOTTOM
         } else if (evt.x < insets.left) {
             Positions.LEFT
@@ -155,5 +158,39 @@ open class NoteStage(private val insets: Insets): Stage() {
         // Style and behaviour of stage
         this.initStyle(StageStyle.TRANSPARENT)
         this.isAlwaysOnTop = true
+    }
+
+
+    /**
+     * Show the Editor on the Position
+     * @param x position-x
+     * @param y position-y
+     */
+    fun show(x: Double, y: Double) {
+        val rect2d = Screen.getPrimary().visualBounds
+        val scaleX = Screen.getPrimary().outputScaleX
+        val scaleY = Screen.getPrimary().outputScaleY
+        var pCalcX = x / scaleX - (this.width / 2)
+        var pCalcY = y / scaleY - (this.height / 2)
+        val margin = 15
+
+        // if x position is high or low
+        if (pCalcX + this.width > rect2d.maxX) {
+            pCalcX = rect2d.maxX - this.width - margin
+        } else if (pCalcX < rect2d.minX) {
+            pCalcX = rect2d.minX + margin
+        }
+
+        // if y position is high or low
+        if (pCalcY + this.height > rect2d.maxY) {
+            pCalcY = rect2d.maxY - this.height - margin
+        } else if (pCalcY < rect2d.minY) {
+            pCalcY = rect2d.minY + margin
+        }
+
+        // show the editor
+        this.show()
+        this.x = pCalcX
+        this.y = pCalcY
     }
 }

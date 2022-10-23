@@ -12,15 +12,15 @@ import javax.swing.ImageIcon
 import javax.swing.SwingUtilities
 
 /**
-* System Tray Icon
-*/
+ * System Tray Icon
+ */
 object NoteIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/logo.png")).image) {
     // listeners
     private var clickListeners = listOf<(x: Double, y: Double) -> Unit>()
 
     /**
-    * Notifies the Listsners
-    */
+     * Notifies the Listsners
+     */
     private fun notify(evt: MouseEvent) {
         this.clickListeners.forEach {
             Platform.runLater { it(evt.xOnScreen.toDouble(), evt.yOnScreen.toDouble()) }
@@ -28,8 +28,8 @@ object NoteIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/lo
     }
 
     /**
-    * Initilizer Block
-    */
+     * Initilizer Block
+     */
     init {
         val mouseListsner = object : MouseAdapter() {
             override fun mouseClicked(evt: MouseEvent) {
@@ -58,17 +58,17 @@ object NoteIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/lo
     }
 
     /**
-    * Add Click Listeners
-    * @param lis (x:Double, y:Double) -> Unit
-    */
+     * Add Click Listeners
+     * @param lis (x:Double, y:Double) -> Unit
+     */
     fun addListsner(lis: (x: Double, y: Double) -> Unit) {
         this.clickListeners += lis
     }
 
     /**
-    * Remove the Click Listener
-    * @param lis (x:Double, y:Double) -> Unit
-    */
+     * Remove the Click Listener
+     * @param lis (x:Double, y:Double) -> Unit
+     */
     fun removeListsnser(lis: (x: Double, y: Double) -> Unit) {
         this.clickListeners -= lis
     }

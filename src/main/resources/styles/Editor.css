@@ -1,0 +1,30 @@
+.note-editor {
+    -fx-background-color: -fx-bg-color;
+    -fx-background-radius: 10;
+}
+
+.note-editor .text-area {
+    -fx-control-inner-background: -fx-bg-color;
+    -fx-background-radius: 10;
+    -fx-background-color: -fx-bg-color;
+    -fx-border-radius: 15;
+    -fx-border-insets: 3;
+    -fx-border-color: -fx-bg-color;
+    -fx-faint-focus-color: transparent;
+    -fx-font-size: 1.1em;
+    -fx-prompt-text-fill: gray;
+}
+
+.note-editor .text-area .content {
+    -fx-background-radius: 0 ;
+}
+
+.note-editor .text-area .scroll-pane .scroll-bar .thumb  {
+    -fx-background-color: -fx-tumb-color;
+}
+
+.note-editor .text-area .scroll-pane .scroll-bar,
+.note-editor .text-area .viewport,
+.note-editor .text-area .scroll-pane .corner {
+    -fx-background-color: -fx-bg-color;
+}

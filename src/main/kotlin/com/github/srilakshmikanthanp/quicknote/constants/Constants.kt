@@ -5,7 +5,7 @@ object Constants {
     /**
     * A Constant for the Issuse Page
     */
-    const val APP_ISSUE_PAGE = "https://github.com/srilakshmikanthanp/quicknote/issues/new/choose"
+    const val APP_ISSUE_PAGE = "https://github.com/srilakshmikanthanp/quicknote/issues/new"
 
 
     /**

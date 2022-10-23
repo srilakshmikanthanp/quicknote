@@ -7,9 +7,9 @@ import javafx.scene.control.TextArea
 import javafx.scene.layout.BorderPane
 import javafx.scene.layout.StackPane
 import javafx.scene.paint.Color
-import javafx.stage.Screen
 
-class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
+
+class NoteEditor(insets: Insets = Insets(5.0)) : BaseStage(insets) {
     // Text Area For the Note Editor
     private val textArea: TextArea = TextArea()
 
@@ -29,10 +29,9 @@ class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
         val content = BorderPane(this.textArea)
         val cabinet = StackPane(content)
 
-        content.styleClass.add("noteeditor-content")
-        content.styleClass.add("noteeditor-editor")
-        content.padding = insets
-        cabinet.styleClass.add("noteeditor-cabinet")
+        content.styleClass.add("note-content")
+        content.styleClass.add("note-editor")
+        cabinet.styleClass.add("note-cabinet")
 
         this.scene = Scene(cabinet, Color.TRANSPARENT)
 
@@ -49,37 +48,4 @@ class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
     * Get the TextArea Of the Editor
     */
     fun getTextArea(): TextArea = this.textArea
-
-    /**
-     * Show the Editor on the Position
-     * @param x position-x
-     * @param y position-y
-     */
-    fun show(x: Double, y: Double) {
-        val rect2d = Screen.getPrimary().visualBounds
-        val scaleX = Screen.getPrimary().outputScaleX
-        val scaleY = Screen.getPrimary().outputScaleY
-        var pCalcX = x / scaleX - (this.width / 2)
-        var pCalcY = y / scaleY - (this.height / 2)
-        val margin = 15
-
-        // if x position is high or low
-        if (pCalcX + this.width > rect2d.maxX) {
-            pCalcX = rect2d.maxX - this.width - margin
-        } else if (pCalcX < rect2d.minX) {
-            pCalcX = rect2d.minX + margin
-        }
-
-        // if y position is high or low
-        if (pCalcY + this.height > rect2d.maxY) {
-            pCalcY = rect2d.maxY - this.height - margin
-        } else if (pCalcY < rect2d.minY) {
-            pCalcY = rect2d.minY + margin
-        }
-
-        // show the editor
-        this.show()
-        this.x = pCalcX
-        this.y = pCalcY
-    }
 }

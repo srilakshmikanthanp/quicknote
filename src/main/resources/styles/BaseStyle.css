@@ -1,0 +1,8 @@
+.note-cabinet {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.note-content {
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
+}
