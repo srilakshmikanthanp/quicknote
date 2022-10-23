@@ -1,18 +1,18 @@
-.stackpane {
+.noteeditor-cabinet {
     -fx-background-color: transparent;
     -fx-padding: 5;
 }
 
-.container {
+.noteeditor-content {
     -fx-effect: dropshadow(two-pass-box, black, 5, 0, 0, 0);
 }
 
-#noteditor {
+.noteeditor-editor {
     -fx-background-radius: 10;
     -fx-background-color: -fx-bg-color;
 }
 
-#noteditor .text-area {
+.noteeditor-editor .text-area {
     -fx-border-radius: 15;
     -fx-border-insets: 3;
     -fx-border-color: -fx-bg-color;
@@ -24,15 +24,16 @@
     -fx-prompt-text-fill: gray;
 }
 
-#noteditor .text-area .content {
+.noteeditor-editor .text-area .content {
     -fx-background-radius: 0 ;
 }
 
-#noteditor .text-area .viewport, 
-#noteditor .text-area .scroll-pane .corner,
-#noteditor .text-area .scroll-pane .scroll-bar {
+.noteeditor-editor .text-area .scroll-pane .scroll-bar,
+.noteeditor-editor .text-area .viewport,
+.noteeditor-editor .text-area .scroll-pane .corner {
     -fx-background-color: -fx-bg-color;
 }
-#noteditor .text-area .scroll-pane .scroll-bar .thumb  {
+
+.noteeditor-editor .text-area .scroll-pane .scroll-bar .thumb  {
     -fx-background-color: -fx-tumb-color;
 }

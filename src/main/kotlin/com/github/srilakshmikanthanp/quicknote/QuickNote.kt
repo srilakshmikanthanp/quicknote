@@ -1,47 +1,134 @@
 package com.github.srilakshmikanthanp.quicknote
 
-import com.github.srilakshmikanthanp.quicknote.editor.NoteEditor
-import com.github.srilakshmikanthanp.quicknote.system.SystrayIcon
 
+import com.github.srilakshmikanthanp.quicknote.constants.Constants
+import com.github.srilakshmikanthanp.quicknote.taskbar.NoteIcon
+import com.github.srilakshmikanthanp.quicknote.components.NoteEditor
+import com.github.srilakshmikanthanp.quicknote.interfaces.TextStore
+import com.github.srilakshmikanthanp.quicknote.settings.Settings
+import com.github.srilakshmikanthanp.quicknote.storage.FileStore
+import java.awt.SystemTray
 import javafx.application.Application
+import javafx.application.Platform
+import javafx.scene.control.Alert
+import javafx.scene.input.KeyCombination
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 
-import java.awt.SystemTray
-
-/**
- * QuickNote class is the Main class for
- * the Application
- */
 class QuickNote : Application() {
+    // Theme change Switch
+    private val themeSwitch : KeyCombination    =   KeyCombination.keyCombination("ALT+T")
+
+    // Note Editor
+    private val noteEditor  : NoteEditor        =   NoteEditor()
+
+    // Text Store
+    private val textStore   : TextStore         =   FileStore
+
+    // Light css
+    private val lightCss    : String            =   "/styles/Light.css"
+
+    // Dark css
+    private val darkCss     : String            =   "/styles/Night.css"
+
     /**
-     * Call back for the Application Startup
-     * @param primaryStage stage
+    * Apply the Theme to Scene
+    * @param dark is dark
+    */
+    private fun applyTheme(dark: Boolean) {
+        // get the styleSheet
+        val styleSheet = object {}.javaClass.getResource(if (dark) darkCss else lightCss)
+        val sheets = noteEditor.scene.stylesheets
+
+        // set the Theme to scene
+        if (styleSheet != null) {
+            sheets.clear(); sheets.add(styleSheet.toExternalForm())
+            return
+        }
+
+        // Inform Error to user
+        val alert = Alert(Alert.AlertType.ERROR)
+        alert.contentText = "Please Report to Quicknote By clicking Issue"
+        alert.title = "StyleSheet Not Found"
+        alert.showAndWait()
+    }
+
+    /**
+     * SystemTray Mouse event
+     */
+    private fun trayHandler(x: Double, y: Double) {
+        if (noteEditor.isShowing) {
+            noteEditor.hide()
+        } else {
+            noteEditor.show(x, y)
+        }
+    }
+
+    /**
+     * Initilize Block
+     */
+    init {
+        // NoteEditor Event Handlers
+        noteEditor.getTextArea().textProperty().addListener { _, _, newVal ->
+            textStore.setText(newVal)
+        }
+
+        noteEditor.heightProperty().addListener { _, _, newVal ->
+            Settings.setHeight(newVal.toDouble())
+        }
+
+        noteEditor.widthProperty().addListener { _, _, newVal ->
+            Settings.setWidth(newVal.toDouble())
+        }
+
+
+        // Settings Event Listeners (Only For Theme)
+        Settings.addPreferenceListener { evt ->
+            if (evt.key == Settings.DARK_KEY) {
+                Platform.runLater { this.applyTheme(Settings.isDark()) }
+            }
+        }
+
+        noteEditor.scene.setOnKeyPressed {
+            if (themeSwitch.match(it)) {
+                Settings.setDark(!Settings.isDark())
+            }
+        }
+
+
+        // Set Initial Values
+        noteEditor.getTextArea().text = textStore.getText()
+        noteEditor.width = Settings.getWidth()
+        noteEditor.height = Settings.getHeight()
+        this.applyTheme(Settings.isDark())
+    }
+
+    /**
+     * Start of the Application
      */
     override fun start(primaryStage: Stage) {
         // initilize the Primary Stage
         primaryStage.initStyle(StageStyle.UTILITY)
-        primaryStage.opacity    =    0.0
-        primaryStage.maxWidth   =    0.0
-        primaryStage.maxHeight  =    0.0
+        primaryStage.maxHeight = 0.0
+        primaryStage.opacity = 0.0
+        primaryStage.maxWidth = 0.0
         primaryStage.x = Double.MAX_VALUE
         primaryStage.show()
 
-        // Initilize the Note Editor
-        val note: NoteEditor = NoteEditor()
-        val tray = SystemTray.getSystemTray()
-        note.initOwner(primaryStage)
+        // initilize noteeditor
+        noteEditor.initOwner(primaryStage)
 
-        // initilize TrayIcon
-        SystrayIcon.addListsner(note::invert)
-        tray.add(SystrayIcon)
+        // NoteIcon
+        val trayIcon = SystemTray.getSystemTray()
+        trayIcon.add(NoteIcon)
+        NoteIcon.addListsner(::trayHandler)
     }
 
     /**
-     * Call back for the Application Stop
+     * End of Application
      */
     override fun stop() {
-        val tray = SystemTray.getSystemTray()
-        tray.remove(SystrayIcon)
+        val trayIcon = SystemTray.getSystemTray()
+        trayIcon.remove(NoteIcon)
     }
 }

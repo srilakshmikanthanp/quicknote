@@ -1,6 +1,6 @@
-@import url('./Both.css');
+@import url('./Style.css');
 
 * {
-    -fx-bg-color: white;
     -fx-tumb-color: #cfcccc;
+    -fx-bg-color: white;
 }
