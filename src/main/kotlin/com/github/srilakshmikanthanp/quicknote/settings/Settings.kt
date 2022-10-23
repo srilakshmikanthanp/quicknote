@@ -1,4 +1,4 @@
-package com.github.srilakshmikanthanp.quicknote.utility
+package com.github.srilakshmikanthanp.quicknote.settings
 
 import com.github.srilakshmikanthanp.quicknote.constants.Constants
 import java.util.prefs.Preferences
@@ -7,11 +7,11 @@ import java.util.prefs.PreferenceChangeListener
 /**
  * Object that helps to store the App Settings
  */
-object Setting {
+object Settings {
     /**
     * Preference Engine from Standard Java API
     */
-    private val prefEngine: Preferences = Preferences.userNodeForPackage(Setting.javaClass)
+    private val prefEngine: Preferences = Preferences.userNodeForPackage(Settings.javaClass)
 
 
     /*******************************
@@ -57,21 +57,21 @@ object Setting {
     /******************************
     *  Dark MODE of the Editor   *
     *****************************/
-    const val IS_DARK_KEY = "IS_DARK"
+    const val DARK_KEY = "IS_DARK"
 
     /**
     * Theme getter from preference
     *
     * @return true if dark else false
     */
-    fun isDark() = prefEngine.getBoolean(IS_DARK_KEY, Constants.IS_DARK)
+    fun isDark() = prefEngine.getBoolean(DARK_KEY, Constants.IS_DARK)
 
     /**
     * Theme setter to Preference
     *
     * @param isDark
     */
-    fun setDark(isDark:Boolean) = prefEngine.putBoolean(IS_DARK_KEY, isDark)
+    fun setDark(isDark:Boolean) = prefEngine.putBoolean(DARK_KEY, isDark)
 
 
     /***************************

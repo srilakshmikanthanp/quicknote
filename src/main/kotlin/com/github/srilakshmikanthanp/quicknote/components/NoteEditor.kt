@@ -1,15 +1,57 @@
 package com.github.srilakshmikanthanp.quicknote.components
 
 import com.github.srilakshmikanthanp.quicknote.constants.Constants
-import javafx.stage.*
+import javafx.geometry.Insets
+import javafx.scene.Scene
+import javafx.scene.control.TextArea
+import javafx.scene.layout.BorderPane
+import javafx.scene.layout.StackPane
+import javafx.scene.paint.Color
+import javafx.stage.Screen
 
-class NoteEditor: Stage() {
+class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
+    // Text Area For the Note Editor
+    private val textArea: TextArea = TextArea()
+
+    /**
+     * Initilize the Editor
+     */
+    init {
+        // size for stage
+        this.minHeight  =   Constants.MIN_HEIGHT
+        this.minWidth   =   Constants.MIN_WIDTH
+        this.height     =   Constants.DEF_HEIGHT
+        this.width      =   Constants.DEF_WIDTH
+        this.maxHeight  =   Constants.MAX_HEIGHT
+        this.maxWidth   =   Constants.MAX_WIDTH
+
+        // scene part
+        val content = BorderPane(this.textArea)
+        val cabinet = StackPane(content)
+
+        content.styleClass.add("content")
+        content.padding = insets
+        cabinet.styleClass.add("cabinet")
+
+        this.scene = Scene(cabinet, Color.TRANSPARENT)
+
+        // event handlers
+        this.focusedProperty().addListener {
+          _, isLost, _ -> if (isLost) this.hide()
+        }
+    }
+
+    /**
+    * Get the TextArea Of the Editor
+    */
+    fun getTextArea(): TextArea = this.textArea
+
     /**
      * Show the Editor on the Position
      * @param x position-x
      * @param y position-y
      */
-    private fun show(x: Double, y: Double) {
+    fun show(x: Double, y: Double) {
         val rect2d = Screen.getPrimary().visualBounds
         val scaleX = Screen.getPrimary().outputScaleX
         val scaleY = Screen.getPrimary().outputScaleY
@@ -35,37 +77,5 @@ class NoteEditor: Stage() {
         this.show()
         this.x = pCalcX
         this.y = pCalcY
-    }
-
-    /**
-     * Initilize the Editor
-     */
-    init {
-        // Style and behaviour of stage
-        this.initStyle(StageStyle.TRANSPARENT)
-        this.isAlwaysOnTop = true
-
-        // size for stage
-        this.minHeight  =   Constants.MIN_HEIGHT
-        this.minWidth   =   Constants.MIN_WIDTH
-        this.height     =   Constants.DEF_HEIGHT
-        this.width      =   Constants.DEF_WIDTH
-        this.maxHeight  =   Constants.MAX_HEIGHT
-        this.maxWidth   =   Constants.MAX_WIDTH
-
-        // scene part
-    }
-
-    /**
-     * Invert the Showing status
-     * @param x location-x
-     * @param y location-y
-     */
-    public fun invert(x: Double, y: Double) {
-        if (this.isShowing) {
-            this.hide()
-        } else {
-            this.show(x, y)
-        }
     }
 }

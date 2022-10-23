@@ -3,6 +3,12 @@ package com.github.srilakshmikanthanp.quicknote.constants
 
 object Constants {
     /**
+    * A Constant for the Issuse Page
+    */
+    const val APP_ISSUE_PAGE = "https://github.com/srilakshmikanthanp/quicknote/issues/new/choose"
+
+
+    /**
      * A Constant for the Home Page of Application
      */
     const val APP_HOME_PAGE = "https://github.com/srilakshmikanthanp/quicknote"
@@ -22,7 +28,7 @@ object Constants {
     /**
      * A Constant for Default Height
      */
-    const val DEF_HEIGHT = 350.0
+    const val DEF_HEIGHT = 250.0
 
     /**
      * A Constant for the Max Height of Editor
@@ -50,10 +56,4 @@ object Constants {
      * A Constant for the dark theme
      */
     const val IS_DARK = false
-
-
-    /**
-     * A Constant for the Dfault Text
-     */
-    const val DEF_TEXT = ""
 }
