@@ -1,6 +1,6 @@
 package com.github.srilakshmikanthanp.quicknote.components
 
-import com.github.srilakshmikanthanp.quicknote.enums.Positions
+import com.github.srilakshmikanthanp.quicknote.typing.Positions
 import javafx.geometry.Insets
 import javafx.scene.input.*
 import javafx.scene.*
