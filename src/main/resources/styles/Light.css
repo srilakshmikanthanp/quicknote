@@ -1,0 +1,6 @@
+@import url('./Style.css');
+
+* {
+    -fx-tumb-color: #cfcccc;
+    -fx-bg-color: white;
+}

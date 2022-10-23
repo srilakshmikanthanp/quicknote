@@ -9,6 +9,7 @@ import com.github.srilakshmikanthanp.quicknote.settings.Settings
 import com.github.srilakshmikanthanp.quicknote.storage.FileStore
 import java.awt.SystemTray
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.scene.control.Alert
 import javafx.scene.input.KeyCombination
 import javafx.stage.Stage
@@ -16,19 +17,41 @@ import javafx.stage.StageStyle
 
 class QuickNote : Application() {
     // Theme change Switch
-    private val themeSwitch : KeyCombination  =  KeyCombination.keyCombination("ALT+T")
+    private val themeSwitch : KeyCombination    =   KeyCombination.keyCombination("ALT+T")
 
     // Note Editor
-    private val noteEditor  : NoteEditor      =  NoteEditor()
+    private val noteEditor  : NoteEditor        =   NoteEditor()
 
     // Text Store
-    private val textStore   : TextStore       =  FileStore
+    private val textStore   : TextStore         =   FileStore
 
     // Light css
-    private val lightCss    : String          =  "/styles/Light.css"
+    private val lightCss    : String            =   "/styles/Light.css"
 
     // Dark css
-    private val darkCss     : String          =  "/styles/Night.css"
+    private val darkCss     : String            =   "/styles/Night.css"
+
+    /**
+    * Apply the Theme to Scene
+    * @param dark is dark
+    */
+    private fun applyTheme(dark: Boolean) {
+        // get the styleSheet
+        val styleSheet = object {}.javaClass.getResource(if (dark) darkCss else lightCss)
+        val sheets = noteEditor.scene.stylesheets
+
+        // set the Theme to scene
+        if (styleSheet != null) {
+            sheets.clear(); sheets.add(styleSheet.toExternalForm())
+            return
+        }
+
+        // Inform Error to user
+        val alert = Alert(Alert.AlertType.ERROR)
+        alert.contentText = "Please Report to Quicknote By clicking Issue"
+        alert.title = "StyleSheet Not Found"
+        alert.showAndWait()
+    }
 
     /**
      * SystemTray Mouse event
@@ -42,50 +65,36 @@ class QuickNote : Application() {
     }
 
     /**
-     * Apply the Theme to Scene
-     */
-    private fun applyTheme(dark: Boolean) {
-        // get the styleSheet
-        val styleSheet = object{}.javaClass.getResource(if (dark) darkCss else lightCss)
-        val sheets = noteEditor.scene.stylesheets
-
-        // set the Theme to scene
-        if (styleSheet != null) {
-            sheets.clear(); sheets.add(styleSheet.toExternalForm())
-        }
-
-        // Inform Error to user
-        val alert = Alert(Alert.AlertType.ERROR)
-        alert.contentText = "Please Report to ${Constants.APP_ISSUE_PAGE}"
-        alert.title = "StyleSheet Not Found"
-        alert.showAndWait()
-    }
-
-    /**
      * Initilize Block
      */
     init {
+        // NoteEditor Event Handlers
+        noteEditor.getTextArea().textProperty().addListener { _, _, newVal ->
+            textStore.setText(newVal)
+        }
+
+        noteEditor.heightProperty().addListener { _, _, newVal ->
+            Settings.setHeight(newVal.toDouble())
+        }
+
+        noteEditor.widthProperty().addListener { _, _, newVal ->
+            Settings.setWidth(newVal.toDouble())
+        }
+
+
         // Settings Event Listeners (Only For Theme)
         Settings.addPreferenceListener { evt ->
-            if(evt.key == Settings.DARK_KEY) { this.applyTheme(Settings.isDark()) }
+            if (evt.key == Settings.DARK_KEY) {
+                Platform.runLater { this.applyTheme(Settings.isDark()) }
+            }
         }
 
         noteEditor.scene.setOnKeyPressed {
-            if (themeSwitch.match(it)) { Settings.setDark(!Settings.isDark()) }
+            if (themeSwitch.match(it)) {
+                Settings.setDark(!Settings.isDark())
+            }
         }
 
-        // NoteEditor Event Handlers
-        noteEditor.heightProperty().addListener {
-            _, _, newVal -> Settings.setHeight(newVal.toDouble())
-        }
-
-        noteEditor.widthProperty().addListener {
-            _, _, newVal -> Settings.setWidth(newVal.toDouble())
-        }
-
-        noteEditor.getTextArea().textProperty().addListener {
-            _, _, newVal -> textStore.setText(newVal)
-        }
 
         // Set Initial Values
         noteEditor.getTextArea().text = textStore.getText()

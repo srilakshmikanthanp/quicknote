@@ -39,13 +39,16 @@ object NoteIcon : TrayIcon(ImageIcon(object {}.javaClass.getResource("/images/lo
 
         val popupMenu = PopupMenu()
         val about = MenuItem("About")
+        val issue = MenuItem("Issue")
         val exit = MenuItem("Exit")
 
         popupMenu.add(about)
+        popupMenu.add(issue)
         popupMenu.addSeparator()
         popupMenu.add(exit)
 
         about.addActionListener { browseURI(Constants.APP_HOME_PAGE) }
+        issue.addActionListener { browseURI(Constants.APP_ISSUE_PAGE) }
         exit.addActionListener { Platform.runLater(Platform::exit) }
 
         this.popupMenu = popupMenu

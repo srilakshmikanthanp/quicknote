@@ -29,9 +29,10 @@ class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
         val content = BorderPane(this.textArea)
         val cabinet = StackPane(content)
 
-        content.styleClass.add("content")
+        content.styleClass.add("noteeditor-content")
+        content.styleClass.add("noteeditor-editor")
         content.padding = insets
-        cabinet.styleClass.add("cabinet")
+        cabinet.styleClass.add("noteeditor-cabinet")
 
         this.scene = Scene(cabinet, Color.TRANSPARENT)
 
@@ -39,6 +40,9 @@ class NoteEditor(insets: Insets = Insets(4.0)) : NoteStage(insets) {
         this.focusedProperty().addListener {
           _, isLost, _ -> if (isLost) this.hide()
         }
+
+        // textArea
+        textArea.promptText = "Put your Text Here"
     }
 
     /**

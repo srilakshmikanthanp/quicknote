@@ -1,10 +1,8 @@
 package com.github.srilakshmikanthanp.quicknote.utilities
 
-import com.github.srilakshmikanthanp.quicknote.constants.Constants
-import java.io.IOException
+import com.github.srilakshmikanthanp.quicknote.constants.*
 import java.awt.Desktop
-import java.net.URI
-import java.net.ServerSocket
+import java.net.*
 import javafx.scene.control.Alert
 
 /**
@@ -16,7 +14,7 @@ fun isApplicationAlreadyRunning(): Boolean = try {
     val thread = Thread { socket.close() }
     Runtime.getRuntime().addShutdownHook(thread)
     false
-} catch (exp: IOException) {
+} catch (exp: Exception) {
     true
 }
 
@@ -25,7 +23,7 @@ fun isApplicationAlreadyRunning(): Boolean = try {
  */
 fun browseURI(url: String): Unit = try {
     Desktop.getDesktop().browse(URI(url))
-} catch (exp: IOException) {
+} catch (exp: Exception) {
     val alert = Alert(Alert.AlertType.ERROR)
     alert.contentText = "Cannot open webpage"
     alert.showAndWait()

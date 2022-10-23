@@ -1,17 +1,17 @@
 package com.github.srilakshmikanthanp.quicknote
 
-import com.github.srilakshmikanthanp.quicknote.utilities.isApplicationAlreadyRunning
-import javafx.application.Application
+import com.github.srilakshmikanthanp.quicknote.utilities.*
 import javafx.scene.control.Alert
+import javafx.application.Application
 
 /**
 * Main function of the Application
 */
 fun main(args: Array<String>) {
     if ( isApplicationAlreadyRunning() ) {
-        val alert = Alert(Alert.AlertType.WARNING)
-        alert.title = "QuickNote"
-        alert.contentText = "Already running"
+        val alert           =   Alert(Alert.AlertType.WARNING)
+        alert.contentText   =   "Already running"
+        alert.title         =   "QuickNote"
         alert.showAndWait()
         return
     }
