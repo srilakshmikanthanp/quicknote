@@ -1,21 +1,19 @@
 package com.github.srilakshmikanthanp.quicknote
 
 import com.github.srilakshmikanthanp.quicknote.utilities.*
-import javafx.scene.control.Alert
 import javafx.application.Application
+import javax.swing.JOptionPane
 
 /**
-* Main function of the Application
-*/
+ * Main function of the Application
+ */
 fun main(args: Array<String>) {
-    if ( isApplicationAlreadyRunning() ) {
-        val alert           =   Alert(Alert.AlertType.WARNING)
-        alert.contentText   =   "Already running"
-        alert.title         =   "QuickNote"
-        alert.showAndWait()
-        return
+    // Check weather the App is already running
+    if (isApplicationAlreadyRunning()) {
+        return JOptionPane.showMessageDialog(null, "Already Running")
     }
 
+    // Start the Application
     val quicknote = QuickNote::class.java
     Application.launch(quicknote, *args)
 }
