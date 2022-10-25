@@ -4,7 +4,7 @@
 
   <groupId>com.github.srilakshmikanthanp</groupId>
   <artifactId>quicknote</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2</version>
   <name>quicknote</name>
 
   <properties>
@@ -113,7 +113,7 @@
           <appVersion>${projet.version}</appVersion>
           <vendor>srilakshmikanthanp</vendor>
           <module>quicknote/com.github.srilakshmikanthanp.quicknote.LauncherKt</module>
-          <icon>assets/images/logo.ico</icon>
+          <icon>${basedir}/src/main/resources/images/logo.ico</icon>
           <licenseFile>LICENSE</licenseFile>
         </configuration>
         <executions>
