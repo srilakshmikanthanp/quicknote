@@ -14,6 +14,5 @@ fun main(args: Array<String>) {
     }
 
     // Start the Application
-    val quicknote = QuickNote::class.java
-    Application.launch(quicknote, *args)
+    Application.launch(QuickNote::class.java, *args)
 }

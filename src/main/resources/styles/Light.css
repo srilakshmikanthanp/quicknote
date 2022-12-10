@@ -5,3 +5,7 @@
     -fx-tumb-color: #cfcccc;
     -fx-bg-color: white;
 }
+
+.context-menu .menu-item .label {
+    -fx-text-fill: black;
+}

@@ -3,5 +3,9 @@
 
 * {
     -fx-tumb-color: #363535;
-    -fx-bg-color: #121212;
+    -fx-bg-color: #252526;
+}
+
+.context-menu .menu-item .label {
+    -fx-text-fill: white;
 }
