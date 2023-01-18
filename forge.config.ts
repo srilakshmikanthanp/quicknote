@@ -19,11 +19,11 @@ const config: ForgeConfig = {
         config: rendererConfig,
         entryPoints: [
           {
-            html: './src/index.html',
-            js: './src/renderer.ts',
+            html: './src/html/index.html',
+            js: './src/render/main.tsx',
             name: 'main_window',
             preload: {
-              js: './src/preload.ts',
+              js: './src/electron/preload/index.ts',
             },
           },
         ],
