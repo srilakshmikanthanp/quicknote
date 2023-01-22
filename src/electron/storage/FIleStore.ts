@@ -10,22 +10,13 @@ import file from 'node:fs/promises';
  * FileStore That stores notes in a file
  */
 export default class FileStore implements INoteStore {
-  /**
-   * get the new File Store instance
-   * @param path Path to the file
-   * 
-   * @returns FileStore instance
-   */
-  public static async getStore(path: string): Promise<FileStore> {
-    return new FileStore(await file.open(path, 'a+'));
-  }
 
   /**
    * Constructor for FileStore
    * @param file File to store the note
    */
-  private constructor(file: file.FileHandle) {
-    this.file_handle = file;
+  public constructor(file: string) {
+    this.file_path = file;
   }
 
   /**
@@ -34,7 +25,7 @@ export default class FileStore implements INoteStore {
    * @param note Note to be stored
    */
   public async setNote(note: string): Promise<void> {
-    return await this.file_handle.writeFile(note);
+    return await file.writeFile(this.file_path, note);
   }
 
   /**
@@ -42,10 +33,8 @@ export default class FileStore implements INoteStore {
    * 
    * @returns Note from the file
    */
-  public getNote(): Promise<string> {
-    return this.file_handle.readFile().then((data) => {
-      return data.toString()
-    });
+  public async getNote(): Promise<string> {
+    return await file.readFile(this.file_path, 'utf-8');
   }
 
   /*********************************
@@ -53,5 +42,5 @@ export default class FileStore implements INoteStore {
    ********************************/
 
   // file handle to the file to store the note
-  private file_handle: file.FileHandle;
+  private file_path: string;
 }

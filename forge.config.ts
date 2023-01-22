@@ -23,7 +23,7 @@ const config: ForgeConfig = {
             js: './src/render/main.tsx',
             name: 'note_window',
             preload: {
-              js: './src/electron/preloads/NotePreload.ts',
+              js: './src/electron/preload/NotePreload.ts',
             },
           },
         ],
