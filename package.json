@@ -50,6 +50,7 @@
     "open": "^8.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-quill": "^2.0.0",
     "react-redux": "^8.0.5",
     "styled-components": "^5.3.6"
   }

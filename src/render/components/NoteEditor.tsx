@@ -3,30 +3,48 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import styled from "styled-components";
-import { ChangeEvent } from "react";
+import 'react-quill/dist/quill.bubble.css';
+import ReactQuill from 'react-quill';
+import styled from 'styled-components';
 
-interface NoteEditorProps {
-  placeholder: string;
-  content: string;
-  onChange?: (content: string) => void;
-  onError?: (error: Error) => void;
+// NoteEditor Props
+interface INoteEditorProps {
+  noteContent: string;
+  placeHolder: string;
+  onUpdate?: (content: string) => void;
 }
 
-const EditorTheme = styled.textarea`
-  border-radius: 5px;
+// Editor Container
+const EditorContainer = styled.div`
+  background-color: var(--editor-bg-color);
+  color: var(--editor-fg-color);
+  min-height: 100%;
+
+  .ql-editor.ql-blank::before {
+    color: gray;
+  }
 `;
 
-export default function NoteEditor(props: NoteEditorProps) {
-  const handleEditorChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.onChange?.(e.target.value);
-  };
+// Note Editor
+export default function NoteEditor({
+  noteContent,
+  onUpdate,
+  placeHolder,
+}: INoteEditorProps) {
+  // change handler for note editor
+  const handleChange = (content: string) => {
+    onUpdate && onUpdate(content);
+  }
 
+  // render
   return (
-    <EditorTheme
-      placeholder={props.placeholder}
-      value={props.content}
-      onChange={handleEditorChange}
-    />
+    <EditorContainer>
+      <ReactQuill
+        onChange={handleChange}
+        value={noteContent}
+        placeholder={placeHolder}
+        theme="bubble"
+      />
+    </EditorContainer>
   );
 }

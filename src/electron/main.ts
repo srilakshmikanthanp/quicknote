@@ -84,6 +84,7 @@ const mb: Menubar = menubar({
     skipTaskbar: true,
     resizable: true,
     transparent: true,
+    hasShadow: true,
     webPreferences: {
       preload: NOTE_WINDOW_PRELOAD_WEBPACK_ENTRY,
       devTools: !app.isPackaged

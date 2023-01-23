@@ -7,7 +7,7 @@ import { SetNote } from "./redux/slices";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import React from "react";
+import "./styles/main.plain.css";
 import App from "./App";
 
 // observe the note in the store and send it to QuickNoteAPI
@@ -20,8 +20,11 @@ window.QuickNoteAPI.recvNote().then((note) => {
   store.dispatch(SetNote(note));
 });
 
+// root element
+const rootElement = document.getElementById("root");
+
 // react root
-const reactRoot = ReactDOM.createRoot(document.body);
+const reactRoot = ReactDOM.createRoot(rootElement);
 
 // render the app
 reactRoot.render(

@@ -13,7 +13,7 @@ import * as C from "./constants";
  */
 export default function App() {
   // Get the note from the store.
-  const note = useSelector(selectNote);
+  const noteContent = useSelector(selectNote);
 
   // Get the dispatch function.
   const dispatch = useDispatch();
@@ -23,11 +23,12 @@ export default function App() {
     dispatch(SetNote(note));
   };
 
+  // render the App
   return (
     <NoteEditor
-      placeholder={C.PLACEHOLDER_TEXT}
-      content={note}
-      onChange={setNote}
+      placeHolder={C.PLACEHOLDER_TEXT}
+      onUpdate={setNote}
+      noteContent={noteContent}
     />
-  )
+  );
 }
