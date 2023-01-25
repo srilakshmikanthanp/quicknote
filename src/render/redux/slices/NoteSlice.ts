@@ -24,7 +24,9 @@ const _SetNote = (state: INoteState, action: PayloadAction<string>) => {
  *      Selectors     *
  *********************/
 
-export const selectNote = (state: INoteState) : string => state.note;
+export const selectNote = (state: {quicknote: INoteState}) : string => {
+  return state.quicknote.note || null;
+}
 
 /*********************
  *  Slice Creation   *

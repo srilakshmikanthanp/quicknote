@@ -5,7 +5,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { SetNote, selectNote } from "./redux/slices";
-import NoteEditor from "./components/NoteEditor";
+import { NoteEditor } from "./components";
 import * as C from "./constants";
 
 /**
@@ -20,7 +20,7 @@ export default function App() {
 
   // Set the note in the store.
   const setNote = (note: string) => {
-    dispatch(SetNote(note));
+    //dispatch(SetNote(note));
   };
 
   // render the App
