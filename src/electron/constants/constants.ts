@@ -7,7 +7,10 @@ import path from "path";
 import os from "os";
 
 // Application Icon
-export const APPLICATION_ICON   =   path.join(__dirname, "../../assets/images/quicknote.png");
+export const QUICKNOTE_LIGHT    =   path.join(__dirname, "../../assets/images/icon_light.png");
+
+// Application Icon
+export const QUICKNOTE_DARK     =   path.join(__dirname, "../../assets/images/icon_dark.png");
 
 // Application Home
 export const APPLICATION_HOME   =   path.join(os.homedir(), ".quicknote");

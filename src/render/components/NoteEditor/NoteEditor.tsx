@@ -66,6 +66,11 @@ const Editable = styled(ContentEditable)`
 // editor theme
 const editorTheme = {
   paragraph: `${styles.editorParagraph}`,
+  text: {
+    underline: `${styles.editorTextUnderline}`,
+    bold: `${styles.editorTextBold}`,
+    italic: `${styles.editorTextItalic}`,
+  },
 }
 
 // Note Editor

@@ -8,3 +8,15 @@
 .editorParagraph {
   margin: 0;
 }
+
+.editorTextUnderline {
+  text-decoration: underline;
+}
+
+.editorTextBold {
+  font-weight: bold;
+}
+
+.editorTextItalic {
+  font-style: italic;
+}

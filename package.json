@@ -1,8 +1,8 @@
 {
   "name": "quicknote",
   "productName": "quicknote",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "version": "2.0.0",
+  "description": "Take your note handy with quicknote!",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
