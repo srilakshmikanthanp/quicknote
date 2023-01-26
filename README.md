@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/srilakshmikanthanp/quicknote">
-    <img src="assets/images/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/images/icon_light.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">QuickNote</h3>
@@ -58,19 +58,14 @@ bar.
 
 ### Built With
 
-* javafx
-* swing
-* awt
+* Electron.js
+* React.js
 
 <!-- GETTING STARTED -->
 
 ## Getting Started
 
 To install QuickNote, follow the instructions below.
-
-### Prerequisite
-
-The is no prerequisites for installing QuickNote.
 
 ### Installation
 
@@ -80,15 +75,6 @@ Follow the instructions below to install QuickNote on different platforms.
 
 1. Download the latest version of QuickNote from [Releses](https://github.com/srilakshmikanthanp/QuickNote/releases).
 2. Double click on the downloaded file to install QuickNote.
-3. After installation, Add it to
-   system [startup](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd)
-   .
-
-<!-- USAGE EXAMPLES -->
-
-## Demo
-
-![demo](/assets/images/demo.png)
 
 <!-- ROADMAP -->
 
