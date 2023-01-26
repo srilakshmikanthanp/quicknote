@@ -36,11 +36,9 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisite">Prerequisite</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#demo">Demo</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -53,8 +51,7 @@
 
 ## About The Project
 
-Take you Notes Handy with QuickNote !. Quick Note Helps you to take notes in a quick and easy way right on your task
-bar.
+QuickNote is a utility program to take Notes! right from your taskbar. It is a cross platform application built with Electron.js and React.js. it's also supports Rich Text Editing.
 
 ### Built With
 
@@ -71,10 +68,7 @@ To install QuickNote, follow the instructions below.
 
 Follow the instructions below to install QuickNote on different platforms.
 
-#### For Windows
-
-1. Download the latest version of QuickNote from [Releses](https://github.com/srilakshmikanthanp/QuickNote/releases).
-2. Double click on the downloaded file to install QuickNote.
+**To be updated**
 
 <!-- ROADMAP -->
 
