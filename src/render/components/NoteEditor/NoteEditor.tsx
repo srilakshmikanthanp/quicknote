@@ -12,53 +12,55 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import styled from 'styled-components';
 import { EditorState } from "lexical";
-
 import styles from "./NoteEditor.module.css"
 
-// NoteEditor Props
+// NoteEditor Props Interface Definition
 interface INoteEditorProps {
   noteContent: string;
   placeHolder: string;
   onUpdate?: (content: string) => void;
 }
 
-// top level container
-// For Scrolling
+// top level container For Scrolling
 const RootLevelContainer = styled.div`
   overflow: auto;
-  height: 100%;
   width: 100%;
+  height: 100%;
 `;
 
 // Editor Container
 const EditorContainer = styled.div`
+  background: var(--editor-bg-color);
+  color: var(--editor-fg-color);
   border-radius: 2px;
-  min-height: calc(100% - 20px); // 10px padding on top and bottom
-  background: #fff;
-  color: #000;
-  padding: 10px;
   position: relative;
-  overflow: auto;
+  padding: 10px;        // ref [1]
+  min-height: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 // Placeholder
 const Placeholder = styled.div`
   text-overflow: ellipsis;
-  color: #999;
-  left: 10px; // same as padding in EditorContainer
-  top: 10px;  // same as padding in EditorContainer
-  user-select: none;
-  display: inline-block;
-  pointer-events: none;
   position: absolute;
+  left: 10px;           // @ref [1]
+  top: 10px;            // @ref [1]
+  color: #999;
+  font-style: italic;
+  user-select: none;
+  pointer-events: none;
 `;
 
 // Editable
 const Editable = styled(ContentEditable)`
-  min-height: 100px;
-  resize: none;
+  min-width: 100%;
   outline: 0;
-  caret-color: #444;
+  flex-grow: 1;
 `;
 
 // editor theme
@@ -67,25 +69,25 @@ const editorTheme = {
 }
 
 // Note Editor
-export default function NoteEditor({
-  noteContent,
-  onUpdate,
-  placeHolder,
+export default function NoteEditor({ 
+  noteContent, 
+  onUpdate, 
+  placeHolder 
 }: INoteEditorProps) {
   // change handler for note editor
-  const handleChange = (state: EditorState) => {
+  const onChange = (state: EditorState) => {
     onUpdate && onUpdate(JSON.stringify(state.toJSON()));
   }
 
   // handle the error for note editor
-  const handleError = (error: Error) => {
+  const onError = (error: Error) => {
     console.error(error);
   }
 
   // editor config
   const editorConfig = {
-    initialState: noteContent,
-    onError: handleError,
+    editorState: noteContent,
+    onError: onError,
     theme: editorTheme,
     namespace: "note-editor",
   };
@@ -97,9 +99,6 @@ export default function NoteEditor({
     </Placeholder>
   );
 
-  // content
-  console.log("Content:", noteContent);
-
   // render
   return (
     <RootLevelContainer>
@@ -110,9 +109,9 @@ export default function NoteEditor({
             placeholder={placeholder}
             contentEditable={<Editable />}
           />
+          <OnChangePlugin onChange={onChange} />
           <HistoryPlugin />
           <AutoFocusPlugin />
-          <OnChangePlugin onChange={handleChange} />
         </EditorContainer>
       </LexicalComposer>
     </RootLevelContainer>

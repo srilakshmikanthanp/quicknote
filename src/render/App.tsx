@@ -20,7 +20,7 @@ export default function App() {
 
   // Set the note in the store.
   const setNote = (note: string) => {
-    //dispatch(SetNote(note));
+    dispatch(SetNote(note));
   };
 
   // render the App
