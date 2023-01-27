@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/srilakshmikanthanp/quicknote">
-    <img src="assets/images/icon_light.png" alt="Logo" width="80" height="80">
+    <img src="assets/images/quicknote.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">QuickNote</h3>

@@ -4,4 +4,4 @@
 // https://opensource.org/licenses/MIT
 
 // placeholder for the text area
-export const PLACEHOLDER_TEXT   =   "Put Something Here";
+export const PLACEHOLDER_TEXT = "put something here";

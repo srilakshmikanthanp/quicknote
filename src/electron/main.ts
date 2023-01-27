@@ -5,7 +5,7 @@
 
 
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
-import { Menu, MenuItem, app, ipcMain, nativeTheme } from 'electron';
+import { Menu, MenuItem, app, ipcMain } from 'electron';
 import { menubar, Menubar } from 'menubar';
 import { configure } from 'electron-settings';
 
@@ -15,7 +15,6 @@ import fs from 'fs';
 
 import FileStore from './storage/FIleStore';
 import * as settings from "./settings";
-import * as U from './utilities/functions';
 import * as C from './constants/constants';
 import * as E from './constants/ipcevents';
 
@@ -76,10 +75,10 @@ configure({
 const mb: Menubar = menubar({
   index: NOTE_WINDOW_WEBPACK_ENTRY,
   tooltip: C.APPLICATION_NAME,
-  icon: U.getApplicationIcon(),
+  icon: C.APPLICATION_ICON,
   preloadWindow: true,
   browserWindow: {
-    icon: U.getApplicationIcon(),
+    icon: C.APPLICATION_ICON,
     frame: false,
     show: false,
     skipTaskbar: true,
@@ -178,12 +177,6 @@ mb.on('ready', async () => {
 
   // set the menu
   Menu.setApplicationMenu(menu);
-
-  // on theme change
-  nativeTheme.on('updated', () => {
-    mb.window.setIcon(U.getApplicationIcon());
-    mb.tray.setImage(U.getApplicationIcon());
-  });
 
   // on app exit
   mb.app.on('quit', async () => mb.tray.destroy());
