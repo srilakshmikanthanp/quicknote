@@ -2309,11 +2309,6 @@
     "semver" "^7.1.3"
     "yargs-parser" "^21.1.1"
 
-"electron-positioner@^4.1.0":
-  "integrity" "sha512-726DfbI9ZNoCg+Fcu6XLuTKTnzf+6nFqv7h+K/V6Ug7IbaPMI7s9S8URnGtWFCy5N5PL4HSzRFF2mXuinftDdg=="
-  "resolved" "https://registry.npmjs.org/electron-positioner/-/electron-positioner-4.1.0.tgz"
-  "version" "4.1.0"
-
 "electron-settings@^4.0.2":
   "integrity" "sha512-WnUlrnBsO784oXcag0ym+A3ySoIwonz5GhYFsWroMHVzslzmsP+81f/Fof41T9UrRUxuPPKiZPZMwGO+yvWChg=="
   "resolved" "https://registry.npmjs.org/electron-settings/-/electron-settings-4.0.2.tgz"
@@ -2349,7 +2344,7 @@
     "lodash.template" "^4.2.2"
     "temp" "^0.9.0"
 
-"electron@^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^20.0.0 || ^21.0.0", "electron@>= 2", "electron@22.0.2":
+"electron@>= 2", "electron@22.0.2":
   "integrity" "sha512-NdJlA2+FMgDJBhQFKMPyWJY8ng/tWpFlrRsW2JkZgSzYPXOnIu9muO3b83YHGoDn+GTyS8ghPsgcAwPMXtxirA=="
   "resolved" "https://registry.npmjs.org/electron/-/electron-22.0.2.tgz"
   "version" "22.0.2"
@@ -4191,13 +4186,6 @@
   "version" "3.4.13"
   dependencies:
     "fs-monkey" "^1.0.3"
-
-"menubar@^9.2.3":
-  "integrity" "sha512-d+HKGlQ9lKcTWWiSQIeSlxL/puZ2Nu9IPhFVdh3D4kXB4ep4OSufUHrJ65rWrCnvpXcrjZad2U9Nov2M1WTxog=="
-  "resolved" "https://registry.npmjs.org/menubar/-/menubar-9.2.3.tgz"
-  "version" "9.2.3"
-  dependencies:
-    "electron-positioner" "^4.1.0"
 
 "merge-descriptors@1.0.1":
   "integrity" "sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w=="

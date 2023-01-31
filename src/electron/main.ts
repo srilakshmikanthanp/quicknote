@@ -6,13 +6,13 @@
 
 import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import { Menu, MenuItem, app, ipcMain } from 'electron';
-import { menubar, Menubar } from 'menubar';
 import { configure } from 'electron-settings';
 
 import open from 'open';
 import path from 'path';
 import fs from 'fs';
 
+import TrayWindow from './components/TrayWindow';
 import FileStore from './storage/FIleStore';
 import * as settings from "./settings";
 import * as C from './constants/constants';
@@ -67,33 +67,6 @@ configure({
 
 
 /******************************************
- *          App state instance            *
- *****************************************/
-
-
-// Main Window is created on mb.app.on('ready')
-const mb: Menubar = menubar({
-  index: NOTE_WINDOW_WEBPACK_ENTRY,
-  tooltip: C.APPLICATION_NAME,
-  icon: C.APPLICATION_ICON,
-  preloadWindow: true,
-  browserWindow: {
-    icon: C.APPLICATION_ICON,
-    frame: false,
-    show: false,
-    skipTaskbar: true,
-    resizable: true,
-    transparent: true,
-    hasShadow: true,
-    webPreferences: {
-      preload: NOTE_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      devTools: !app.isPackaged
-    }
-  }
-});
-
-
-/******************************************
  *          App initialize section        *
  *****************************************/
 
@@ -112,29 +85,34 @@ app.on('ready', async () => {
     return await fileStore.getNote();
   });
 
-  // install dev tools if not packaged
-  if (!app.isPackaged) {
-    try {
-      await installExtension(REACT_DEVELOPER_TOOLS);
-      await installExtension(REDUX_DEVTOOLS);
-    } catch (e) {
-      console.error('While installing ext: ', e.message);
+  // create the tray window
+  const noteWindow = new TrayWindow({
+    index: NOTE_WINDOW_WEBPACK_ENTRY,
+    tooltip: C.APPLICATION_NAME,
+    icon: C.APPLICATION_ICON,
+    trayIcon: C.APPLICATION_ICON,
+    frame: false,
+    show: false,
+    skipTaskbar: true,
+    resizable: true,
+    transparent: true,
+    hasShadow: true,
+    webPreferences: {
+      preload: NOTE_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      devTools: !app.isPackaged
     }
-  }
-});
+  });
 
-// on Menu bar ready
-mb.on('ready', async () => {
   // set the size of the QuickNote window
-  mb.window.setSize(...await settings.getWindowSize(C.APPLICATION_SIZE));
+  noteWindow.setSize(...await settings.getWindowSize(C.APPLICATION_SIZE));
 
   // on resized event save the size
-  mb.window.on('resized', () => {
-    settings.setWindowSize(mb.window.getSize() as [number, number]);
+  noteWindow.on('resized', () => {
+    settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
   // set the context menu for the tray
-  mb.tray.setContextMenu(Menu.buildFromTemplate([
+  noteWindow.tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'About', click: () => open(C.APPLICATION_URL) },
     { label: 'Issue', click: () => open(C.ISSUE_RAISE_URL) },
     { type: 'separator' },
@@ -150,18 +128,18 @@ mb.on('ready', async () => {
     visible: false,
     accelerator: 'Esc',
     click: () => {
-      mb.window.hide();
+      noteWindow.hide();
     }
   }));
 
   // Add for dev tools
   menu.append(new MenuItem({
-    enabled: !mb.app.isPackaged,
+    enabled: !app.isPackaged,
     label: "Open Dev Tools",
     visible: false,
     accelerator: "Control+D",
     click: () => {
-      mb.window.webContents.openDevTools();
+      noteWindow.webContents.openDevTools();
     }
   }));
 
@@ -171,13 +149,23 @@ mb.on('ready', async () => {
     visible: false,
     accelerator: "Control+Q",
     click: () => {
-      mb.app.quit();
+      app.quit();
     }
   }));
 
   // set the menu
   Menu.setApplicationMenu(menu);
 
+  // install dev tools if not packaged
+  if (!app.isPackaged) {
+    try {
+      await installExtension(REACT_DEVELOPER_TOOLS);
+      await installExtension(REDUX_DEVTOOLS);
+    } catch (e) {
+      console.error('While installing ext: ', e.message);
+    }
+  }
+
   // on app exit
-  mb.app.on('quit', async () => mb.tray.destroy());
+  app.on('quit', async () => noteWindow.tray.destroy());
 });
