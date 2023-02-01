@@ -9,12 +9,17 @@ import { rendererConfig } from './webpack.renderer.config';
 const config: ForgeConfig = {
   packagerConfig: {
     icon: './src/assets/images/quicknote',
+    extraResource:[
+      './src/assets/images/quicknote.png',
+      './src/assets/images/loading.gif',
+      './src/assets/images/quicknote.ico',
+    ]
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
+      iconUrl: 'https://raw.githubusercontent.com/srilakshmikanthanp/quicknote/main/assets/images/quicknote.ico',
       loadingGif: './src/assets/images/loading.gif',
-      iconUrl: './src/assets/images/quicknote.ico',
       setupIcon: './src/assets/images/quicknote.ico',
     }),
     new MakerDeb({
