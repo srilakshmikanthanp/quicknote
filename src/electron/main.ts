@@ -34,7 +34,6 @@ declare const NOTE_WINDOW_WEBPACK_ENTRY: string;
  *          App startup phase             *
  *****************************************/
 
-
 // stop your app launching at install
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -51,6 +50,12 @@ app.setLoginItemSettings({
   openAsHidden: true,
   path: app.getPath("exe")
 });
+
+
+// Fix Flickering the window
+app.commandLine.appendSwitch(
+  'wm-window-animations-disabled'
+);
 
 // create necessary directories for the app
 if (!fs.existsSync(C.APPLICATION_HOME)) {

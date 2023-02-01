@@ -136,7 +136,7 @@ export default class TrayWindow extends BrowserWindow {
   /**
    * On window Show event handler
    */
-  private _onShow(): void {
+  private _onShowed(): void {
     // Set the initial position
     switch (this._getTaskbarPosition()) {
       case 'bottom' : this._positionOnBottom(); break;
@@ -158,7 +158,7 @@ export default class TrayWindow extends BrowserWindow {
     super(options);
 
     // on window show event handler
-    this.on('show', () => this._onShow());
+    this.on('show', () => this._onShowed());
 
     // on focus lost event handler
     this.on('blur', () => this.hide());

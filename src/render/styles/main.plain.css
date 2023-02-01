@@ -38,7 +38,7 @@ html, body {
   height: calc(100% - 10px);
   width: calc(100% - 10px);
   overflow: hidden;
-  margin: 5px;
+  margin: 8px;
   border-radius: 10px;
 }
 
