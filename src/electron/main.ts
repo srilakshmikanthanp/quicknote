@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 
-import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import { Menu, MenuItem, app, ipcMain } from 'electron';
 import { configure } from 'electron-settings';
 
@@ -155,16 +154,6 @@ app.on('ready', async () => {
 
   // set the menu
   Menu.setApplicationMenu(menu);
-
-  // install dev tools if not packaged
-  if (!app.isPackaged) {
-    try {
-      await installExtension(REACT_DEVELOPER_TOOLS);
-      await installExtension(REDUX_DEVTOOLS);
-    } catch (e) {
-      console.error('While installing ext: ', e.message);
-    }
-  }
 
   // on app exit
   app.on('quit', async () => noteWindow.tray.destroy());
