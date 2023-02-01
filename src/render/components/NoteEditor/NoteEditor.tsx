@@ -51,7 +51,6 @@ const Placeholder = styled.div`
   left: 10px;           // @ref [1]
   top: 10px;            // @ref [1]
   color: #999;
-  font-style: italic;
   user-select: none;
   pointer-events: none;
 `;

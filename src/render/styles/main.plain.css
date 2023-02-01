@@ -7,19 +7,21 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --editor-bg-color: #fff;
-    --editor-fg-color: #000;
-    --scroll-bg-color: #fff;
-    --scroll-fg-color: #000;
+    --editor-bg-color   : #ffffffff;
+    --editor-fg-color   : #000000ff;
+    --editor-shadow     : #00000020;
+    --thumb-color       : #64646466;
+    --thumb-hover-color : #646464b3;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --editor-bg-color: #121212;
-    --editor-fg-color: #fff;
-    --scroll-bg-color: #121212;
-    --scroll-fg-color: #2a2a2a;
+    --editor-bg-color   : #1e1e1eff;
+    --editor-fg-color   : #d4d4d4ff;
+    --editor-shadow     : #0000005c;
+    --thumb-color       : #79797966;
+    --thumb-hover-color : #646464b3;
   }
 }
 
@@ -34,20 +36,24 @@ html, body {
 }
 
 #root {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: var(--editor-shadow) 0px 3px 8px;
+  overflow: hidden;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-  overflow: hidden;
   margin: 8px;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar {
-  background-color: var(--scroll-bg-color);
+  background-color: var(--editor-bg-color);
   width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--scroll-fg-color);
-  border-radius: 5px;
+  background-color: var(--thumb-color);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--thumb-hover-color);
 }
