@@ -101,6 +101,7 @@ app.on('ready', async () => {
     resizable: true,
     transparent: true,
     hasShadow: true,
+    alwaysOnTop: true, 
     webPreferences: {
       preload: NOTE_WINDOW_PRELOAD_WEBPACK_ENTRY,
       devTools: !app.isPackaged

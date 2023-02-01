@@ -5,6 +5,21 @@
 
 import { BrowserWindow, BrowserWindowConstructorOptions, Tray, screen } from 'electron';
 
+/**
+ *
+ *   ____            _   _             
+ *  / ___|__ _ _   _| |_(_) ___  _ __  
+ * | |   / _` | | | | __| |/ _ \| '_ \ 
+ * | |__| (_| | |_| | |_| | (_) | | | |
+ *  \____\__,_|\__,_|\__|_|\___/|_| |_|
+ * 
+ * This file is part of QuickNote. which is tested very carefully
+ * if you are going to modify this file, please make sure that you
+ * are not breaking anything. Test it on right, top, left, bottom
+ * position of taskbar on screen before committing. Thank you :)
+ */
+
+
 // Tray Window Options passed on TrayWindow Creation
 export interface TrayWindowOptions extends BrowserWindowConstructorOptions {
   trayIcon: string;
@@ -46,7 +61,7 @@ export default class TrayWindow extends BrowserWindow {
     const icoRect = this._tray.getBounds();
     const winSize = this.getSize();
     const newPosX = Math.floor(icoRect.x + icoRect.width);
-    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[0] / 2));
+    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[1] / 2));
     this.setPosition(newPosX, newPosY);
   }
 
@@ -56,8 +71,8 @@ export default class TrayWindow extends BrowserWindow {
   private _positionOnRight(): void {
     const icoRect = this._tray.getBounds();
     const winSize = this.getSize();
-    const newPosX = Math.floor(icoRect.x - winSize[1]);
-    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[0] / 2));
+    const newPosX = Math.floor(icoRect.x - winSize[0]);
+    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[1] / 2));
     this.setPosition(newPosX, newPosY);
   }
 
@@ -71,16 +86,7 @@ export default class TrayWindow extends BrowserWindow {
     const workArea = quicknoteDisplay.workArea;
     const bounds = quicknoteDisplay.bounds;
 
-    if (workArea.width < bounds.width) {
-      // |---------------|||
-      // |               |||
-      // |   work area   |||
-      // |               |||
-      // |---------------|||
-      // <---- bounds -----> 
-      return 'right';
-    }
-
+    // This condition must checked before the right condition
     if (workArea.x > 0) {
       // |||---------------|
       // |||               |
@@ -91,6 +97,7 @@ export default class TrayWindow extends BrowserWindow {
       return 'left';
     }
 
+    // This condition must checked before the bottom condition
     if (workArea.y > 0) {
       // |||||||||||||||||||
       // |                 |  
@@ -99,6 +106,16 @@ export default class TrayWindow extends BrowserWindow {
       // |-----------------|
       // <---- bounds ----->
       return 'top';
+    }
+
+    if (workArea.width < bounds.width) {
+      // |---------------|||
+      // |               |||
+      // |   work area   |||
+      // |               |||
+      // |---------------|||
+      // <---- bounds -----> 
+      return 'right';
     }
 
     if (workArea.height < bounds.height) {
@@ -116,7 +133,7 @@ export default class TrayWindow extends BrowserWindow {
    * Calibrate the position
    */
   private _calibratePosition(): void {
-    const bounds = screen.getDisplayMatching(this.getBounds()).bounds;
+    const bounds = screen.getDisplayMatching(this.getBounds()).workArea;
     const winSiz = this.getSize();
     const winPos = this.getPosition();
 
