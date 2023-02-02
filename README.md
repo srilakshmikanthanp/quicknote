@@ -15,7 +15,7 @@
 <h3 align="center">QuickNote</h3>
 
   <p align="center">
-    Take your note handy with quicknote !
+    Take your note handy with quicknote right from your taskbar!
     <br />
     <a href="https://github.com/srilakshmikanthanp/quicknote/issues">Report Bug</a>
     ·
@@ -51,7 +51,7 @@
 
 ## About The Project
 
-QuickNote is a utility program to take Notes! right from your taskbar. It is a cross platform application built with Electron.js and React.js. it's also supports Rich Text Editing.
+QuickNote is a utility program to take Notes! right from your taskbar. It is a cross-platform application built with Electron.js and React.js. it also supports Rich Text Editing.
 
 ### Built With
 
@@ -68,7 +68,13 @@ To install QuickNote, follow the instructions below.
 
 Follow the instructions below to install QuickNote on different platforms.
 
-**To be updated**
+#### Windows
+
+It's in the testing phase, and be available soon.
+
+#### Linux
+
+Waiting For electron.js to fix the [issue](https://github.com/srilakshmikanthanp/quicknote.git) with the tray icon on Linux.
 
 <!-- ROADMAP -->
 
