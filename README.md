@@ -74,7 +74,7 @@ It's in the testing phase, and be available soon.
 
 #### Linux
 
-Waiting For electron.js to fix the [issue](https://github.com/srilakshmikanthanp/quicknote.git) with the tray icon on Linux.
+Waiting For electron.js to fix the [issue](https://github.com/electron/electron/issues/37112) with the tray icon on Linux.
 
 <!-- ROADMAP -->
 
