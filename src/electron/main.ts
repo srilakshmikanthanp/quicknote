@@ -66,7 +66,7 @@ if (!fs.existsSync(C.APPLICATION_HOME)) {
 configure({
   dir: C.APPLICATION_HOME,
   prettify: true,
-  fileName: "settings.json"
+  fileName: "prefs.json"
 });
 
 
@@ -77,7 +77,7 @@ configure({
 // on app ready event
 app.on('ready', async () => {
   // file store to store the note
-  const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".notes"));
+  const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".quicknote"));
 
   // ipc event for recv
   ipcMain.on(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
