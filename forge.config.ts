@@ -19,8 +19,8 @@ const config: ForgeConfig = {
   makers: [
     new MakerSquirrel({
       iconUrl: 'https://raw.githubusercontent.com/srilakshmikanthanp/quicknote/main/assets/images/quicknote.ico',
-      loadingGif: './src/assets/images/loading.gif',
       setupIcon: './src/assets/images/quicknote.ico',
+      loadingGif: './src/assets/images/quicknote.gif',
     }),
     new MakerDeb({
       options: {
