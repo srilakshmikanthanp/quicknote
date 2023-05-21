@@ -1,0 +1,45 @@
+/**
+ * Copyright (c) 2023 Sri Lakshmi Kanthan P
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@keyframes slideFromBottom {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideFromTop {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+body {
+  background-color: #0a2145;
+  color: white;
+}
+
+a {
+  color: white !important;
+}
+
+main {
+  height: 100vh;
+}
+
+.from-bottom-animate {
+  animation: slideFromBottom 0.7s ease-out;
+}
+
+.from-top-animate {
+  animation: slideFromTop 0.7s ease-out;
+}
