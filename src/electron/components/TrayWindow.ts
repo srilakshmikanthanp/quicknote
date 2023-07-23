@@ -23,7 +23,6 @@ import { BrowserWindow, BrowserWindowConstructorOptions, Tray, screen } from 'el
 // Tray Window Options passed on TrayWindow Creation
 export interface TrayWindowOptions extends BrowserWindowConstructorOptions {
   trayIcon: string;
-  index: string;
   tooltip: string;
 }
 
@@ -179,9 +178,6 @@ export default class TrayWindow extends BrowserWindow {
 
     // on focus lost event handler
     this.on('blur', () => this.hide());
-
-    // set the initial index
-    this.loadURL(options.index)
 
     // Initialize the Tray Window
     this._tray = new Tray(options.trayIcon)

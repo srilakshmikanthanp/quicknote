@@ -91,7 +91,6 @@ app.on('ready', async () => {
 
   // create the tray window
   const noteWindow = new TrayWindow({
-    index: NOTE_WINDOW_WEBPACK_ENTRY,
     tooltip: C.APPLICATION_NAME,
     icon: C.APPLICATION_ICON,
     trayIcon: C.APPLICATION_ICON,
@@ -163,4 +162,7 @@ app.on('ready', async () => {
 
   // on app exit
   app.on('quit', async () => noteWindow.tray.destroy());
+
+  // load the note window
+  noteWindow.loadURL(NOTE_WINDOW_WEBPACK_ENTRY);
 });
