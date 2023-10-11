@@ -23,12 +23,18 @@ export default function App() {
     dispatch(SetNote(note));
   };
 
+  // on error occured
+  const onError = (err: Error) => {
+    window.QuickNoteAPI.onError(err.message);
+  };
+
   // render the App
   return (
     <NoteEditor
       placeHolder={C.PLACEHOLDER_TEXT}
       onUpdate={setNote}
       noteContent={noteContent}
+      onError={onError}
     />
   );
 }

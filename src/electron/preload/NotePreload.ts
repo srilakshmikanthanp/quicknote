@@ -10,4 +10,5 @@ import * as E from "../constants/ipcevents";
 contextBridge.exposeInMainWorld(E.QUICKNOTE_API_VAL, {
   sendNote: (note: string) => ipcRenderer.send(E.RECV_IN_MAIN_CHAN, note),
   recvNote: () => ipcRenderer.invoke(E.SEND_IN_MAIN_CHAN),
+  onError: (err: string) => ipcRenderer.send(E.ONER_IN_MAIN_CHAN, err),
 });

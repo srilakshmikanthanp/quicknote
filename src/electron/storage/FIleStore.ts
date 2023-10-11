@@ -4,7 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import INoteStore from '../interface/INoteStore';
-import file from 'node:fs/promises';
+import asyncFile from 'node:fs/promises';
+import file from 'node:fs';
 
 /**
  * FileStore That stores notes in a file
@@ -16,11 +17,7 @@ export default class FileStore implements INoteStore {
    * @returns Note from the file
    */
   public async getNote(): Promise<string> {
-    try {
-      return await file.readFile(this.file_path, 'utf-8');
-    } catch (e) {
-      return "";
-    }
+    return await asyncFile.readFile(this.file_path, 'utf-8');
   }
 
   /**
@@ -29,15 +26,15 @@ export default class FileStore implements INoteStore {
    * @param note Note to be stored
    */
   public async setNote(note: string): Promise<void> {
-    return await file.writeFile(this.file_path, note);
+    return await asyncFile.writeFile(this.file_path, note);
   }
 
   /**
    * Constructor for FileStore
    * @param file File to store the note
    */
-  public constructor(file: string) {
-    this.file_path = file;
+  public constructor(name: string) {
+    file.openSync(this.file_path = name, 'a+');
   }
 
 

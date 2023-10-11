@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 
-import { Menu, MenuItem, app, ipcMain } from 'electron';
+import { Menu, MenuItem, dialog, app, ipcMain } from 'electron';
 import { configure } from 'electron-settings';
 
 import open from 'open';
@@ -79,14 +79,24 @@ app.on('ready', async () => {
   // file store to store the note
   const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".quicknote"));
 
+  // ipc event for send
+  ipcMain.handle(E.SEND_IN_MAIN_CHAN, async () => {
+    try {
+      return await fileStore.getNote();
+    } catch(e) {
+      dialog.showErrorBox(C.APPLICATION_NAME, e.message);
+      return "";
+    }
+  });
+
+  // ipc event for error
+  ipcMain.on(E.ONER_IN_MAIN_CHAN, async (e, arg) => {
+    dialog.showErrorBox(C.APPLICATION_NAME, arg);
+  });
+
   // ipc event for recv
   ipcMain.on(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
     await fileStore.setNote(arg);
-  });
-
-  // ipc event for send
-  ipcMain.handle(E.SEND_IN_MAIN_CHAN, async () => {
-    return await fileStore.getNote();
   });
 
   // create the tray window

@@ -6,6 +6,7 @@
 export interface IQuickNoteAPI {
   sendNote(note: string): Promise<void>;
   recvNote(): Promise<string>;
+  onError(err: string): Promise<void>;
 }
 
 declare global {

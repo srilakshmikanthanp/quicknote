@@ -11,3 +11,6 @@ export const SEND_IN_MAIN_CHAN  =   "ipc:note:send";
 
 // IPC note receive channel
 export const RECV_IN_MAIN_CHAN  =   "ipc:note:recv";
+
+// IPC to receive Error
+export const ONER_IN_MAIN_CHAN  =   "ipc:evt:error";

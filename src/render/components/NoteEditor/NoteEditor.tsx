@@ -19,6 +19,7 @@ interface INoteEditorProps {
   noteContent: string;
   placeHolder: string;
   onUpdate?: (content: string) => void;
+  onError?: (content: Error) => void;
 }
 
 // top level container For Scrolling
@@ -76,16 +77,12 @@ const editorTheme = {
 export default function NoteEditor({ 
   noteContent, 
   onUpdate, 
-  placeHolder 
+  placeHolder,
+  onError,
 }: INoteEditorProps) {
   // change handler for note editor
   const onChange = (state: EditorState) => {
     onUpdate && onUpdate(JSON.stringify(state.toJSON()));
-  }
-
-  // handle the error for note editor
-  const onError = (error: Error) => {
-    console.error(error);
   }
 
   // editor config
