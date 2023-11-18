@@ -70,7 +70,7 @@ Follow the instructions below to install QuickNote on different platforms.
 
 #### Windows
 
-It's in the testing phase, and be available soon.
+Just go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version of the installer.
 
 #### Linux
 
