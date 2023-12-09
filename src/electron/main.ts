@@ -128,7 +128,8 @@ app.on('ready', async () => {
   // set the context menu for the tray
   noteWindow.tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'About', click: () => open(C.APPLICATION_URL) },
-    { label: 'Issue', click: () => open(C.ISSUE_RAISE_URL) },
+    { label: 'Report Bug', click: () => open(C.ISSUE_RAISE_URL) },
+    { label: 'Donate', click: () => open(C.APP_DONATE_URL) },
     { type: 'separator' },
     { label: 'Quit', click: () => app.quit() }
   ]));

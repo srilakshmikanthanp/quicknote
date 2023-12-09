@@ -22,5 +22,8 @@ export const APPLICATION_URL  = "https://github.com/srilakshmikanthanp/quicknote
 // Application Issue URL
 export const ISSUE_RAISE_URL  = "https://github.com/srilakshmikanthanp/quicknote/issues/new";
 
+// Application Donate url
+export const APP_DONATE_URL   = "https://srilakshmikanthanp.github.io/donate/"
+
 // Application Size
 export const APPLICATION_SIZE = [350, 250] as [number, number];
