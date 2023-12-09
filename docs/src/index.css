@@ -1,0 +1,420 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #041e42;
+  color: #ffd700;
+  /* background: url(./assets/images/pexels_videos.mp4); */
+}
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.5; /* Set the desired opacity value */
+}
+
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+nav .list-styled {
+  cursor: default;
+  margin: 40px 9px;
+  width: auto;
+  display: flex;
+  max-width: 980px;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 40px;
+  font-family: "Amiri Quran";
+  font-weight: bolder;
+  margin-left: -200px;
+}
+.naa {
+  cursor: default;
+  /* margin: 40px 9px; */
+  width: auto;
+  display: flex;
+  max-width: 980px;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 40px;
+  font-family: "Amiri Quran";
+  font-weight: bolder;
+}
+
+.nav-wrapper img {
+  width: 70px;
+  height: 70px;
+}
+
+.nav-wrapper .brand {
+  margin-top: -80px;
+  margin-left: 70px;
+  font-size: 50px;
+}
+nav .list-styled {
+  cursor: default;
+  margin: 0 -9px;
+  width: auto;
+  height: 44px;
+  display: flex;
+  /* justify-content: space-between; */
+  list-style: none;
+}
+
+nav .link-styled {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  color: aliceblue;
+}
+/* styles.css */
+
+.nav-wrapper {
+  background-color: #041e42;
+  padding: 10px;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-styled {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  margin-left: 10px;
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.naa {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: space-between;
+}
+.menu-buttons {
+  display: flex;
+}
+
+.mobile-menu-button,
+.close-button {
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+  display: none;
+}
+
+.close-button {
+  display: none;
+}
+.link-styled {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  margin-right: 20px;
+  transition: color 0.3s ease;
+}
+
+.link-styled:hover {
+  color: #ffd700;
+}
+
+.display-section.wrapper {
+  margin-left: 20px;
+  margin-right: auto;
+  margin-top: 0px;
+  max-width: 940px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  height: 100vh;
+  opacity: 1;
+  position: relative;
+  color: aliceblue;
+  font-size: 20px;
+}
+
+.display-section.wrapper span {
+  font-size: 50px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: bolder;
+  color: #ffd700;
+}
+
+.display-section.wrapper .image {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  float: right;
+  margin-left: 800px;
+  max-width: -50px;
+}
+
+.install {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.section-center {
+  width: 90vw;
+  margin: 0 auto;
+  max-width: 1170px;
+  display: grid;
+  gap: 3rem 5rem;
+  justify-items: center;
+}
+
+.section-center .card {
+  margin-top: 0px;
+  position: relative;
+  background-color: #041e42;
+  color: aliceblue;
+}
+
+.section-center .card-title {
+  font-size: 30px;
+  color: #ffd700;
+}
+
+.section-center p {
+  font-size: 20px;
+  color: aliceblue;
+}
+
+.contribution {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.para {
+  font-size: 30px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: aliceblue;
+  padding-top: 150px;
+}
+
+.button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-top: 10px;
+  background-color: gold;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.button:hover {
+  background-color: #005368;
+}
+
+h1 {
+  font-family: "Amiri Quran";
+  font-size: 70px;
+}
+
+.paraa {
+  font-size: 25px;
+  color: aliceblue;
+  margin-top: 20px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-links li {
+  margin-right: 70px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.purpose p {
+  font-size: 20px;
+  color: aliceblue;
+}
+
+.purpose span {
+  font-size: 30px;
+  color: #ffd700;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+/* Responsive Media Queries */
+@media only screen and (max-width: 768px) {
+  .nav-wrapper .brand {
+    margin-top: -70px;
+    margin-left: 60px;
+  }
+
+  .nav-wrapper img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-wrapper {
+    padding: 20px;
+  }
+
+  .display-section.wrapper .image {
+    margin-top: 550px;
+    margin-left: 50px; /* Center the image horizontally */
+    margin-right: auto; /* Center the image horizontally */
+    width: 60%; /* Adjusted width for better responsiveness */
+    max-width: 100%; /* Adjusted to make the image responsive */
+  }
+  .display-section.wrapper {
+    margin-left: -20px;
+    margin-top: -120px;
+  }
+  .install {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 50px; /* Add margin to separate from the content below */
+  }
+
+  .section-center .card {
+    margin-top: 60px;
+    margin-left: -30px; /* Add margin to separate the cards */
+  }
+  .section-center .card-title {
+    font-size: 34px;
+  }
+
+  .section-center p {
+    font-size: 18px;
+  }
+  .img-fluid img {
+    /* Add margin to separate from the text below */
+    max-width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain the aspect ratio */
+    margin-bottom: 10px; /* Add margin to separate from the text below */
+    margin-left: 0; /* Adjust the left margin to align with the text */
+    margin-top: 0;
+  }
+  .img-fluid {
+    margin-top: -50px;
+  }
+  .para {
+    font-size: 20px;
+    padding-top: 50px;
+    margin-left: auto;
+  }
+
+  .button {
+    font-size: 18px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .paraa {
+    font-size: 18px;
+    margin-left: -3px;
+  }
+  .thumbnail {
+    margin-top: 20px;
+  }
+  .thumbnail .img-fluid {
+    margin-top: 5px;
+  }
+  .pp p {
+    font-size: 18px;
+    text-align: left;
+  }
+  .pp span.line{
+    font-size: 40px;
+    margin-left: 90px;
+    text-align: center;
+  }
+
+  .footer-links li {
+    margin-right: 20px;
+  }
+  .naa {
+    display: none; /* Hide the second list on larger screens */
+  }
+
+  .mobile-menu-button {
+    display: block; /* Display the mobile menu button on smaller screens */
+  }
+
+  .close-button {
+    display: none; /* Initially hide the close button */
+  }
+
+  .naa.visible {
+    display: flex; /* Display the second list when visible class is present */
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #041e42;
+    z-index: 1;
+  }
+
+  .naa.visible li {
+    text-align: center;
+    margin: 0px;
+  }
+}
