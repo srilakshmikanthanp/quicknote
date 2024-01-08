@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import gsap from "gsap";
+
 import tenor from "../assets/images/tenor.gif";
 
 function Section() {
+  useEffect(() => {
+    // Create a GSAP timeline
+    const tl = gsap.timeline();
+    const t2 = gsap.timeline();
+
+    // Set the initial state (transparent and hidden)
+    tl.set(".image, .col-md-9 p", { autoAlpha: 0, x: -50 });
+
+    // Add a fade-in animation with left translation after 2 seconds
+    tl.to(".image, .col-md-9 p", { autoAlpha: 1, x: 0, duration: 2, delay: 1 });
+
+  },
+   []);
+
+
   return (
-    <div className="display-section wrapper">
+    <div className="display-section wrapper" id="intro">
       <div className="container">
         <div className="row">
           <div className="col-md-9">

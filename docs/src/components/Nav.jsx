@@ -1,32 +1,46 @@
-// Your component file (Nav.js)
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import gsap from "gsap";
 import quicknote from "../assets/images/quicknote.png";
- // Import the CSS file
+
 
 const Nav = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  useEffect(() => {
+    const tl = gsap.timeline();
+
+    // Set the initial state (transparent and moved to the top)
+    tl.set(".nav-wrapper", { autoAlpha: 0, y: -50 });
+
+    // Add a fade-in animation with top translation
+    tl.to(".nav-wrapper", { autoAlpha: 1, y: 0, duration: 1, delay: 0.5 });
+  }, []);
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
-    <nav className="nav-wrapper">
+    <nav className={`nav-wrapper ${menuOpen ? "menu-open" : ""}`} id="nav">
       <div className="nav-content">
-        <ul className="list-styled">
-          <li>
-            <img src={quicknote} alt="QuickNote" />
-            <h1 className="brand">QuickNote</h1>
-          </li>
-        </ul>
-        <div className={`mobile-menu-button ${isMobileMenuOpen ? "hidden" : ""}`} onClick={handleMobileMenuToggle}>
-          ☰
+        <div className="logo-container">
+          <img
+            src={quicknote}
+            alt="QuickNote"
+            className="logo"
+            style={{ width: "50px", height: "50px" }}
+          />
         </div>
-        <div className={`close-button ${!isMobileMenuOpen ? "hidden" : ""}`} onClick={handleMobileMenuToggle}>
-          &times;
+
+        <div className="menu-btn" onClick={handleMenuToggle}>
+          {!menuOpen ? (
+            <i class="fa fa-bars" aria-hidden="true" hidden></i>
+          ) : (
+            <i class="fa fa-times" aria-hidden="true"></i>
+          )}
         </div>
-        <ul className={`naa ${isMobileMenuOpen ? "visible" : ""}`}>
+
+        <ul className={`naa ${menuOpen ? "menu-open" : ""}`}>
           <li>
             <a className="link-styled" href="#about">
               About

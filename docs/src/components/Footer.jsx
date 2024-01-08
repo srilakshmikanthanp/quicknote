@@ -1,5 +1,7 @@
-import React from 'react'
-
+import React from "react";
+import Donate from "./Donate";
+import Arow from "../assets/images/arrow.png";
+import { Tooltip } from "react-tooltip";
 function Footer() {
   const footerStyle = {
     backgroundColor: "#041E42",
@@ -13,20 +15,33 @@ function Footer() {
   };
   return (
     <div>
-         <footer className="footer text-center">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <p className="mb-0">
-              "Your favorite notes, always at your fingertips."
-            </p>
-            <p className="mb-0">© 2023 QuickNote. All rights reserved.</p>
+      <Donate />
+
+      <footer className="container-fluid text-center footer">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12 ftr">
+              <p className="mb-0">
+                "Your favorite notes, always at your fingertips."
+              </p>
+              <p className="mb-0">© 2023 QuickNote. All rights reserved.</p>
+            </div>
           </div>
         </div>
+      </footer>
+      <div className="arrow">
+
+          <a href="#nav">
+            <img
+              src={Arow}
+              alt=""
+              className="col mx-auto "
+              style={{ width: "50px", height: "50px" }}
+            />
+          </a>
       </div>
-    </footer>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
