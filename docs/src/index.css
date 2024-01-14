@@ -7,22 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #041e42;
   color: #ffd700;
-  /* background: url(./assets/images/pexels_videos.mp4); */
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* Hide vertical scrollbar */
 }
-.video-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.5; /* Set the desired opacity value */
-}
-
-video {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+::-webkit-scrollbar {
+  display: none;
 }
 
 code {
@@ -66,10 +56,30 @@ nav .list-styled {
 }
 
 .nav-wrapper .brand {
-  margin-top: -80px;
+  margin-top: 20px;
   margin-left: 70px;
   font-size: 50px;
 }
+.logo {
+  margin-left: 15px;
+  width: 30px;
+  height: 30px;
+  margin-top: 23px;
+}
+/* Add the following styles to your existing CSS */
+
+.logo-container {
+  perspective: 1000px; /* Set perspective for 3D effect */
+}
+
+.logo {
+  transition: transform 0.5s; /* Add transition for smooth animation */
+}
+
+.logo:hover {
+  transform: rotateY(360deg); /* Rotate the logo on hover */
+}
+
 nav .list-styled {
   cursor: default;
   margin: 0 -9px;
@@ -94,7 +104,7 @@ nav .link-styled {
 /* styles.css */
 
 .nav-wrapper {
-  background-color: #041e42;
+  /* background-color: #041e42; */
   padding: 10px;
 }
 
@@ -113,8 +123,9 @@ nav .link-styled {
 
 .brand {
   margin-left: 10px;
-  font-size: 24px;
+  /* font-size: 24px; */
   color: #ffd700;
+  margin-top: 70px;
 }
 
 .naa {
@@ -125,7 +136,7 @@ nav .link-styled {
   justify-content: space-between;
 }
 .menu-buttons {
-  display: flex;
+  display: none;
 }
 
 .mobile-menu-button,
@@ -182,6 +193,32 @@ nav .link-styled {
   float: right;
   margin-left: 800px;
   max-width: -50px;
+}
+
+/* Add the following styles for the dark/light mode toggle button */
+
+/* Toggle button styles */
+.toggle-button {
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #ffd700; /* Light mode background color */
+  color: #041e42; /* Light mode text color */
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #041e42; /* Dark mode background color */
+  color: #ffd700; /* Dark mode text color */
+}
+
+/* Dark mode toggle button styles */
+body.dark-mode .toggle-button {
+  background-color: #041e42; /* Dark mode button background color */
+  color: #ffd700; /* Dark mode button text color */
 }
 
 .install {
@@ -261,13 +298,35 @@ h1 {
   margin-top: 20px;
 }
 
-footer {
+.footer {
   display: flex;
   align-items: center;
   text-align: center;
+  margin-top: -200px;
+  padding-bottom: 0px; /* padding: 20px; */
+}
+.donate-image {
+  /* background: #ffd700; */
+  border-radius: 40%;
+  color: #ffffff;
+  margin-top: 50px;
+  background: #ffd700;
+  border-radius: 50%;
+}
+.donate {
+  float: right;
+  margin-right: 52px;
+}
+.arrow {
+  float: right;
+  margin-right: 50px;
+  margin-top: -60px;
+  background: #ffd700;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.footer-links ul {
+/* .footer-links ul {
   list-style: none;
   padding: 0;
   display: flex;
@@ -283,11 +342,12 @@ footer {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-}
+} */
 
 .purpose p {
   font-size: 20px;
   color: aliceblue;
+  padding-left: 5px;
 }
 
 .purpose span {
@@ -295,9 +355,26 @@ footer {
   color: #ffd700;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+.donate-button {
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding for better appearance */
+  font-size: 16px; /* Adjust font size */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  cursor: pointer; /* Add a pointer cursor on hover */
+}
+.quote {
+  color: #ffffff;
+  font-style: italic;
+}
+
 
 /* Responsive Media Queries */
 @media only screen and (max-width: 768px) {
+  * {
+    overflow-x: hidden;
+  }
   .nav-wrapper .brand {
     margin-top: -70px;
     margin-left: 60px;
@@ -306,10 +383,16 @@ footer {
   .nav-wrapper img {
     width: 50px;
     height: 50px;
+    margin-top: 20px;
   }
 
   .nav-wrapper {
-    padding: 20px;
+    /* padding: 20px; */
+  }
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-top: 20px;
   }
 
   .display-section.wrapper .image {
@@ -381,7 +464,7 @@ footer {
     font-size: 18px;
     text-align: left;
   }
-  .pp span.line{
+  .pp span.line {
     font-size: 40px;
     margin-left: 90px;
     text-align: center;
@@ -401,6 +484,35 @@ footer {
   .close-button {
     display: none; /* Initially hide the close button */
   }
+  /* Nav.css */
+
+.naa {
+  display: none; /* Initially hide the mobile menu */
+  /* Add additional styling as needed */
+}
+
+.menu-open .naa {
+  display: block; /* Display the mobile menu when menu-open class is present */
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  color: #005368; /* Adjust background color as needed */
+  z-index: 999;
+  opacity: 1;
+}
+
+.menu-open .naa li {
+  text-align: center;
+  margin: 0px;
+  z-index: 999;
+  opacity: 1;
+  color: #fff;
+}
+
+/* Add other styles as needed */
+
 
   .naa.visible {
     display: flex; /* Display the second list when visible class is present */
@@ -409,12 +521,34 @@ footer {
     top: 70px;
     left: 0;
     width: 100%;
-    background-color: #041e42;
     z-index: 1;
+    opacity: 1;
   }
 
   .naa.visible li {
     text-align: center;
     margin: 0px;
+    opacity: 1;
+  }
+  .arrow {
+    margin-top: 75px;
+    float: right;
+    margin-right: -50px;
+    opacity: 1;
+  }
+  .donate-image{
+    margin-top: 5px;
+    width: 50px;
+    height: 20px;
+
+  }
+  footer{
+    opacity: 1;
+    z-index: 999;
+  }
+  .ftr{
+    margin-top: 150px;
+    opacity: 1;
+    z-index: 9999;
   }
 }

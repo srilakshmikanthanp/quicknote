@@ -1,9 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Work from "../assets/images/Work.png";
 
+gsap.registerPlugin(ScrollTrigger);
+
 function Contribution() {
+  useEffect(() => {
+    // Animation for the installation section
+    gsap.fromTo(
+      ".contribution",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        transition: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".contribution", scrub: true },
+      }
+    );
+
+    // Animation for the card section
+    gsap.fromTo(
+      ".img-fluid",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".img-fluid", start: "top 80%", scrub: true },
+      }
+    );
+  }, []);
+
   return (
-    <div className="contribution">
+    <div className="contribution"id="contribution">
       <h1 className="text-center head">Contributions</h1>
       <div className="conribution">
         <div className="container">
@@ -15,7 +48,7 @@ function Contribution() {
                 you make are greatly appreciated.
                 <br />
                 <span className="button">
-                  <a href="https://github.com/srilakshmikanthanp/quicknote#readme" >
+                  <a href="https://github.com/srilakshmikanthanp/quicknote#readme">
                     {" "}
                     Check this steps to contribute
                   </a>

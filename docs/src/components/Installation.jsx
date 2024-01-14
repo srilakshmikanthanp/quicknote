@@ -1,22 +1,53 @@
-import React from "react";
-import install from '../assets/images/install.png';
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import install from "../assets/images/install.png";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Installation() {
+  useEffect(() => {
+    // Animation for the installation section
+    gsap.fromTo(
+      ".install",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".install", scrub: true },
+      }
+    );
+
+    // Animation for the card section
+    gsap.fromTo(
+      ".card",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".card", start: "top 80%", scrub: true },
+      }
+    );
+  }, []);
+
   return (
     <div>
-      <div className="install" >
-        <h1 >Installation</h1>
+      <div className="install" id="install">
+        <h1>Installation</h1>
         <p className="paraa">
           Follow the instructions below to install QuickNote on different
           platforms.
         </p>
       </div>
-      <div className="section-center" >
+      <div className="section-center">
         <div className="container">
           <div className="row">
             <div className="col-md-2">
-            <img src={install} alt="QuickNote" className="img-fluid"  />
-
+              <img src={install} alt="QuickNote" className="img-fluid" />
             </div>
             <div className="col-md-5">
               <div className="card">
@@ -32,7 +63,6 @@ function Installation() {
                 </div>
               </div>
             </div>
-
             <div className="col-md-5">
               <div className="card">
                 <div className="card-body">
