@@ -43,6 +43,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="#contibuters">Contibuters</a></li>
   </ol>
 </details>
 
@@ -107,3 +108,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Project Link: [https://github.com/srilakshmikanthanp/quicknote](https://github.com/srilakshmikanthanp/quicknote)
+
+<!-- Contibuters -->
+
+## Contibuters
+
+- [Manoj Raj M](https://github.com/manojrajm)
