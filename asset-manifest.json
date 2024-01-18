@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/quicknote/static/css/main.0910b652.css",
+    "main.js": "/quicknote/static/js/main.d56d96d2.js",
+    "static/media/install.png": "/quicknote/static/media/install.24d55788222c9078072d.png",
+    "static/media/tenor.gif": "/quicknote/static/media/tenor.e00fe6113a2a80e5563d.gif",
+    "static/media/Work.png": "/quicknote/static/media/Work.7bd984f1fb8e80217dad.png",
+    "static/media/easy.png": "/quicknote/static/media/easy.71d10e263d2fc61c29f4.png",
+    "static/media/Time.png": "/quicknote/static/media/Time.184098458d5f3226e452.png",
+    "static/media/Userr.png": "/quicknote/static/media/Userr.147e70f7c1943527aa4d.png",
+    "static/media/heartt.png": "/quicknote/static/media/heartt.1bb8cb5a75e4b9c4afed.png",
+    "static/media/arrow.png": "/quicknote/static/media/arrow.e1f248039b9675538f04.png",
+    "index.html": "/quicknote/index.html",
+    "main.0910b652.css.map": "/quicknote/static/css/main.0910b652.css.map",
+    "main.d56d96d2.js.map": "/quicknote/static/js/main.d56d96d2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0910b652.css",
+    "static/js/main.d56d96d2.js"
+  ]
+}
