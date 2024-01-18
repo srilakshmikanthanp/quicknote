@@ -1,35 +1,10 @@
-import React, { useEffect } from "react";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import React from "react";
 import Time from "../assets/images/Time.png";
 import Userr from "../assets/images/Userr.png";
 import easy from "../assets/images/easy.png";
 
 function Purpose() {
-  useEffect(() => {
-    // Ensure ScrollTrigger is initialized
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Define the animation for each column
-    const animateColumn = (element, xOffset, yOffset) => {
-      gsap.from(element, {
-        opacity: 0.5,
-        x: xOffset,
-        y: yOffset,
-        scrollTrigger: {
-          trigger: element,
-
-          scrub: true, // Smooth scrubbing effect
-        },
-      });
-    };
-
-    // Animate each column
-    animateColumn(".col-md-4:nth-child(1)", -50, 2);
-    animateColumn(".col-md-4:nth-child(2)", 0, 50);
-    animateColumn(".col-md-4:nth-child(3)", 100, 0);
-  }, []);
-
+  
   return (
     <div className="text-center purpose " id="purpose">
       <h1 className="mb-4">Why Use QuickNote?</h1>
