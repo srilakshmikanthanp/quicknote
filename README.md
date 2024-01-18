@@ -43,7 +43,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#contibuters">Contibuters</a></li>
+    <li><a href="#contributors">contributors</a></li>
   </ol>
 </details>
 
@@ -111,6 +111,6 @@ Project Link: [https://github.com/srilakshmikanthanp/quicknote](https://github.c
 
 <!-- Contibuters -->
 
-## Contibuters
+## Contributors
 
 - [Manoj Raj M](https://github.com/manojrajm)
