@@ -71,11 +71,11 @@ Follow the instructions below to install QuickNote on different platforms.
 
 #### Windows
 
-Just go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version of the installer.
+Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version of the installer.
 
 #### Linux
 
-Waiting For electron.js to fix the [issue](https://github.com/electron/electron/issues/37112) with the tray icon on Linux.
+We are waiting For electron.js to fix the [issue](https://github.com/electron/electron/issues/37112) with the tray icon on Linux.
 
 <!-- ROADMAP -->
 
