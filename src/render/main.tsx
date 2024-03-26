@@ -10,14 +10,16 @@ import store from "./redux/store";
 import "./styles/main.plain.css";
 import App from "./App";
 
-// observe the note in the store and send it to QuickNoteAPI
-store.subscribe(() => {
+// Function to be called on note change
+function onNoteChange() {
   window.QuickNoteAPI.sendNote(store.getState().quicknote.note);
-});
+}
 
-// load the initial note from QuickNoteAPI
+// set up the state of quick note
 window.QuickNoteAPI.recvNote().then((note) => {
   store.dispatch(SetNote(note));
+}).then(() => {
+  store.subscribe(onNoteChange);
 });
 
 // root element
