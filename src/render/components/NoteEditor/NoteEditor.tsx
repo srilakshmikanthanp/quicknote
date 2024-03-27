@@ -1,5 +1,5 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -74,9 +74,9 @@ const editorTheme = {
 }
 
 // Note Editor
-export default function NoteEditor({ 
-  noteContent, 
-  onUpdate, 
+export default function NoteEditor({
+  noteContent,
+  onUpdate,
   placeHolder,
   onError,
 }: INoteEditorProps) {
@@ -86,8 +86,12 @@ export default function NoteEditor({
   }
 
   // editor config
-  const editorConfig = {
+  const editorConfig = noteContent ? {
     editorState: noteContent,
+    onError: onError,
+    theme: editorTheme,
+    namespace: "note-editor",
+  } : {
     onError: onError,
     theme: editorTheme,
     namespace: "note-editor",
