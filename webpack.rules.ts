@@ -9,6 +9,10 @@ export const rules: Required<ModuleOptions>['rules'] = [
     use: 'node-loader',
   },
   {
+    test: /.node$/,
+    use: 'node-loader',
+  },
+  {
     test: /[/\\]node_modules[/\\].+\.(m?js|node)$/,
     parser: { amd: false },
     use: {

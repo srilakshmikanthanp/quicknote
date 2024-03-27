@@ -33,6 +33,7 @@ coverage
 build/Release
 
 # Dependency directories
+native_modules/
 node_modules/
 jspm_packages/
 
@@ -88,5 +89,8 @@ typings/
 # Electron-Forge
 out/
 
-# vscode
-.vscode/
+# build
+build
+
+# bin
+bin

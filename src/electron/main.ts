@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 
-import { Menu, MenuItem, dialog, app, ipcMain } from 'electron';
+import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, screen } from 'electron';
 import { configure } from 'electron-settings';
 
 import open from 'open';
@@ -125,10 +125,15 @@ app.on('ready', async () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
+  // global hot key ctrl + alt + q
+  globalShortcut.register("CommandOrControl+Alt+Q", () => {
+    noteWindow.showNearCursor();
+  });
+
   // set the context menu for the tray
   noteWindow.tray.setContextMenu(Menu.buildFromTemplate([
-    { label: 'About', click: () => open(C.APPLICATION_URL) },
-    { label: 'Report Bug', click: () => open(C.ISSUE_RAISE_URL) },
+    { label: 'About Us', click: () => open(C.APPLICATION_URL) },
+    { label: 'Report', click: () => open(C.ISSUE_RAISE_URL) },
     { label: 'Donate', click: () => open(C.APP_DONATE_URL) },
     { type: 'separator' },
     { label: 'Quit', click: () => app.quit() }

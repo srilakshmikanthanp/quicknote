@@ -1,24 +1,33 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { BrowserWindow, BrowserWindowConstructorOptions, Tray, screen } from 'electron';
+import { taskbarPosition } from "../../../lib";
+
+import {
+  BrowserWindow,
+  BrowserWindowConstructorOptions,
+  KeyboardEvent,
+  Point,
+  Rectangle,
+  Tray,
+  screen,
+} from "electron";
 
 /**
  *
- *   ____            _   _             
- *  / ___|__ _ _   _| |_(_) ___  _ __  
- * | |   / _` | | | | __| |/ _ \| '_ \ 
+ *   ____            _   _
+ *  / ___|__ _ _   _| |_(_) ___  _ __
+ * | |   / _` | | | | __| |/ _ \| '_ \
  * | |__| (_| | |_| | |_| | (_) | | | |
  *  \____\__,_|\__,_|\__|_|\___/|_| |_|
- * 
+ *
  * This file is part of QuickNote. which is tested very carefully
  * if you are going to modify this file, please make sure that you
  * are not breaking anything. Test it on right, top, left, bottom
  * position of taskbar on screen before committing. Thank you :)
  */
-
 
 // Tray Window Options passed on TrayWindow Creation
 export interface TrayWindowOptions extends BrowserWindowConstructorOptions {
@@ -28,115 +37,121 @@ export interface TrayWindowOptions extends BrowserWindowConstructorOptions {
 
 // TrayWindow to create window near system tray
 export default class TrayWindow extends BrowserWindow {
-  // Tray Instance Associated with the TrayWindow & used to calculate the position of the window
-  private _tray: Tray;
-
   /**
    * Position the window on bottom
    */
-  private _positionOnBottom(): void {
-    const icoRect = this._tray.getBounds();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _positionOnBottom(e: KeyboardEvent, b: Rectangle, p: Point): void {
     const winSize = this.getSize();
-    const newPosX = Math.floor(((icoRect.width / 2) + icoRect.x) - (winSize[0] / 2));
-    const newPosY = Math.floor(icoRect.y - winSize[1]);
+    const newPosX = Math.floor(b.width / 2 + b.x - winSize[0] / 2);
+    const newPosY = Math.floor(b.y - winSize[1]);
     this.setPosition(newPosX, newPosY);
   }
 
   /**
    * Position the window on top
    */
-  private _positionOnTop(): void {
-    const icoRect = this._tray.getBounds();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _positionOnTop(e: KeyboardEvent, b: Rectangle, p: Point): void {
     const winSize = this.getSize();
-    const newPosX = Math.floor(((icoRect.width / 2) + icoRect.x) - (winSize[0] / 2));
-    const newPosY = Math.floor(icoRect.y + icoRect.height);
+    const newPosX = Math.floor(b.width / 2 + b.x - winSize[0] / 2);
+    const newPosY = Math.floor(b.y + b.height);
     this.setPosition(newPosX, newPosY);
   }
 
   /**
    * Position the window on left
    */
-  private _positionOnLeft(): void {
-    const icoRect = this._tray.getBounds();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _positionOnLeft(e: KeyboardEvent, b: Rectangle, p: Point): void {
     const winSize = this.getSize();
-    const newPosX = Math.floor(icoRect.x + icoRect.width);
-    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[1] / 2));
+    const newPosX = Math.floor(b.x + b.width);
+    const newPosY = Math.floor(b.height / 2 + b.y - winSize[1] / 2);
     this.setPosition(newPosX, newPosY);
   }
 
   /**
    * Position the window on right
    */
-  private _positionOnRight(): void {
-    const icoRect = this._tray.getBounds();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _positionOnRight(e: KeyboardEvent, b: Rectangle, p: Point): void {
     const winSize = this.getSize();
-    const newPosX = Math.floor(icoRect.x - winSize[0]);
-    const newPosY = Math.floor(((icoRect.height / 2) + icoRect.y) - (winSize[1] / 2));
+    const newPosX = Math.floor(b.x - winSize[0]);
+    const newPosY = Math.floor(b.height / 2 + b.y - winSize[1] / 2);
     this.setPosition(newPosX, newPosY);
   }
 
   /**
-   * Calculate the position of taskbar of the current display
-   * 
-   * @return top | bottom | left | right
+   * On window Show event handler
    */
-  private _getTaskbarPosition(): 'top' | 'bottom' | 'left' | 'right' {
-    const quicknoteDisplay = screen.getDisplayMatching(this.getBounds());
-    const workArea = quicknoteDisplay.workArea;
-    const bounds = quicknoteDisplay.bounds;
+  private _show(e: KeyboardEvent, b: Rectangle, p: Point): void {
+    // Get the position of the taskbar
+    const position = taskbarPosition();
 
-    // This condition must checked before the right condition
-    if (workArea.x > 0) {
-      // |||---------------|
-      // |||               |
-      // |||   work area   |
-      // |||               |
-      // |||---------------|
-      // <---- bounds ----->
-      return 'left';
+    // if unknown
+    if (position == "unknown") {
+      return this.showNearCursor();
     }
 
-    // This condition must checked before the bottom condition
-    if (workArea.y > 0) {
-      // |||||||||||||||||||
-      // |                 |  
-      // |   work area     |
-      // |                 |
-      // |-----------------|
-      // <---- bounds ----->
-      return 'top';
+    // Show the window
+    this.show();
+
+    // Set the initial position
+    switch (position) {
+      case "bottom": this._positionOnBottom(e, b, p); break;
+      case "left": this._positionOnLeft(e, b, p); break;
+      case "top": this._positionOnTop(e, b, p); break;
+      case "right": this._positionOnRight(e, b, p); break;
     }
 
-    if (workArea.width < bounds.width) {
-      // |---------------|||
-      // |               |||
-      // |   work area   |||
-      // |               |||
-      // |---------------|||
-      // <---- bounds -----> 
-      return 'right';
-    }
+    // calibrate the position
+    this.fitIn();
+  }
 
-    if (workArea.height < bounds.height) {
-      // |-----------------|
-      // |                 |
-      // |   work area     |
-      // |                 |
-      // |||||||||||||||||||
-      // <---- bounds ----->
-      return 'bottom';
-    }
+  /**
+   * Constructor for the NoteWindow class
+   * @param options Options for the TrayWindow
+   */
+  public constructor(options: TrayWindowOptions) {
+    // Initialize The Browser Window via super
+    super(options);
+
+    // Initialize the Tray Window
+    this._tray = new Tray(options.trayIcon);
+
+    // on focus lost event handler
+    this.on("blur", () => this.hide());
+
+    // set the event handlers
+    this._tray.on("click", (e, b, p) => {
+      this._show(e, b, p);
+    });
+
+    // set the initial tooltip
+    this._tray.setToolTip(options.tooltip);
+  }
+
+  // Tray Instance Associated with the TrayWindow
+  private _tray: Tray;
+
+  /**
+   * Tray instance Getter
+   *
+   * @return Tray
+   */
+  public get tray(): Tray {
+    return this._tray;
   }
 
   /**
    * Calibrate the position
    */
-  private _calibratePosition(): void {
+  public fitIn(): void {
     const bounds = screen.getDisplayMatching(this.getBounds()).workArea;
     const winSiz = this.getSize();
     const winPos = this.getPosition();
 
-    if ( winPos[0] + winSiz[0] > bounds.width) {
+    if (winPos[0] + winSiz[0] > bounds.width) {
       this.setPosition(bounds.width - winSiz[0], winPos[1]);
     } else if (winPos[0] < bounds.x) {
       this.setPosition(bounds.x, winPos[1]);
@@ -150,51 +165,18 @@ export default class TrayWindow extends BrowserWindow {
   }
 
   /**
-   * On window Show event handler
+   * Show Near Point
    */
-  private _onShowed(): void {
-    // Set the initial position
-    switch (this._getTaskbarPosition()) {
-      case 'bottom' : this._positionOnBottom(); break;
-      case 'left'   : this._positionOnLeft();   break;
-      case 'top'    : this._positionOnTop();    break;
-      case 'right'  : this._positionOnRight();  break;
-    }
-
-    // calibrate the position
-    this._calibratePosition();
+  public showNearPoint(p: Point): void {
+    this.show();
+    this.setPosition(p.x, p.y);
+    this.fitIn();
   }
 
   /**
-   * Constructor for the NoteWindow class
-   * @param options Options for the TrayWindow
+   * Show near cursor
    */
-  public constructor(options: TrayWindowOptions) {
-    // Initialize The Browser Window via super
-    super(options);
-
-    // on window show event handler
-    this.on('show', () => this._onShowed());
-
-    // on focus lost event handler
-    this.on('blur', () => this.hide());
-
-    // Initialize the Tray Window
-    this._tray = new Tray(options.trayIcon)
-
-    // set the event handlers
-    this._tray.on('click', () => this.show())
-
-    // set the initial tooltip
-    this._tray.setToolTip(options.tooltip)
-  }
-
-  /**
-   * Tray instance Getter
-   * 
-   * @return Tray
-   */
-  public get tray(): Tray {
-    return this._tray;
+  public showNearCursor(): void {
+    this.showNearPoint(screen.getCursorScreenPoint());
   }
 }
