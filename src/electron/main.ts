@@ -1,5 +1,5 @@
 // Copyright (c) 2022 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -84,8 +84,7 @@ app.on('ready', async () => {
     try {
       return await fileStore.getNote();
     } catch(e) {
-      dialog.showErrorBox(C.APPLICATION_NAME, e.message);
-      return "";
+      return null;
     }
   });
 
@@ -110,7 +109,7 @@ app.on('ready', async () => {
     resizable: true,
     transparent: true,
     hasShadow: true,
-    alwaysOnTop: true, 
+    alwaysOnTop: true,
     webPreferences: {
       preload: NOTE_WINDOW_PRELOAD_WEBPACK_ENTRY,
       devTools: !app.isPackaged
@@ -139,7 +138,7 @@ app.on('ready', async () => {
     { label: 'Quit', click: () => app.quit() }
   ]));
 
-  // Create Non visible Menu 
+  // Create Non visible Menu
   const menu = new Menu();
 
   // Add ESC to close the app
