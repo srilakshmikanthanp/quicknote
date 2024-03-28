@@ -6,14 +6,13 @@
 import { SetNote } from "./redux/slices";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import * as constants from "./constants";
 import store from "./redux/store";
 import "./styles/main.plain.css";
 import App from "./App";
 
 // Function to be called on note change
 function onNoteChange() {
-  window.QuickNoteAPI.sendNote(store.getState().quicknote.note || constants.INITIAL_EDITOR_STATE);
+  window.QuickNoteAPI.sendNote(store.getState().quicknote.note);
 }
 
 // set up the state of quick note

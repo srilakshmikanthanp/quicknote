@@ -12,6 +12,7 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import styled from 'styled-components';
 import { EditorState } from "lexical";
+import * as constants from "../../constants";
 import styles from "./NoteEditor.module.css"
 
 // NoteEditor Props Interface Definition
@@ -82,7 +83,7 @@ export default function NoteEditor({
 }: INoteEditorProps) {
   // change handler for note editor
   const onChange = (state: EditorState) => {
-    onUpdate && onUpdate(JSON.stringify(state.toJSON()));
+    onUpdate && onUpdate(JSON.stringify(state.toJSON()) || constants.INITIAL_EDITOR_STATE);
   }
 
   // editor config
