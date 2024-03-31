@@ -1,5 +1,5 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -13,7 +13,7 @@ import file from 'node:fs';
 export default class FileStore implements INoteStore {
   /**
    * Gets the note from the file
-   * 
+   *
    * @returns Note from the file
    */
   public async getNote(): Promise<string> {
@@ -22,7 +22,7 @@ export default class FileStore implements INoteStore {
 
   /**
    * Stores the note in a file
-   * 
+   *
    * @param note Note to be stored
    */
   public async setNote(note: string): Promise<void> {

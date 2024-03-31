@@ -79,23 +79,26 @@ app.on('ready', async () => {
   // file store to store the note
   const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".quicknote"));
 
+  // Restart App
+  const restartApp = () => {
+    app.relaunch();
+    app.exit();
+  }
+
+  // ipc event for recv
+  ipcMain.handle(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
+    return await fileStore.setNote(arg);
+  });
+
   // ipc event for send
   ipcMain.handle(E.SEND_IN_MAIN_CHAN, async () => {
-    try {
-      return await fileStore.getNote();
-    } catch(e) {
-      return null;
-    }
+    return await fileStore.getNote();
   });
 
   // ipc event for error
   ipcMain.on(E.ONER_IN_MAIN_CHAN, async (e, arg) => {
     dialog.showErrorBox(C.APPLICATION_NAME, arg);
-  });
-
-  // ipc event for recv
-  ipcMain.on(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
-    await fileStore.setNote(arg);
+    restartApp();
   });
 
   // create the tray window

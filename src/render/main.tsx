@@ -11,8 +11,12 @@ import "./styles/main.plain.css";
 import App from "./App";
 
 // Function to be called on note change
-function onNoteChange() {
-  window.QuickNoteAPI.sendNote(store.getState().quicknote.note);
+async function onNoteChange() {
+  try {
+    return await window.QuickNoteAPI.sendNote(store.getState().quicknote.note);
+  } catch (err) {
+    window.QuickNoteAPI.onError(err);
+  }
 }
 
 // set up the state of quick note
@@ -20,6 +24,8 @@ window.QuickNoteAPI.recvNote().then((note) => {
   store.dispatch(SetNote(note));
 }).then(() => {
   store.subscribe(onNoteChange);
+}).catch((err) => {
+  window.QuickNoteAPI.onError(err);
 });
 
 // root element
