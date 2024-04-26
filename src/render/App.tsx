@@ -1,10 +1,9 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { useDispatch, useSelector } from "react-redux";
-import { SetNote, selectNote } from "./redux/slices";
+import React from "react";
 import { NoteEditor } from "./components";
 import * as C from "./constants";
 
@@ -13,17 +12,19 @@ import * as C from "./constants";
  */
 export default function App() {
   // Get the note from the store.
-  const noteContent = useSelector(selectNote);
+  const [initialContent, setInitialContent] = React.useState<string>(null);
 
-  // Get the dispatch function.
-  const dispatch = useDispatch();
+  // Get the note from the store.
+  React.useEffect(() => {
+    window.QuickNoteAPI.recvNote().then(setInitialContent).catch(onError);
+  }, []);
 
   // Set the note in the store.
-  const setNote = (note: string) => {
-    dispatch(SetNote(note));
+  const saveNote = (note: string) => {
+    initialContent != null && window.QuickNoteAPI.sendNote(note).catch(onError);
   };
 
-  // on error occured
+  // on error
   const onError = (err: Error) => {
     window.QuickNoteAPI.onError(err.message);
   };
@@ -32,9 +33,10 @@ export default function App() {
   return (
     <NoteEditor
       placeHolder={C.PLACEHOLDER_TEXT}
-      onUpdate={setNote}
-      noteContent={noteContent}
+      onUpdate={saveNote}
+      initialContent={initialContent}
       onError={onError}
+      key={initialContent}
     />
   );
 }

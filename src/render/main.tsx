@@ -3,30 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { SetNote } from "./redux/slices";
 import ReactDOM from "react-dom/client";
-import { Provider } from "react-redux";
-import store from "./redux/store";
 import "./styles/main.plain.css";
 import App from "./App";
-
-// Function to be called on note change
-async function onNoteChange() {
-  try {
-    return await window.QuickNoteAPI.sendNote(store.getState().quicknote.note);
-  } catch (err) {
-    window.QuickNoteAPI.onError(err);
-  }
-}
-
-// set up the state of quick note
-window.QuickNoteAPI.recvNote().then((note) => {
-  store.dispatch(SetNote(note));
-}).then(() => {
-  store.subscribe(onNoteChange);
-}).catch((err) => {
-  window.QuickNoteAPI.onError(err);
-});
 
 // root element
 const rootElement = document.getElementById("root");
@@ -36,7 +15,5 @@ const reactRoot = ReactDOM.createRoot(rootElement);
 
 // render the app
 reactRoot.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <App />
 );

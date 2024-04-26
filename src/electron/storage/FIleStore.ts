@@ -37,7 +37,6 @@ export default class FileStore implements INoteStore {
     file.openSync(this.file_path = name, 'a+');
   }
 
-
   /*********************************
    *  private instance variables   *
    ********************************/

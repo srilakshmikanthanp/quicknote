@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 
-import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, screen } from 'electron';
+import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut } from 'electron';
 import { configure } from 'electron-settings';
 
 import open from 'open';
@@ -79,12 +79,6 @@ app.on('ready', async () => {
   // file store to store the note
   const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".quicknote"));
 
-  // Restart App
-  const restartApp = () => {
-    app.relaunch();
-    app.exit();
-  }
-
   // ipc event for recv
   ipcMain.handle(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
     return await fileStore.setNote(arg);
@@ -97,8 +91,7 @@ app.on('ready', async () => {
 
   // ipc event for error
   ipcMain.on(E.ONER_IN_MAIN_CHAN, async (e, arg) => {
-    dialog.showErrorBox(C.APPLICATION_NAME, arg);
-    restartApp();
+    dialog.showErrorBox(C.APPLICATION_NAME, arg); app.exit();
   });
 
   // create the tray window
