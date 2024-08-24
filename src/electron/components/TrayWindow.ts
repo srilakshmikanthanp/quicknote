@@ -31,17 +31,15 @@ import {
 
 // Tray Window Options passed on TrayWindow Creation
 export interface TrayWindowOptions extends BrowserWindowConstructorOptions {
-  trayIcon: string;
-  tooltip: string;
+  tray: Tray; tooltip: string;
 }
 
 // TrayWindow to create window near system tray
 export default class TrayWindow extends BrowserWindow {
   /**
-   * Position the window on bottom
+   * Position the window on bottom of Bounds
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _positionOnBottom(e: KeyboardEvent, b: Rectangle, p: Point): void {
+  private _positionOnBottom(b: Rectangle): void {
     const winSize = this.getSize();
     const newPosX = Math.floor(b.width / 2 + b.x - winSize[0] / 2);
     const newPosY = Math.floor(b.y - winSize[1]);
@@ -49,10 +47,9 @@ export default class TrayWindow extends BrowserWindow {
   }
 
   /**
-   * Position the window on top
+   * Position the window on top of Bounds
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _positionOnTop(e: KeyboardEvent, b: Rectangle, p: Point): void {
+  private _positionOnTop(b: Rectangle): void {
     const winSize = this.getSize();
     const newPosX = Math.floor(b.width / 2 + b.x - winSize[0] / 2);
     const newPosY = Math.floor(b.y + b.height);
@@ -60,10 +57,9 @@ export default class TrayWindow extends BrowserWindow {
   }
 
   /**
-   * Position the window on left
+   * Position the window on left of Bounds
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _positionOnLeft(e: KeyboardEvent, b: Rectangle, p: Point): void {
+  private _positionOnLeft(b: Rectangle): void {
     const winSize = this.getSize();
     const newPosX = Math.floor(b.x + b.width);
     const newPosY = Math.floor(b.height / 2 + b.y - winSize[1] / 2);
@@ -71,10 +67,9 @@ export default class TrayWindow extends BrowserWindow {
   }
 
   /**
-   * Position the window on right
+   * Position the window on right of Bounds
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _positionOnRight(e: KeyboardEvent, b: Rectangle, p: Point): void {
+  private _positionOnRight(b: Rectangle): void {
     const winSize = this.getSize();
     const newPosX = Math.floor(b.x - winSize[0]);
     const newPosY = Math.floor(b.height / 2 + b.y - winSize[1] / 2);
@@ -84,28 +79,24 @@ export default class TrayWindow extends BrowserWindow {
   /**
    * On window Show event handler
    */
-  private _show(e: KeyboardEvent, b: Rectangle, p: Point): void {
+  private _show(bounds: Rectangle): void {
     // Get the position of the taskbar
     const position = taskbarPosition();
-
-    // if unknown
-    if (position == "unknown") {
-      return this.showNearCursor();
-    }
 
     // Show the window
     this.show();
 
     // Set the initial position
     switch (position) {
-      case "bottom": this._positionOnBottom(e, b, p); break;
-      case "left": this._positionOnLeft(e, b, p); break;
-      case "top": this._positionOnTop(e, b, p); break;
-      case "right": this._positionOnRight(e, b, p); break;
+      case "bottom": this._positionOnBottom(bounds); break;
+      case "left": this._positionOnLeft(bounds); break;
+      case "top": this._positionOnTop(bounds); break;
+      case "right": this._positionOnRight(bounds); break;
+      default: this.showNearCursor(); break;
     }
 
     // calibrate the position
-    this.fitIn();
+    this.fitToScreen();
   }
 
   /**
@@ -117,14 +108,14 @@ export default class TrayWindow extends BrowserWindow {
     super(options);
 
     // Initialize the Tray Window
-    this._tray = new Tray(options.trayIcon);
+    this._tray = options.tray;
 
     // on focus lost event handler
     this.on("blur", () => this.hide());
 
     // set the event handlers
     this._tray.on("click", (e, b, p) => {
-      this._show(e, b, p);
+      this._show(b);
     });
 
     // set the initial tooltip
@@ -146,7 +137,7 @@ export default class TrayWindow extends BrowserWindow {
   /**
    * Calibrate the position
    */
-  public fitIn(): void {
+  public fitToScreen(): void {
     const bounds = screen.getDisplayMatching(this.getBounds()).workArea;
     const winSiz = this.getSize();
     const winPos = this.getPosition();
@@ -170,7 +161,7 @@ export default class TrayWindow extends BrowserWindow {
   public showNearPoint(p: Point): void {
     this.show();
     this.setPosition(p.x, p.y);
-    this.fitIn();
+    this.fitToScreen();
   }
 
   /**

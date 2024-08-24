@@ -17,6 +17,7 @@ export default function App() {
   // Get the note from the store.
   React.useEffect(() => {
     window.QuickNoteAPI.recvNote().then(setInitialContent).catch(onError);
+    console.log(initialContent);
   }, []);
 
   // Set the note in the store.

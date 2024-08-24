@@ -80,13 +80,8 @@ export default function NoteEditor({
   placeHolder,
   onError,
 }: INoteEditorProps) {
-  // change handler for note editor
-  const onChange = (state: EditorState) => {
-    onUpdate && onUpdate(JSON.stringify(state.toJSON()));
-  }
-
   // editor config
-  const editorConfig = initialContent != null ? {
+  const editorConfig = (initialContent != null && initialContent != '') ? {
     editorState: initialContent,
     onError: onError,
     theme: editorTheme,
@@ -96,6 +91,11 @@ export default function NoteEditor({
     theme: editorTheme,
     namespace: "note-editor",
   };
+
+  // change handler for note editor
+  const onChange = (state: EditorState) => {
+    onUpdate && onUpdate(JSON.stringify(state.toJSON()));
+  }
 
   // placeholder
   const placeholder = (

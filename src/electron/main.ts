@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 
-import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut } from 'electron';
+import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, Tray } from 'electron';
 import { configure } from 'electron-settings';
 
 import open from 'open';
@@ -94,11 +94,14 @@ app.on('ready', async () => {
     dialog.showErrorBox(C.APPLICATION_NAME, arg); app.exit();
   });
 
+  // Create Tray
+  const tray = new Tray(C.APPLICATION_ICON);
+
   // create the tray window
   const noteWindow = new TrayWindow({
     tooltip: C.APPLICATION_NAME,
     icon: C.APPLICATION_ICON,
-    trayIcon: C.APPLICATION_ICON,
+    tray: tray,
     frame: false,
     show: false,
     skipTaskbar: true,
@@ -126,7 +129,7 @@ app.on('ready', async () => {
   });
 
   // set the context menu for the tray
-  noteWindow.tray.setContextMenu(Menu.buildFromTemplate([
+  tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'About Us', click: () => open(C.APPLICATION_URL) },
     { label: 'Report', click: () => open(C.ISSUE_RAISE_URL) },
     { label: 'Donate', click: () => open(C.APP_DONATE_URL) },
