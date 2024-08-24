@@ -8,8 +8,6 @@
 #include <windows.h>
 #include <shellapi.h>
 // clang-format on
-#else
-#Error "This is only for windows"
 #endif
 
 #include <node.h>
@@ -23,8 +21,8 @@ namespace lib {
  * @brief Detect the task bar position of Windows
  * @return "bottom" |"top" | left" | "right" | "unknown" | "error"
  */
-#if defined(_WIN32) || defined(_WIN64)
 std::string GetTaskbarPosition() {
+#if defined(_WIN32) || defined(_WIN64)
   // APPBARDATA structure
   APPBARDATA appBarData = {0};
 
@@ -50,11 +48,11 @@ std::string GetTaskbarPosition() {
     case ABE_RIGHT:
       return "right";
   }
+#endif
 
   // return unknown
   return "unknown";
 }
-#endif
 
 // using v8 elements
 using v8::FunctionCallbackInfo;

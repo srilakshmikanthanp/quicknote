@@ -6,8 +6,8 @@
 {
   "targets": [
     {
-      "target_name": "lib",
-      "sources": [ "lib.cc" ]
+      "target_name": "tbarpos",
+      "sources": [ "tbarpos.cc" ]
     }
   ],
 }
