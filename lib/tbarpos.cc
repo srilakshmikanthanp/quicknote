@@ -15,7 +15,7 @@
 
 #include <string>
 
-namespace lib {
+namespace tbarpos {
 
 /**
  * @brief Detect the task bar position of Windows
