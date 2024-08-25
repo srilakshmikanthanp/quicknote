@@ -49,6 +49,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "lexical": "^0.7.6",
     "open": "^8.4.0",
+    "quicknote": "file:",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
