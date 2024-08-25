@@ -67,15 +67,17 @@ To install QuickNote, follow the instructions below.
 
 ### Installation
 
-Follow the instructions below to install QuickNote on different platforms.
-
-#### Windows
-
 Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version of the installer.
 
 #### Linux
 
-We are waiting For electron.js to fix the [issue](https://github.com/electron/electron/issues/37112) with the tray icon on Linux.
+Due to the [issue](https://github.com/electron/electron/issues/37112) you can't open app by clicking on the icon. However, you can open the app by shortcut `Ctrl+Alt+Q`.
+
+#### Usage
+
+1. Click on the icon in the taskbar or use the shortcut `Ctrl+Alt+Q` to open the app.
+2. Type your note in the text area.
+3. That's it! your note is saved automatically.
 
 <!-- ROADMAP -->
 
