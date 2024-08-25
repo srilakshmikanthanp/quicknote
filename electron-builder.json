@@ -1,0 +1,15 @@
+{
+  "appId": "com.srilakshmikanthanp.quicknote",
+  "directories": {
+    "output": "out/builder"
+  },
+  "win": {
+    "target": "msi",
+    "icon": "assets/meta/icon.ico"
+  },
+  "linux": {
+    "category": "Utility",
+    "target": "deb",
+    "icon": "assets/meta"
+  }
+}
