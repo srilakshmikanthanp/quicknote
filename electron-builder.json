@@ -9,7 +9,7 @@
   },
   "linux": {
     "category": "Utility",
-    "target": "deb",
+    "target": "AppImage",
     "icon": "assets/meta"
   }
 }
