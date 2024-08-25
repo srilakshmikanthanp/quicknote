@@ -67,7 +67,7 @@ To install QuickNote, follow the instructions below.
 
 ### Installation
 
-Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version of the installer.
+Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest & suitable version to Your Platform.
 
 #### Linux
 
