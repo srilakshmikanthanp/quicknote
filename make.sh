@@ -1,0 +1,1 @@
+npx electron-builder build --prepackaged ./out/quicknote-linux-x64

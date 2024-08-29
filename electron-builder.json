@@ -9,7 +9,10 @@
   },
   "linux": {
     "category": "Utility",
-    "target": "AppImage",
+    "target": ["AppImage", "snap"],
     "icon": "assets/meta"
+  },
+  "msi": {
+    "createDesktopShortcut": false
   }
 }

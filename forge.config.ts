@@ -1,6 +1,6 @@
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
-import { MakerDeb } from '@electron-forge/maker-deb';
+import { MakerSnap } from '@electron-forge/maker-snap';
 import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig } from './webpack.main.config';
@@ -16,19 +16,7 @@ const config: ForgeConfig = {
     ]
   },
   rebuildConfig: {},
-  makers: [
-    new MakerSquirrel({
-      iconUrl: 'https://raw.githubusercontent.com/srilakshmikanthanp/quicknote/main/assets/images/quicknote.ico',
-      setupIcon: './src/assets/images/quicknote.ico',
-      loadingGif: './src/assets/images/quicknote.gif',
-    }),
-    new MakerDeb({
-      options: {
-        homepage: 'https://github.com/srilakshmikanthanp/quicknote',
-        icon: './src/assets/images/quicknote.png',
-      },
-    })
-  ],
+  makers: [],
   plugins: [
     new WebpackPlugin({
       mainConfig,
