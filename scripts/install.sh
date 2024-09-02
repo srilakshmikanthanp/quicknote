@@ -11,9 +11,41 @@ APP_LOC="$APP_HOME/quicknote.AppImage"
 LOG_FILE="$APP_HOME/log.txt"
 
 DESKTOP_FILE="$HOME/.local/share/applications/quicknote.desktop"
+CONFIG_DIR="$HOME/.config/autostart"
+AUTO_START="$CONFIG_DIR/quicknote.desktop"
 
 # Exit immediately if any command fails
 set -e
+
+# Check Applocation if running
+if pgrep -f "$APP_LOC" > /dev/null; then
+  echo "Stop the Application before Running this script"
+  exit 1
+fi
+
+# Remove the AppImage file and log file
+if [ -f "$APP_LOC" ]; then
+  echo "Removing AppImage..."
+  rm "$APP_LOC"
+fi
+
+# Remove the Log file
+if [ -f "$LOG_FILE" ]; then
+  echo "Removing log file..."
+  rm "$LOG_FILE"
+fi
+
+# Remove the Image
+if [ -f "$ICON_LOC" ]; then
+  echo "Removing icon..."
+  rm "$ICON_LOC"
+fi
+
+# Remove the .desktop file if it exists
+if [ -f "$DESKTOP_FILE" ]; then
+  echo "Removing .desktop file..."
+  rm "$DESKTOP_FILE"
+fi
 
 # make the directory in HOME
 mkdir -p $APP_HOME
@@ -60,6 +92,11 @@ Categories=Utility;" > "$DESKTOP_FILE"
 
 # Make the .desktop file executable
 chmod +x "$DESKTOP_FILE"
+
+# make auto start dir
+mkdir -p 
+
+ln -s "$DESKTOP_FILE" "$AUTO_START"
 
 # start the Application
 "$APP_LOC" > "$LOG_FILE" 2>&1 &

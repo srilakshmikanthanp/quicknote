@@ -71,6 +71,12 @@ Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and d
 
 #### Linux
 
+You can Use this command to install Quicknote,
+
+```sh
+curl -sSL https://raw.githubusercontent.com/srilakshmikanthanp/quicknote/main/scripts/install.sh | bash
+```
+
 Due to the [issue](https://github.com/electron/electron/issues/37112) you can't open app by clicking on the icon. However, you can open the app by shortcut `Ctrl+Alt+Q`.
 
 #### Usage
