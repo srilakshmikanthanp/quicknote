@@ -94,7 +94,7 @@ Categories=Utility;" > "$DESKTOP_FILE"
 chmod +x "$DESKTOP_FILE"
 
 # make auto start dir
-mkdir -p 
+mkdir -p $CONFIG_DIR
 
 ln -s "$DESKTOP_FILE" "$AUTO_START"
 
