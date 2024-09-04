@@ -14,9 +14,6 @@ DESKTOP_FILE="$HOME/.local/share/applications/quicknote.desktop"
 CONFIG_DIR="$HOME/.config/autostart"
 AUTO_START="$CONFIG_DIR/quicknote.desktop"
 
-# Exit immediately if any command fails
-set -e
-
 # Check Applocation if running
 if pgrep -f "$APP_LOC" > /dev/null; then
   echo "Stop the Application before Running this script"
@@ -59,8 +56,12 @@ APP_URL=$(echo $RELEASE | grep -oP '"browser_download_url": "\K(.*AppImage)(?=")
 # Check if the AppImage URL was found
 if [ -z "$APP_URL" ]; then
   echo "AppImage not found in the latest release."
+  echo $RELEASE
   exit 1
 fi
+
+# Exit immediately if any command fails
+set -e
 
 # Echo Information of AppImage
 echo "Downloading $APP_URL to $APP_HOME"
