@@ -2,7 +2,7 @@
 
 # Define the List of Constants to install quicknote
 ICON_URL="https://github.com/srilakshmikanthanp/quicknote/blob/main/assets/meta/icon.png?raw=true"
-API_URL="https://api.github.com/repos/srilakshmikanthanp/quicknote/releases/latest"
+APP_URL="https://github.com/srilakshmikanthanp/quicknote/releases/download/v2.0.3/quicknote-2.0.3.AppImage"
 
 APP_HOME="$HOME/.quicknote";
 
@@ -46,19 +46,6 @@ fi
 
 # make the directory in HOME
 mkdir -p $APP_HOME
-
-# Ge the latest release json
-RELEASE=$(curl -s $API_URL)
-
-# Extract the AppImage download URL
-APP_URL=$(echo $RELEASE | grep -oP '"browser_download_url": "\K(.*AppImage)(?=")')
-
-# Check if the AppImage URL was found
-if [ -z "$APP_URL" ]; then
-  echo "AppImage not found in the latest release."
-  echo $RELEASE
-  exit 1
-fi
 
 # Exit immediately if any command fails
 set -e
