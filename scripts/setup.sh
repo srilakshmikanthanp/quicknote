@@ -25,7 +25,7 @@ fi
 
 # If help is passed then show the help information
 if [ "$1" == "--help" ]; then
-  echo "Usage: $0 [OPTION]"
+  echo "Usage: setup.sh [OPTION]"
   echo "Install or Uninstall the quicknote Application"
   echo ""
   echo "Options:"
