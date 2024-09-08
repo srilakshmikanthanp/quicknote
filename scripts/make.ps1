@@ -1,1 +1,1 @@
-npx electron-builder build --prepackaged ./out/quicknote-win-x64
+npx electron-builder build --prepackaged ./out/quicknote-win32-x64
