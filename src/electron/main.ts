@@ -123,6 +123,11 @@ app.on('ready', async () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
+  // on Close event save the size
+  noteWindow.on('close', () => {
+    settings.setWindowSize(noteWindow.getSize() as [number, number]);
+  });
+
   // global hot key ctrl + alt + q
   globalShortcut.register("CommandOrControl+Alt+Q", () => {
     noteWindow.showNearCursor();
