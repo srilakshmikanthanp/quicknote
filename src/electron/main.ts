@@ -128,11 +128,6 @@ app.on('ready', async () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
-  // global hot key ctrl + alt + q
-  globalShortcut.register("CommandOrControl+Alt+Q", () => {
-    noteWindow.showNearCursor();
-  });
-
   // set the context menu for the tray
   tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'About Us', click: () => open(C.APPLICATION_URL) },
@@ -184,4 +179,9 @@ app.on('ready', async () => {
 
   // load the note window
   noteWindow.loadURL(NOTE_WINDOW_WEBPACK_ENTRY);
+
+  // global hot key
+  globalShortcut.register(await settings.getShortCutKey(C.DEFAULT_SHORTCUT_KEY), () => {
+    noteWindow.showNearCursor();
+  });
 });

@@ -3,15 +3,13 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+import { WINDOW_SIZE, SHORTCUT_KEY } from '../constants/constants';
 import settings from 'electron-settings';
-
-// key for the note window size
-export const WINDOW_SIZE = 'quicknote-window-size';
 
 /**
  * Used To get the window width and height
  * 
- * @returns default [width, height] of the window
+ * @returns [width, height] of the window
  */
 export const getWindowSize = async (
   [width, height]: [number, number]
@@ -23,10 +21,29 @@ export const getWindowSize = async (
 /**
  * Used To set the window Width and Height
  * 
- * @param [ width, height ] of the window to set
+ * @param [ width, height ] of the window
  */
 export const setWindowSize = async (
   [width, height]: [number, number]
 ): Promise<void> => {
   return await settings.set(WINDOW_SIZE, [width, height]);
+}
+
+/**
+ * Used To get the ShortKey of App
+ */
+export const getShortCutKey = async (
+  key: string
+): Promise<string> => {
+  return !await settings.has(SHORTCUT_KEY) ? key
+    : await settings.get(SHORTCUT_KEY) as string;
+}
+
+/**
+ * Used to set the ShortKey of App
+ */
+export const setShortCutKey = async (
+  key: string
+): Promise<void> => {
+  return await settings.set(SHORTCUT_KEY, key);
 }

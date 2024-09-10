@@ -8,22 +8,31 @@ import os from "os";
 import { app } from "electron";
 
 // Application Icon
-export const APPLICATION_ICON = app.isPackaged ? path.join(process.resourcesPath, "quicknote.png") : path.join(__dirname, "../../assets/images/quicknote.png");
+export const APPLICATION_ICON     = app.isPackaged ? path.join(process.resourcesPath, "quicknote.png") : path.join(__dirname, "../../assets/images/quicknote.png");
 
 // Application Home
-export const APPLICATION_HOME = path.join(os.homedir(), ".quicknote");
+export const APPLICATION_HOME     = path.join(os.homedir(), ".quicknote");
 
 // Application Name
-export const APPLICATION_NAME = "QuickNote";
+export const APPLICATION_NAME     = "QuickNote";
 
 // Application URL
-export const APPLICATION_URL  = "https://github.com/srilakshmikanthanp/quicknote";
+export const APPLICATION_URL      = "https://github.com/srilakshmikanthanp/quicknote";
 
 // Application Issue URL
-export const ISSUE_RAISE_URL  = "https://github.com/srilakshmikanthanp/quicknote/issues/new";
+export const ISSUE_RAISE_URL      = "https://github.com/srilakshmikanthanp/quicknote/issues/new";
 
 // Application Donate url
-export const APP_DONATE_URL   = "https://srilakshmikanthanp.github.io/donate/"
+export const APP_DONATE_URL       = "https://srilakshmikanthanp.github.io/donate/"
 
 // Application Size
-export const APPLICATION_SIZE = [350, 250] as [number, number];
+export const APPLICATION_SIZE     = [350, 250] as [number, number];
+
+// Setting key for ShortcutKey
+export const SHORTCUT_KEY         = 'QuicknoteShortcutKey';
+
+// Setting key for window size
+export const WINDOW_SIZE          = 'QuicknoteWindowSize';
+
+// Default ShortCutKey for Quicknote
+export const DEFAULT_SHORTCUT_KEY = 'CommandOrControl+Alt+Q';
