@@ -123,8 +123,8 @@ app.on('ready', async () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
-  // on Close event save the size
-  noteWindow.on('close', () => {
+  // on hide event save the size
+  noteWindow.on('hide', () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
