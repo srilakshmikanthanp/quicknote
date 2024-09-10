@@ -1,9 +1,8 @@
 #!/bin/bash
 # This Script is used to install or uninstall quicknote in the system
 # pass --uninstall to uninstall the quicknote
-# pass --install to install the quicknote [default]
-# pass --purge to uninstall the quicknote and remove the configuration files
 # pass --help to get the help information
+# pass --purge to uninstall the quicknote and remove the configuration files
 # Only one option can be passed at a time
 
 # Check if the script is running as root user
@@ -18,21 +17,20 @@ if [ "$#" -gt 1 ]; then
   exit 1
 fi
 
-# set default option to install
-if [ "$#" -eq 0 ]; then
-  set -- "--install"
-fi
+# Commands
+UNINSTALL="--uninstall"
+HELP="--help"
+PURGE="--purge"
 
 # If help is passed then show the help information
-if [ "$1" == "--help" ]; then
+if [ "$1" == "$HELP" ]; then
   echo "Usage: setup.sh [OPTION]"
   echo "Install or Uninstall the quicknote Application"
   echo ""
   echo "Options:"
-  echo "  --install   Install the quicknote [default]"
-  echo "  --uninstall Uninstall the quicknote"
-  echo "  --purge     uninstall the quicknote completely"
-  echo "  --help      Show this help information"
+  echo "  $UNINSTALL uninstall the quicknote"
+  echo "  $PURGE     uninstall the quicknote completely"
+  echo "  $HELP      Show this help information"
   exit 0
 fi
 
@@ -90,13 +88,13 @@ if [ -f "$AUTOSTART_ENTRY" ]; then
 fi
 
 # Check if the user wants to uninstall the App
-if [ "$1" == "--uninstall" ]; then
+if [ "$1" == "$UNINSTALL" ]; then
   echo "Uninstall Complete"
   exit 0
 fi
 
 # Check if the user wants to purge the App
-if [ "$1" == "--purge" ]; then
+if [ "$1" == "$PURGE" ]; then
   rm -rf "$APP_HOME"
   echo "Purge Complete"
   exit 0
