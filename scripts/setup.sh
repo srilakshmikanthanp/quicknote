@@ -90,7 +90,7 @@ if [ -f "$APPDESKTOP_FILE" ]; then
 fi
 
 # remove the auto start file
-if [ -f "$AUTOSTART_ENTRY" ]; then
+if [ -L "$AUTOSTART_ENTRY" ]; then
   echo "Removing auto start file..."
   rm "$AUTOSTART_ENTRY"
 fi
