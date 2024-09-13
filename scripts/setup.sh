@@ -5,15 +5,15 @@
 # pass --purge to uninstall the quicknote and remove the configuration files
 # Only one option can be passed at a time
 
-# Check if the script is running as root user
-if [ "$EUID" -eq 0 ]; then
-  echo "This script should not be run as root"
-  exit 1
-fi
-
 # check more than one argument is passed
 if [ "$#" -gt 1 ]; then
   echo "Only one argument can be passed at a time"
+  exit 1
+fi
+
+# Check if the script is running as root user
+if [ "$EUID" -eq 0 ]; then
+  echo "This script should not be run as root"
   exit 1
 fi
 
@@ -40,10 +40,12 @@ APP_URL="https://github.com/srilakshmikanthanp/quicknote/releases/download/v2.0.
 
 # APP_HOME is where App is installed
 APP_HOME="$HOME/.quicknote";
+APP_NAME="quicknote.AppImage";
 
 # Define the List of Variables
 ICON_LOC="$APP_HOME/quicknote.png"
-APP_LOC="$APP_HOME/quicknote.AppImage"
+SH_LOC="$APP_HOME/start.sh"
+APP_LOC="$APP_HOME/$APP_NAME"
 LOG_FILE="$APP_HOME/log.txt"
 
 # Conf for .desktop file & auto start
@@ -128,14 +130,20 @@ mkdir -p "$(dirname "$APPDESKTOP_FILE")"
 echo "[Desktop Entry]
 Name=QuickNote
 Comment=QuickNote Application
-Exec=$APP_LOC
+Exec=$SH_LOC
 Icon=$ICON_LOC
 Terminal=false
 Type=Application
-Categories=Utility;" > "$APPDESKTOP_FILE"
+Categories=Utility" > "$APPDESKTOP_FILE"
 
 # Make the .desktop file executable
 chmod +x "$APPDESKTOP_FILE"
+
+# Fill the Shell script File
+echo "$APP_NAME > "$LOG_FILE" 2>&1 &" > "$SH_LOC";
+
+# Make the Shell script executable
+chmod +x "$SH_LOC"
 
 # make auto start dir
 mkdir -p $AUTOSTART_DIR
@@ -144,7 +152,7 @@ mkdir -p $AUTOSTART_DIR
 ln -s "$APPDESKTOP_FILE" "$AUTOSTART_ENTRY"
 
 # start the Application
-"$APP_LOC" > "$LOG_FILE" 2>&1 &
+"$SH_LOC"
 
 # Log the status of Installation
 echo "Application Installed to $APP_HOME"
