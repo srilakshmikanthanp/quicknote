@@ -44,7 +44,7 @@ APP_NAME="quicknote.AppImage";
 
 # Define the List of Variables
 ICON_LOC="$APP_HOME/quicknote.png"
-SH_LOC="$APP_HOME/start.sh"
+SH_LOC="$APP_HOME/quicknote.sh"
 APP_LOC="$APP_HOME/$APP_NAME"
 LOG_FILE="$APP_HOME/log.txt"
 
@@ -59,10 +59,16 @@ if pgrep -f "$APP_LOC" > /dev/null; then
   exit 1
 fi
 
-# Remove the AppImage file and log file
+# Remove the AppImage file
 if [ -f "$APP_LOC" ]; then
   echo "Removing AppImage..."
   rm "$APP_LOC"
+fi
+
+# Remove the Script file
+if [ -f "$SH_LOC" ]; then
+  echo "Removing quicknote..."
+  rm "$SH_LOC"
 fi
 
 # Remove the Log file
