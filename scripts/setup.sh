@@ -146,7 +146,7 @@ Categories=Utility" > "$APPDESKTOP_FILE"
 chmod +x "$APPDESKTOP_FILE"
 
 # Fill the Shell script File
-echo "$APP_NAME > "$LOG_FILE" 2>&1 &" > "$SH_LOC";
+echo "$APP_LOC > "$LOG_FILE" 2>&1 &" > "$SH_LOC";
 
 # Make the Shell script executable
 chmod +x "$SH_LOC"
