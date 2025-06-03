@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import INoteStore from '../interface/INoteStore';
+import INoteStore from './INoteStore';
 import asyncFile from 'node:fs/promises';
 import file from 'node:fs';
 
