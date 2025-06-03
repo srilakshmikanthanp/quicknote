@@ -5,7 +5,7 @@
   "description": "Take your note handy with quicknote!",
   "main": ".webpack/main",
   "scripts": {
-    "build-lib": "node-gyp clean configure build --target=22.0.2 --arch=x64 --dist-url=https://electronjs.org/headers --directory=lib",
+    "build-lib": "node-gyp clean configure build --target=36.3.2 --arch=x64 --dist-url=https://electronjs.org/headers --directory=lib",
     "prepackage": "npm run build-lib",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -34,7 +34,7 @@
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
     "css-loader": "^6.0.0",
-    "electron": "22.0.2",
+    "electron": "^36.3.2",
     "electron-builder": "^24.13.3",
     "electron-devtools-installer": "^3.2.0",
     "electron-installer-snap": "^5.2.0",
