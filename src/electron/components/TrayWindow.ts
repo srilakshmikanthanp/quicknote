@@ -8,7 +8,6 @@ import { taskbarPosition } from "../../../lib";
 import {
   BrowserWindow,
   BrowserWindowConstructorOptions,
-  KeyboardEvent,
   Point,
   Rectangle,
   Tray,
@@ -114,7 +113,7 @@ export default class TrayWindow extends BrowserWindow {
     this.on("blur", () => this.hide());
 
     // set the event handlers
-    this._tray.on("click", (e, b, p) => {
+    this._tray.on("click", (e, b) => {
       this._show(b);
     });
 
