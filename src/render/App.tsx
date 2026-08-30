@@ -12,7 +12,7 @@ import * as C from "./constants";
  */
 export default function App() {
   // Get the note from the store.
-  const [initialContent, setInitialContent] = React.useState<string>(null);
+  const [initialContent, setInitialContent] = React.useState<string | null>(null);
 
   // Get the note from the store.
   React.useEffect(() => {

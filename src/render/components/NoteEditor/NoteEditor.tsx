@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
+import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
@@ -16,7 +16,7 @@ import styles from "./NoteEditor.module.css"
 
 // NoteEditor Props Interface Definition
 interface INoteEditorProps {
-  initialContent: string;
+  initialContent: string | null;
   placeHolder: string;
   onUpdate?: (content: string) => void;
   onError?: (content: Error) => void;

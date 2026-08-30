@@ -10,6 +10,10 @@ import App from "./App";
 // root element
 const rootElement = document.getElementById("root");
 
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
 // react root
 const reactRoot = ReactDOM.createRoot(rootElement);
 
