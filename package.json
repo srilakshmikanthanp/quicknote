@@ -9,7 +9,8 @@
     "start": "electron-forge start",
     "start:debug": "electron-forge start --inspect-electron",
     "package": "electron-forge package",
-    "make": "electron-forge make --targets deb",
+    "make:linux": "electron-forge make --targets deb",
+    "make:win": "electron-forge make --targets squirrel",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
