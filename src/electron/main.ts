@@ -29,10 +29,9 @@ if (!app.requestSingleInstanceLock()) {
   app.quit();
 }
 
-app.setLoginItemSettings({
-  openAtLogin: app.isPackaged,
-  path: app.getPath("exe")
-});
+if (process.platform !== 'linux') {
+  app.setLoginItemSettings({ openAtLogin: app.isPackaged, path: app.getPath('exe') });
+}
 
 app.commandLine.appendSwitch('wm-window-animations-disabled');
 

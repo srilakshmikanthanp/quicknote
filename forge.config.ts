@@ -23,6 +23,10 @@ const config: ForgeConfig = {
     new MakerDeb({
       options: {
         icon: path.resolve('src/assets/images/quicknote.png'),
+        scripts: {
+          postinst: path.resolve('scripts/linux/postinst.sh'),
+          postrm: path.resolve('scripts/linux/postrm.sh'),
+        },
       }
     }),
   ],
