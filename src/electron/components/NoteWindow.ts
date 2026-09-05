@@ -36,10 +36,6 @@ export default class NoteWindow extends BrowserWindow {
   }
 
   public showNote(): void {
-    if (process.env.WAYLAND_DISPLAY) {
-      this.show();
-    } else {
-      this.showNearPoint(screen.getCursorScreenPoint());
-    }
+    this.showNearPoint(screen.getCursorScreenPoint());
   }
 }
