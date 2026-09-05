@@ -35,10 +35,6 @@ if (process.platform !== 'linux') {
 
 app.commandLine.appendSwitch('wm-window-animations-disabled');
 
-if (process.env.WAYLAND_DISPLAY) {
-  app.commandLine.appendSwitch('ozone-platform', 'x11');
-}
-
 if (!fs.existsSync(C.APPLICATION_HOME)) {
   fs.mkdirSync(C.APPLICATION_HOME, { recursive: true })
 }

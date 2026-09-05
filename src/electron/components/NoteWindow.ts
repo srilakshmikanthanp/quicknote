@@ -35,20 +35,11 @@ export default class NoteWindow extends BrowserWindow {
     this.focus();
   }
 
-  public showCentered(): void {
-    const { workArea } = screen.getPrimaryDisplay();
-    const [w, h] = this.getSize();
-    const x = Math.floor(workArea.x + (workArea.width - w) / 2);
-    const y = Math.floor(workArea.y + (workArea.height - h) / 2);
-    this.show();
-    this.setPosition(x, y);
-    this.focus();
-  }
-
-  // Pinned to Electron v28.3.3: v29+ broke screen.getCursorScreenPoint() on
-  // Linux X11 (electron/electron#42519). Fix lands in Chromium M154 → Electron
-  // v46 (~Jan 2027), at which point this comment and the version pin can be removed.
   public showNote(): void {
-    this.showNearPoint(screen.getCursorScreenPoint());
+    if (process.env.WAYLAND_DISPLAY) {
+      this.show();
+    } else {
+      this.showNearPoint(screen.getCursorScreenPoint());
+    }
   }
 }
