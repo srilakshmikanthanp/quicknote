@@ -1,0 +1,30 @@
+name: Build - Windows (exe)
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows installer
+        run: npm run make:win
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quicknote-windows
+          path: out/make/squirrel.windows/**/*.exe
+          retention-days: 1

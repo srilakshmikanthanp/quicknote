@@ -1,0 +1,41 @@
+name: Snapshot Build
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: true
+
+jobs:
+  deb:
+    uses: ./.github/workflows/build-deb.yml
+
+  windows:
+    uses: ./.github/workflows/build-win.yml
+
+  publish:
+    needs: [deb, windows]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Publish snapshot release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp $(find dist -name '*.deb') quicknote-snapshot-linux-amd64.deb
+          cp $(find dist -name '*.exe') quicknote-snapshot-windows-x64.exe
+          gh release delete snapshot --cleanup-tag --yes 2>/dev/null || true
+          gh release create snapshot \
+            quicknote-snapshot-linux-amd64.deb \
+            quicknote-snapshot-windows-x64.exe \
+            --title snapshot \
+            --notes 'Automated snapshot build from the latest commit on main. This is a rolling pre-release; assets are replaced with every push to main and may break at any time.' \
+            --prerelease
