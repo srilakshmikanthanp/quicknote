@@ -30,6 +30,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo 'Downloaded artifacts:'
+          find dist -type f -print
+          echo 'Debian packages:'
+          find dist -name '*.deb' -print
+          echo 'Windows executables:'
+          find dist -name '*.exe' -print
           cp $(find dist -name '*.deb') quicknote-snapshot-linux-amd64.deb
           cp $(find dist -name '*.exe') quicknote-snapshot-win-x64.exe
           gh release delete snapshot --cleanup-tag --yes 2>/dev/null || true
