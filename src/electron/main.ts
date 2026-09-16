@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut } from 'electron';
+import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, nativeTheme } from 'electron';
 import { configure } from 'electron-settings';
 import squirrelStartup from 'electron-squirrel-startup';
 
@@ -47,6 +47,13 @@ configure({
 
 app.on('ready', async () => {
   const fileStore = new FileStore(path.join(C.APPLICATION_HOME, ".quicknote"));
+  const themeSource = await settings.getThemeSource();
+  nativeTheme.themeSource = themeSource;
+
+  const onThemeSourceChange = async (newThemeSource: settings.ThemeSource) => {
+    await settings.setThemeSource(newThemeSource);
+    nativeTheme.themeSource = await settings.getThemeSource();
+  };
 
   ipcMain.handle(E.RECV_IN_MAIN_CHAN, async (e, arg) => {
     return await fileStore.setNote(arg);
@@ -85,7 +92,11 @@ app.on('ready', async () => {
     settings.setWindowSize(noteWindow.getSize() as [number, number]);
   });
 
-  const tray = new NoteTray(() => noteWindow.showNote());
+  const tray = new NoteTray(
+    () => noteWindow.showNote(),
+    settings.getThemeSource,
+    onThemeSourceChange
+  );
 
   const menu = new Menu();
 

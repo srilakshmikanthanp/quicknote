@@ -1,5 +1,5 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -33,6 +33,9 @@ export const SHORTCUT_KEY         = 'QuicknoteShortcutKey';
 
 // Setting key for window size
 export const WINDOW_SIZE          = 'QuicknoteWindowSize';
+
+// Setting key for application theme
+export const THEME_SOURCE         = 'QuicknoteThemeSource';
 
 // Default ShortCutKey for Quicknote
 export const DEFAULT_SHORTCUT_KEY = 'CommandOrControl+Alt+Q';

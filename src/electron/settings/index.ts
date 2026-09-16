@@ -1,14 +1,16 @@
 // Copyright (c) 2023 Sri Lakshmi Kanthan P
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { WINDOW_SIZE, SHORTCUT_KEY } from '../constants/constants';
+import { WINDOW_SIZE, SHORTCUT_KEY, THEME_SOURCE } from '../constants/constants';
 import settings from 'electron-settings';
+
+export type ThemeSource = 'system' | 'light' | 'dark';
 
 /**
  * Used To get the window width and height
- * 
+ *
  * @returns [width, height] of the window
  */
 export const getWindowSize = async (
@@ -20,7 +22,7 @@ export const getWindowSize = async (
 
 /**
  * Used To set the window Width and Height
- * 
+ *
  * @param [ width, height ] of the window
  */
 export const setWindowSize = async (
@@ -46,4 +48,25 @@ export const setShortCutKey = async (
   key: string
 ): Promise<void> => {
   return await settings.set(SHORTCUT_KEY, key);
+}
+
+/**
+ * Used to get the application theme source.
+ */
+export const getThemeSource = async (): Promise<ThemeSource> => {
+  if (!await settings.has(THEME_SOURCE)) {
+    return 'system';
+  }
+
+  const themeSource = await settings.get(THEME_SOURCE);
+  return themeSource === 'light' || themeSource === 'dark' ? themeSource : 'system';
+}
+
+/**
+ * Used to set the application theme source.
+ */
+export const setThemeSource = async (
+  themeSource: ThemeSource
+): Promise<void> => {
+  return await settings.set(THEME_SOURCE, themeSource);
 }
