@@ -12,11 +12,11 @@ jobs:
   deb:
     uses: ./.github/workflows/build-deb.yml
 
-  windows:
+  win:
     uses: ./.github/workflows/build-win.yml
 
   publish:
-    needs: [deb, windows]
+    needs: [deb, win]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -31,11 +31,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cp $(find dist -name '*.deb') quicknote-snapshot-linux-amd64.deb
-          cp $(find dist -name '*.exe') quicknote-snapshot-windows-x64.exe
+          cp $(find dist -name '*.exe') quicknote-snapshot-win-x64.exe
           gh release delete snapshot --cleanup-tag --yes 2>/dev/null || true
           gh release create snapshot \
             quicknote-snapshot-linux-amd64.deb \
-            quicknote-snapshot-windows-x64.exe \
+            quicknote-snapshot-win-x64.exe \
             --title snapshot \
             --notes 'Automated snapshot build from the latest commit on main. This is a rolling pre-release; assets are replaced with every push to main and may break at any time.' \
             --prerelease

@@ -12,11 +12,11 @@ jobs:
   deb:
     uses: ./.github/workflows/build-deb.yml
 
-  windows:
+  win:
     uses: ./.github/workflows/build-win.yml
 
   publish:
-    needs: [deb, windows]
+    needs: [deb, win]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -32,10 +32,10 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           cp $(find dist -name '*.deb') "quicknote-${TAG}-linux-amd64.deb"
-          cp $(find dist -name '*.exe') "quicknote-${TAG}-windows-x64.exe"
+          cp $(find dist -name '*.exe') "quicknote-${TAG}-win-x64.exe"
           gh release create "${TAG}" \
             "quicknote-${TAG}-linux-amd64.deb" \
-            "quicknote-${TAG}-windows-x64.exe" \
+            "quicknote-${TAG}-win-x64.exe" \
             --verify-tag \
             --title "${TAG}" \
             --generate-notes
