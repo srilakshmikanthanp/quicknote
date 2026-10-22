@@ -5,7 +5,8 @@ import NoteWindow from './NoteWindow';
 const SNAPSHOT_RELEASE_URL = 'https://github.com/srilakshmikanthanp/quicknote/releases/tag/snapshot';
 const LATEST_RELEASE_URL = 'https://github.com/srilakshmikanthanp/quicknote/releases/latest';
 
-const button = 'flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition hover:-translate-y-0.5 sm:flex-none';
+const button =
+  'flex flex-1 items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition hover:-translate-y-0.5 sm:flex-none';
 
 export default function Introduction() {
   return (

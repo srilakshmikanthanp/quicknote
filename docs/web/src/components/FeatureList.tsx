@@ -13,37 +13,37 @@ const features: Feature[] = [
     icon: <LuZap />,
     title: 'Always in the tray',
     text: 'One click on the icon and your note is open.',
-    tilt: '-rotate-1'
+    tilt: 'sm:-rotate-1'
   },
   {
     icon: <LuKeyboard />,
     title: 'Global shortcut',
     text: 'Ctrl+Alt+Q works from any app.',
-    tilt: 'rotate-1'
+    tilt: 'sm:rotate-1'
   },
   {
     icon: <LuSave />,
     title: 'Auto-saved',
     text: 'No save button. Just close it.',
-    tilt: '-rotate-2'
+    tilt: 'sm:-rotate-2'
   },
   {
     icon: <LuTextCursorInput />,
     title: 'Light rich text',
     text: 'Bold, italic and underline when you need them.',
-    tilt: 'rotate-2'
+    tilt: 'sm:rotate-2'
   },
   {
     icon: <LuMoon />,
     title: 'Light & dark',
     text: 'Follows your system, or pick a theme.',
-    tilt: '-rotate-1'
+    tilt: 'sm:-rotate-1'
   },
   {
     icon: <LuMonitorSmartphone />,
     title: 'Windows & Linux',
     text: 'Native installers for both.',
-    tilt: 'rotate-1'
+    tilt: 'sm:rotate-1'
   }
 ];
 

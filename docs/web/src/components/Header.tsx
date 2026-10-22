@@ -10,7 +10,11 @@ export default function Header() {
         <img src="/logo.png" width={28} height={28} alt="" />
         QuickNote
       </a>
-      <ExternalLink href={REPO_URL} aria-label="GitHub" className="text-2xl text-muted transition-colors hover:text-accent">
+      <ExternalLink
+        href={REPO_URL}
+        aria-label="GitHub"
+        className="text-2xl text-muted transition-colors hover:text-accent"
+      >
         <FaGithub />
       </ExternalLink>
     </header>

@@ -9,7 +9,7 @@ export default function NoteWindow() {
   const [text, setText] = useState(INITIAL);
 
   return (
-    <div className="relative -rotate-2 transition-transform hover:rotate-0">
+    <div className="relative transition-transform hover:rotate-0 sm:-rotate-2">
       <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl bg-sticky opacity-70" />
       <div className="relative overflow-hidden rounded-xl border border-line bg-paper shadow-2xl">
         <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
