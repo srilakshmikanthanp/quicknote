@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-bg: #f6f1e7;
+  --color-paper: #fffdf8;
+  --color-fg: #2b2620;
+  --color-muted: #7a7064;
+  --color-line: #e3dac8;
+  --color-accent: #2f86f6;
+  --color-accent-soft: rgb(47 134 246 / 0.12);
+  --color-sticky: #fff1a8;
+  --color-sticky-fg: #4a3f12;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #17150f;
+    --color-paper: #1f1c15;
+    --color-fg: #efe8d8;
+    --color-muted: #a09682;
+    --color-line: #332e22;
+    --color-accent: #5a9cf8;
+    --color-accent-soft: rgb(90 156 248 / 0.16);
+    --color-sticky: #4a4015;
+    --color-sticky-fg: #fbefb0;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    background-image: radial-gradient(var(--color-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  :focus-visible {
+    @apply rounded-md outline-2 outline-offset-3 outline-accent;
+  }
+}
+
+@layer components {
+  .keycap {
+    @apply inline-flex min-w-9 items-center justify-center rounded-lg border border-line border-b-4 bg-paper px-2.5 py-1 font-mono text-sm;
+  }
+}
