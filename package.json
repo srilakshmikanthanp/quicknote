@@ -43,11 +43,11 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.1",
-    "electron": "43.6.0",
+    "electron": "45.0.0",
     "typescript": "^7.0.2"
   },
   "allowScripts": {
     "electron-winstaller@5.4.4": true,
-    "electron@43.6.0": true
+    "electron@45.0.0": true
   }
 }
