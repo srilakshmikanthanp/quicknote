@@ -1,15 +1,12 @@
+<p align="center">
+  <img src="assets/images/quicknote.png" width="120" alt="QuickNote Logo">
+</p>
+
 # QuickNote
 
 A quick-access note right from your system tray.
 
-## Installation
-
-Go to [Releases](https://github.com/srilakshmikanthanp/quicknote/releases) and download the latest version for your platform.
-
-### Usage
-
-- Click the tray icon or press `Ctrl+Alt+Q` to open the note.
-- Your note is saved automatically.
+For downloads, usage, and more, visit **[quicknote.srilakshmikanthanp.com](https://quicknote.srilakshmikanthanp.com/)**.
 
 ## Contributing
 
