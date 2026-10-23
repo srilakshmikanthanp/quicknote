@@ -1,5 +1,5 @@
 import type { ForgeConfig } from '@electron-forge/shared-types';
-import { MakerSquirrel } from '@electron-forge/maker-squirrel';
+import { MakerWix } from '@electron-forge/maker-wix';
 import { MakerZIP } from '@electron-forge/maker-zip';
 import { MakerDeb } from '@electron-forge/maker-deb';
 import { MakerRpm } from '@electron-forge/maker-rpm';
@@ -16,7 +16,13 @@ const config: ForgeConfig = {
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerWix({
+      name: 'QuickNote',
+      manufacturer: 'srilakshmikanthanp',
+      icon: path.resolve('src/assets/images/quicknote.ico'),
+      language: 1033,
+      ui: { chooseDirectory: true },
+    }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({

@@ -1,4 +1,4 @@
-name: Build - Windows (exe)
+name: Build - Windows (msi)
 
 on:
   workflow_call:
@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: quicknote-windows
-          path: out/make/squirrel.windows/**/*.exe
+          path: out/make/wix/**/*.msi
           retention-days: 1

@@ -34,10 +34,10 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           cp "$(find dist -name '*.deb')" "quicknote-${TAG}-linux-amd64.deb"
-          cp "$(find dist -name '*.exe')" "quicknote-${TAG}-win-x64.exe"
+          cp "$(find dist -name '*.msi')" "quicknote-${TAG}-win-x64.msi"
           gh release create "${TAG}" \
             "quicknote-${TAG}-linux-amd64.deb" \
-            "quicknote-${TAG}-win-x64.exe" \
+            "quicknote-${TAG}-win-x64.msi" \
             --verify-tag \
             --title "${TAG}" \
             --generate-notes

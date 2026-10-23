@@ -5,7 +5,6 @@
 
 import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, nativeTheme } from 'electron';
 import { configure } from 'electron-settings';
-import squirrelStartup from 'electron-squirrel-startup';
 
 import path from 'path';
 import fs from 'fs';
@@ -20,10 +19,6 @@ import * as E from './constants/ipcevents';
 /******************************************
  *          App startup phase             *
  *****************************************/
-
-if (squirrelStartup) {
-  app.quit();
-}
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
