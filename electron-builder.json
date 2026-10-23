@@ -5,12 +5,12 @@
   },
   "win": {
     "target": "msi",
-    "icon": "assets/meta/icon.ico"
+    "icon": "src/assets/images/quicknote.ico"
   },
   "linux": {
     "category": "Utility",
     "target": "AppImage",
-    "icon": "assets/meta"
+    "icon": "src/assets/images/quicknote.png"
   },
   "msi": {
     "createDesktopShortcut": false

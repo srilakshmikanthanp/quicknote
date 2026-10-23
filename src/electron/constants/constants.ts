@@ -8,7 +8,7 @@ import os from "os";
 import { app } from "electron";
 
 // Application Icon
-export const APPLICATION_ICON     = app.isPackaged ? path.join(process.resourcesPath, "quicknote.png") : path.join(__dirname, "../../assets/images/quicknote.png");
+export const APPLICATION_ICON     = app.isPackaged ? path.join(process.resourcesPath, "quicknote.png") : path.join(__dirname, "../../src/assets/images/quicknote.png");
 
 // Application Home
 export const APPLICATION_HOME     = path.join(os.homedir(), ".quicknote");

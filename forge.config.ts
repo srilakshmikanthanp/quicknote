@@ -11,7 +11,6 @@ const config: ForgeConfig = {
     icon: './src/assets/images/quicknote',
     extraResource: [
       './src/assets/images/quicknote.png',
-      './src/assets/images/quicknote.gif',
       './src/assets/images/quicknote.ico',
     ],
   },
