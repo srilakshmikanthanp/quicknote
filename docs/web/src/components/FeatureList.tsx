@@ -5,45 +5,38 @@ interface Feature {
   icon: ReactNode;
   title: string;
   text: string;
-  tilt: string;
 }
 
 const features: Feature[] = [
   {
     icon: <LuZap />,
     title: 'Always in the tray',
-    text: 'One click on the icon and your note is open.',
-    tilt: 'sm:-rotate-1'
+    text: 'One click on the icon and your note is open.'
   },
   {
     icon: <LuKeyboard />,
     title: 'Global shortcut',
-    text: 'Ctrl+Alt+Q works from any app.',
-    tilt: 'sm:rotate-1'
+    text: 'Ctrl+Alt+Q works from any app.'
   },
   {
     icon: <LuSave />,
     title: 'Auto-saved',
-    text: 'No save button. Just close it.',
-    tilt: 'sm:-rotate-2'
+    text: 'No save button. Just close it.'
   },
   {
     icon: <LuTextCursorInput />,
     title: 'Light rich text',
-    text: 'Bold, italic and underline when you need them.',
-    tilt: 'sm:rotate-2'
+    text: 'Bold, italic and underline when you need them.'
   },
   {
     icon: <LuMoon />,
     title: 'Light & dark',
-    text: 'Follows your system, or pick a theme.',
-    tilt: 'sm:-rotate-1'
+    text: 'Follows your system, or pick a theme.'
   },
   {
     icon: <LuMonitorSmartphone />,
     title: 'Windows & Linux',
-    text: 'Native installers for both.',
-    tilt: 'sm:rotate-1'
+    text: 'Native installers for both.'
   }
 ];
 
@@ -55,7 +48,7 @@ export default function FeatureList() {
         {features.map((f, i) => (
           <li
             key={f.title}
-            className={`${f.tilt} rounded-lg border border-line bg-paper p-5 shadow-md transition-transform hover:-translate-y-1 hover:rotate-0 ${i === 0 ? 'bg-sticky! text-sticky-fg' : ''}`}
+            className={`rounded-lg border border-line bg-paper p-5 shadow-md transition-transform hover:-translate-y-1 ${i === 0 ? 'bg-sticky! text-sticky-fg' : ''}`}
           >
             <span className="mb-3 block text-xl text-accent">{f.icon}</span>
             <h3 className="font-semibold">{f.title}</h3>
