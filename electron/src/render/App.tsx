@@ -4,7 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import React from "react";
-import { NoteEditor, TitleBar } from "./components";
+import { NoteEditor } from "@quicknote/editor";
+import { TitleBar } from "./components";
 import * as C from "./constants";
 
 /**

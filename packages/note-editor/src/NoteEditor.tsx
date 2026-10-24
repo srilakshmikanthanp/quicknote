@@ -19,7 +19,7 @@ import { AutoLinkNode, autoLinkEmailMatcher, autoLinkUrlMatcher } from "@lexical
 import { ListItemNode, ListNode } from "@lexical/list";
 import { CHECK_LIST, ORDERED_LIST, UNORDERED_LIST } from "@lexical/markdown";
 import styled from 'styled-components';
-import { EditorState } from "lexical";
+import type { EditorState } from "lexical";
 import LinkOpenPlugin from "./LinkOpenPlugin";
 import styles from "./NoteEditor.module.css"
 
@@ -28,7 +28,8 @@ interface INoteEditorProps {
   initialContent: string | null;
   placeHolder: string;
   onUpdate?: (content: string) => void;
-  onError?: (content: Error) => void;
+  onError: (content: Error) => void;
+  autoFocus?: boolean;
 }
 
 // top level container For Scrolling
@@ -91,7 +92,7 @@ const editorTheme = {
   },
 }
 
-const markdownTransformers = [UNORDERED_LIST, ORDERED_LIST, CHECK_LIST];
+const markdownTransformers = [CHECK_LIST, UNORDERED_LIST, ORDERED_LIST];
 const editorNodes = [ListNode, ListItemNode, AutoLinkNode];
 const linkMatchers = [autoLinkUrlMatcher, autoLinkEmailMatcher];
 
@@ -101,6 +102,7 @@ export default function NoteEditor({
   onUpdate,
   placeHolder,
   onError,
+  autoFocus = true,
 }: INoteEditorProps) {
   // editor config
   const editorConfig = (initialContent != null && initialContent != '') ? {
@@ -118,7 +120,7 @@ export default function NoteEditor({
 
   // change handler for note editor
   const onChange = (state: EditorState) => {
-    onUpdate && onUpdate(JSON.stringify(state.toJSON()));
+    onUpdate?.(JSON.stringify(state.toJSON()));
   }
 
   // placeholder
@@ -140,7 +142,7 @@ export default function NoteEditor({
           />
           <OnChangePlugin onChange={onChange} />
           <HistoryPlugin />
-          <AutoFocusPlugin />
+          {autoFocus && <AutoFocusPlugin />}
           <ListPlugin />
           <CheckListPlugin />
           <TabIndentationPlugin />

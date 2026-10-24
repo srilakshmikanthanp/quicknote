@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: quicknote-windows
-          path: out/make/wix/**/*.msi
+          path: electron/out/make/wix/**/*.msi
           retention-days: 1
