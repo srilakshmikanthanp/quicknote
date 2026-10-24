@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import type { CSSProperties } from 'react';
+import { lazy, Suspense } from 'react';
 import { LuBold, LuItalic, LuUnderline } from 'react-icons/lu';
+import { SEED_NOTE } from './noteSeed';
 
-const INITIAL = `Buy oat milk
-Call the plumber at 5
-Idea: tray note for everything ✨`;
+const NoteEditor = lazy(() => import('@quicknote/editor'));
+
+const themeVars = {
+  '--editor-bg-color': 'var(--color-paper)',
+  '--editor-fg-color': 'var(--color-fg)'
+} as CSSProperties;
 
 export default function NoteWindow() {
-  const [text, setText] = useState(INITIAL);
-
   return (
     <div className="relative transition-transform hover:rotate-0 sm:-rotate-2">
       <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl bg-sticky opacity-70" />
@@ -20,19 +23,16 @@ export default function NoteWindow() {
             <LuBold /> <LuItalic /> <LuUnderline />
           </span>
         </div>
-        <textarea
-          aria-label="Try it: type a note"
-          value={text}
-          onChange={e => setText(e.target.value)}
-          spellCheck={false}
-          rows={7}
-          className="block w-full resize-none bg-transparent p-4 leading-8 outline-none"
-          style={{
-            backgroundImage: 'linear-gradient(transparent 31px, var(--color-line) 32px)',
-            backgroundSize: '100% 32px',
-            backgroundPositionY: '10px'
-          }}
-        />
+        <div className="demo-note h-60" style={themeVars}>
+          <Suspense fallback={null}>
+            <NoteEditor
+              initialContent={SEED_NOTE}
+              placeHolder="Put something here..."
+              onError={error => console.error(error)}
+              autoFocus={false}
+            />
+          </Suspense>
+        </div>
         <div className="flex items-center gap-1.5 border-t border-line px-4 py-2 text-xs text-muted">
           <span className="size-1.5 rounded-full bg-emerald-500" /> Saved
         </div>

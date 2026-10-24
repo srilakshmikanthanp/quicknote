@@ -51,3 +51,8 @@
     @apply inline-flex min-w-9 items-center justify-center rounded-lg border border-line border-b-4 bg-paper px-2.5 py-1 font-mono text-sm;
   }
 }
+
+/* Tailwind's preflight removes list markers, the note editor expects the browser defaults */
+.demo-note ul {
+  list-style-type: disc;
+}
