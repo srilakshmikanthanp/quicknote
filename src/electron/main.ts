@@ -4,6 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Menu, MenuItem, dialog, app, ipcMain, globalShortcut, nativeTheme } from 'electron';
+import open from 'open';
 import { configure } from 'electron-settings';
 
 import path from 'path';
@@ -75,6 +76,18 @@ app.on('ready', async () => {
       preload: path.join(__dirname, 'NotePreload.js'),
       devTools: !app.isPackaged,
     }
+  });
+
+  ipcMain.handle(E.PINNED_IN_MAIN_CHAN, () => noteWindow.isPinned());
+
+  ipcMain.handle(E.PIN_IN_MAIN_CHAN, (e, pinned: boolean) => {
+    noteWindow.setPinned(pinned === true);
+    return noteWindow.isPinned();
+  });
+
+  noteWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (/^(https?|mailto):/i.test(url)) open(url).catch(() => {});
+    return { action: 'deny' };
   });
 
   noteWindow.setSize(...await settings.getWindowSize(C.APPLICATION_SIZE));

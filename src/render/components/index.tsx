@@ -5,4 +5,6 @@
 
 import NoteEditor from "./NoteEditor/NoteEditor";
 
-export { NoteEditor };
+import TitleBar from "./TitleBar/TitleBar";
+
+export { NoteEditor, TitleBar };

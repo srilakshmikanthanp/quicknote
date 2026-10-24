@@ -11,9 +11,11 @@ import {
 } from "electron";
 
 export default class NoteWindow extends BrowserWindow {
+  private pinned = false;
+
   public constructor(options: BrowserWindowConstructorOptions) {
     super(options);
-    this.on("blur", () => this.hide());
+    this.on("blur", () => !this.pinned && this.hide());
   }
 
   private fitToScreen(): void {
@@ -23,6 +25,14 @@ export default class NoteWindow extends BrowserWindow {
     x = Math.max(bounds.x, Math.min(x, bounds.x + bounds.width - w));
     y = Math.max(bounds.y, Math.min(y, bounds.y + bounds.height - h));
     this.setPosition(x, y);
+  }
+
+  public isPinned(): boolean {
+    return this.pinned;
+  }
+
+  public setPinned(pinned: boolean): void {
+    this.pinned = pinned;
   }
 
   public showNearPoint(p: Point): void {
@@ -36,6 +46,10 @@ export default class NoteWindow extends BrowserWindow {
   }
 
   public showNote(): void {
-    this.showNearPoint(screen.getCursorScreenPoint());
+    if (this.isVisible() && this.pinned) {
+      this.focus();
+    } else {
+      this.showNearPoint(screen.getCursorScreenPoint());
+    }
   }
 }

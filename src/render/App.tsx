@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import React from "react";
-import { NoteEditor } from "./components";
+import { NoteEditor, TitleBar } from "./components";
 import * as C from "./constants";
 
 /**
@@ -18,7 +18,14 @@ export default function App() {
   React.useEffect(() => {
     window.QuickNoteAPI.recvNote().then(setInitialContent).catch(onError);
     console.log(initialContent);
+    window.QuickNoteAPI.getPinned().then(setPinned).catch(onError);
   }, []);
+
+  const [pinned, setPinned] = React.useState(false);
+
+  const togglePin = () => {
+    window.QuickNoteAPI.setPinned(!pinned).then(setPinned).catch(onError);
+  };
 
   // Set the note in the store.
   const saveNote = (note: string) => {
@@ -32,12 +39,17 @@ export default function App() {
 
   // render the App
   return (
-    <NoteEditor
-      placeHolder={C.PLACEHOLDER_TEXT}
-      onUpdate={saveNote}
-      initialContent={initialContent}
-      onError={onError}
-      key={initialContent}
-    />
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", position: "relative" }}>
+      <TitleBar pinned={pinned} onTogglePin={togglePin} />
+      <div style={{ flex: 1, minHeight: 0 }}>
+        <NoteEditor
+          placeHolder={C.PLACEHOLDER_TEXT}
+          onUpdate={saveNote}
+          initialContent={initialContent}
+          onError={onError}
+          key={initialContent}
+        />
+      </div>
+    </div>
   );
 }

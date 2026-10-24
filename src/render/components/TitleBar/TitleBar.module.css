@@ -1,0 +1,68 @@
+/**
+ * Copyright (c) 2026 Sri Lakshmi Kanthan P
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.titleBar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 26px;
+  padding: 0 6px 0 10px;
+  background: var(--editor-bg-color);
+  color: var(--editor-fg-color);
+  border-bottom: 1px solid var(--thumb-color);
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+.grip {
+  flex: 1;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 10px;
+  opacity: 0.35;
+}
+
+.pin {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.pin:hover {
+  opacity: 1;
+  background: var(--thumb-color);
+}
+
+.pinned {
+  opacity: 1;
+  color: #2f86f6;
+}
+
+.corner {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  z-index: 1;
+  color: var(--editor-fg-color);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+:global(#root):hover .corner,
+.corner:focus-within {
+  opacity: 1;
+}
