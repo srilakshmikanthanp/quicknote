@@ -25,8 +25,8 @@ const features: Feature[] = [
   },
   {
     icon: <LuTextCursorInput />,
-    title: 'Light rich text',
-    text: 'Bold, italic and underline when you need them.'
+    title: 'Rich text & lists',
+    text: 'Bold, italic, underline, bullets and checklists.'
   },
   {
     icon: <LuMoon />,

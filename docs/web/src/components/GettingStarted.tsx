@@ -4,7 +4,7 @@ interface Step {
 }
 
 const steps: Step[] = [
-  { title: 'Install', text: 'Grab the .exe for Windows or the .deb for Linux from Releases.' },
+  { title: 'Install', text: 'Grab the .msi for Windows or the .deb for Linux from Releases.' },
   { title: 'Open', text: 'Click the tray icon or press Ctrl+Alt+Q.' },
   { title: 'Write', text: 'Type. It is saved automatically as you go.' },
   { title: 'Return', text: 'Open it later and pick up exactly where you left off.' }
