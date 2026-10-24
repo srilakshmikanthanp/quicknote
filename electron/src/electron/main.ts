@@ -80,6 +80,14 @@ app.on('ready', async () => {
 
   ipcMain.handle(E.PINNED_IN_MAIN_CHAN, () => noteWindow.isPinned());
 
+  const notifyMaximizeChange = () => {
+    noteWindow.webContents.send(E.MAXIMIZE_CHANGE_CHAN, noteWindow.isMaximized());
+  };
+
+  ipcMain.handle(E.MAXIMIZED_IN_MAIN_CHAN, () => noteWindow.isMaximized());
+  noteWindow.on('maximize', notifyMaximizeChange);
+  noteWindow.on('unmaximize', notifyMaximizeChange);
+
   ipcMain.handle(E.PIN_IN_MAIN_CHAN, (e, pinned: boolean) => {
     noteWindow.setPinned(pinned === true);
     return noteWindow.isPinned();

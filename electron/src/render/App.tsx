@@ -22,6 +22,13 @@ export default function App() {
     window.QuickNoteAPI.getPinned().then(setPinned).catch(onError);
   }, []);
 
+  // Drop the popup margin and rounded corners while maximized.
+  React.useEffect(() => {
+    const apply = (maximized: boolean) => document.documentElement.toggleAttribute("data-maximized", maximized);
+    window.QuickNoteAPI.isMaximized().then(apply).catch(onError);
+    return window.QuickNoteAPI.onMaximizedChange(apply);
+  }, []);
+
   const [pinned, setPinned] = React.useState(false);
 
   const togglePin = () => {

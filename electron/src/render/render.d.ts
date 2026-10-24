@@ -4,11 +4,13 @@
 // https://opensource.org/licenses/MIT
 
 export interface IQuickNoteAPI {
+  onMaximizedChange(callback: (maximized: boolean) => void): () => void;
+  isMaximized(): Promise<boolean>;
   sendNote(note: string | null): Promise<void>;
   recvNote(): Promise<string>;
   getPinned(): Promise<boolean>;
   setPinned(pinned: boolean): Promise<boolean>;
-  onError(err: string): Promise<void>;
+  onError(err: string): void;
 }
 
 declare global {
