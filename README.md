@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="electron/src/assets/images/quicknote.png" width="120" alt="QuickNote Logo">
+  <img src="desktop/src/assets/images/quicknote.png" width="120" alt="QuickNote Logo">
 </p>
 
 # QuickNote

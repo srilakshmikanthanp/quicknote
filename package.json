@@ -5,15 +5,15 @@
   "license": "MIT",
   "author": "srilakshmikanthanp",
   "workspaces": [
-    "electron",
+    "desktop",
     "packages/*",
     "docs/web"
   ],
   "scripts": {
-    "start": "npm start -w electron",
-    "start:debug": "npm run start:debug -w electron",
-    "make:linux": "npm run make:linux -w electron",
-    "make:win": "npm run make:win -w electron",
+    "start": "npm start -w desktop",
+    "start:debug": "npm run start:debug -w desktop",
+    "make:linux": "npm run make:linux -w desktop",
+    "make:win": "npm run make:win -w desktop",
     "web": "npm run dev -w docs/web",
     "web:build": "npm run build -w docs/web",
     "web:deploy": "npm run deploy -w docs/web"
