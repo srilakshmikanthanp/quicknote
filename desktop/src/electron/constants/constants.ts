@@ -26,7 +26,7 @@ export const ISSUE_RAISE_URL      = "https://github.com/srilakshmikanthanp/quick
 export const APP_DONATE_URL       = "https://srilakshmikanthanp.github.io/donate/"
 
 // Application Size
-export const APPLICATION_SIZE     = [350, 250] as [number, number];
+export const APPLICATION_SIZE     = [439, 336] as [number, number];
 
 // Setting key for ShortcutKey
 export const SHORTCUT_KEY         = 'QuicknoteShortcutKey';
