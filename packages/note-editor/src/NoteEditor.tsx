@@ -22,6 +22,8 @@ import styled from 'styled-components';
 import type { EditorState } from "lexical";
 import LinkOpenPlugin from "./LinkOpenPlugin";
 import Toolbar from "./Toolbar";
+import type { ReactNode } from "react";
+import TitleBar from "./TitleBar";
 import styles from "./NoteEditor.module.css"
 
 // NoteEditor Props Interface Definition
@@ -32,9 +34,16 @@ interface INoteEditorProps {
   onError: (content: Error) => void;
   autoFocus?: boolean;
   toolbar?: boolean;
+  titleBar?: boolean;
+  pinned?: boolean;
+  draggable?: boolean;
+  onTogglePin?: () => void;
+  onClose?: () => void;
+  title?: string;
+  icon?: ReactNode;
 }
 
-// fills the space it is given, the note scrolls and the toolbar stays below it
+// fills the space it is given, the note scrolls between the title bar and the toolbar
 const Shell = styled.div`
   display: flex;
   flex-direction: column;
@@ -115,6 +124,13 @@ export default function NoteEditor({
   onError,
   autoFocus = true,
   toolbar = false,
+  titleBar = false,
+  pinned = false,
+  draggable = false,
+  onTogglePin,
+  onClose,
+  title,
+  icon,
 }: INoteEditorProps) {
   // editor config
   const editorConfig = (initialContent != null && initialContent != '') ? {
@@ -146,6 +162,16 @@ export default function NoteEditor({
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <Shell>
+        {titleBar && (
+          <TitleBar
+            pinned={pinned}
+            draggable={draggable}
+            onTogglePin={onTogglePin}
+            onClose={onClose}
+            title={title}
+            icon={icon}
+          />
+        )}
         <RootLevelContainer>
           <EditorContainer>
             <RichTextPlugin
@@ -164,7 +190,9 @@ export default function NoteEditor({
             <LinkOpenPlugin />
           </EditorContainer>
         </RootLevelContainer>
-        {toolbar && <Toolbar />}
+        {toolbar && (
+          <Toolbar />
+        )}
       </Shell>
     </LexicalComposer>
   );

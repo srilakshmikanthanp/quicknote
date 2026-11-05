@@ -9,17 +9,19 @@ import styles from "./TitleBar.module.css";
 
 interface ITitleBarProps {
   pinned: boolean;
-  onTogglePin: () => void;
+  /** lets a host such as Electron drag the window by this bar */
+  draggable?: boolean;
+  onTogglePin?: () => void;
   onClose?: () => void;
   title?: string;
   icon?: ReactNode;
 }
 
-export default function TitleBar({ pinned, onTogglePin, onClose, title, icon }: ITitleBarProps) {
+export default function TitleBar({ pinned, draggable, onTogglePin, onClose, title, icon }: ITitleBarProps) {
   return (
-    <div className={`${styles.titleBar} ${pinned ? styles.draggable : ""}`}>
+    <div className={`${styles.titleBar} ${draggable ? styles.draggable : ""}`}>
       {(icon || title) && <span className={styles.title}>{icon}{title}</span>}
-      {pinned && <span className={styles.grip} aria-hidden>•••</span>}
+      {draggable && <span className={styles.grip} aria-hidden>•••</span>}
       <button
         className={`${styles.pin} ${pinned ? styles.pinned : ""}`}
         title={pinned ? "Unpin (hide when focus is lost)" : "Pin to keep open, move and resize"}

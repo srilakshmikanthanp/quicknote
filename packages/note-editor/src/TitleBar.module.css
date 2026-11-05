@@ -18,7 +18,7 @@
   user-select: none;
 }
 
-/* only a pinned window can be moved, see NoteWindow */
+/* only set when the host window can be moved */
 .draggable {
   -webkit-app-region: drag;
   cursor: grab;

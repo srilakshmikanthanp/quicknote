@@ -5,7 +5,6 @@
 
 import React from "react";
 import { NoteEditor } from "@quicknote/editor";
-import { TitleBar } from "./components";
 import logo from "../assets/images/quicknote-64.png";
 import * as C from "./constants";
 
@@ -41,24 +40,20 @@ export default function App() {
 
   // render the App
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <TitleBar
-        pinned={pinned}
-        onTogglePin={togglePin}
-        onClose={() => window.QuickNoteAPI.hide()}
-        title="QuickNote"
-        icon={<img src={logo} width={18} height={18} alt="" />}
-      />
-      <div style={{ flex: 1, minHeight: 0 }}>
-        <NoteEditor
-          placeHolder={C.PLACEHOLDER_TEXT}
-          onUpdate={saveNote}
-          initialContent={initialContent}
-          onError={onError}
-          toolbar
-          key={initialContent}
-        />
-      </div>
-    </div>
+    <NoteEditor
+      placeHolder={C.PLACEHOLDER_TEXT}
+      onUpdate={saveNote}
+      initialContent={initialContent}
+      onError={onError}
+      toolbar
+      titleBar
+      pinned={pinned}
+      draggable={pinned}
+      onTogglePin={togglePin}
+      onClose={() => window.QuickNoteAPI.hide()}
+      title="QuickNote"
+      icon={<img src={logo} width={18} height={18} alt="" />}
+      key={initialContent}
+    />
   );
 }
