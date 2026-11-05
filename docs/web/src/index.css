@@ -56,3 +56,26 @@
 .demo-note ul {
   list-style-type: disc;
 }
+
+/* the demo note uses the desktop app's own colours, so it looks the same as the real window */
+.demo-window {
+  --editor-bg-color: #ffffff;
+  --editor-fg-color: #1f2328;
+  --bar-bg: #f1f3f6;
+  --bar-fg: #4b5563;
+  --bar-divider: #d9dde3;
+  --note-border: #cdd3dc;
+  --pin: #1f6fe5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .demo-window {
+    --editor-bg-color: #14171d;
+    --editor-fg-color: #e6e8ec;
+    --bar-bg: #23272f;
+    --bar-fg: #c9ced6;
+    --bar-divider: #373c46;
+    --note-border: #3a3f4a;
+    --pin: #2f9bff;
+  }
+}

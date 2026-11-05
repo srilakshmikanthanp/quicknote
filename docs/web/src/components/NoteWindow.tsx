@@ -1,41 +1,29 @@
-import type { CSSProperties } from 'react';
-import { lazy, Suspense } from 'react';
-import { LuBold, LuItalic, LuUnderline } from 'react-icons/lu';
+import { lazy, Suspense, useState } from 'react';
 import { SEED_NOTE } from './noteSeed';
 
 const NoteEditor = lazy(() => import('@quicknote/editor'));
 
-const themeVars = {
-  '--editor-bg-color': 'var(--color-paper)',
-  '--editor-fg-color': 'var(--color-fg)'
-} as CSSProperties;
-
 export default function NoteWindow() {
+  const [pinned, setPinned] = useState(false);
+
   return (
     <div className="relative transition-transform hover:rotate-0 sm:-rotate-2">
       <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl bg-sticky opacity-70" />
-      <div className="relative overflow-hidden rounded-xl border border-line bg-paper shadow-2xl">
-        <div className="flex items-center justify-between border-b border-line px-4 py-2.5">
-          <span className="flex items-center gap-2 text-xs font-medium text-muted">
-            <img src="/logo.png" width={16} height={16} alt="" /> QuickNote
-          </span>
-          <span className="flex gap-2 text-muted" aria-hidden>
-            <LuBold /> <LuItalic /> <LuUnderline />
-          </span>
-        </div>
-        <div className="demo-note h-60" style={themeVars}>
-          <Suspense fallback={null}>
-            <NoteEditor
-              initialContent={SEED_NOTE}
-              placeHolder="Put something here..."
-              onError={error => console.error(error)}
-              autoFocus={false}
-            />
-          </Suspense>
-        </div>
-        <div className="flex items-center gap-1.5 border-t border-line px-4 py-2 text-xs text-muted">
-          <span className="size-1.5 rounded-full bg-emerald-500" /> Saved
-        </div>
+      <div className="demo-window demo-note relative h-80 overflow-hidden rounded-[10px] border border-(--note-border) bg-(--editor-bg-color) shadow-2xl">
+        <Suspense fallback={null}>
+          <NoteEditor
+            initialContent={SEED_NOTE}
+            placeHolder="Put something here..."
+            onError={error => console.error(error)}
+            autoFocus={false}
+            toolbar
+            titleBar
+            pinned={pinned}
+            onTogglePin={() => setPinned(p => !p)}
+            title="QuickNote"
+            icon={<img src="/logo.png" width={18} height={18} alt="" />}
+          />
+        </Suspense>
       </div>
     </div>
   );
