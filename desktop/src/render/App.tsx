@@ -6,6 +6,7 @@
 import React from "react";
 import { NoteEditor } from "@quicknote/editor";
 import { TitleBar } from "./components";
+import logo from "../assets/images/quicknote-64.png";
 import * as C from "./constants";
 
 /**
@@ -20,13 +21,6 @@ export default function App() {
     window.QuickNoteAPI.recvNote().then(setInitialContent).catch(onError);
     console.log(initialContent);
     window.QuickNoteAPI.getPinned().then(setPinned).catch(onError);
-  }, []);
-
-  // Drop the popup margin and rounded corners while maximized.
-  React.useEffect(() => {
-    const apply = (maximized: boolean) => document.documentElement.toggleAttribute("data-maximized", maximized);
-    window.QuickNoteAPI.isMaximized().then(apply).catch(onError);
-    return window.QuickNoteAPI.onMaximizedChange(apply);
   }, []);
 
   const [pinned, setPinned] = React.useState(false);
@@ -47,14 +41,21 @@ export default function App() {
 
   // render the App
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%", position: "relative" }}>
-      <TitleBar pinned={pinned} onTogglePin={togglePin} />
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <TitleBar
+        pinned={pinned}
+        onTogglePin={togglePin}
+        onClose={() => window.QuickNoteAPI.hide()}
+        title="QuickNote"
+        icon={<img src={logo} width={18} height={18} alt="" />}
+      />
       <div style={{ flex: 1, minHeight: 0 }}>
         <NoteEditor
           placeHolder={C.PLACEHOLDER_TEXT}
           onUpdate={saveNote}
           initialContent={initialContent}
           onError={onError}
+          toolbar
           key={initialContent}
         />
       </div>

@@ -8,8 +8,12 @@
 @media (prefers-color-scheme: light) {
   :root {
     --editor-bg-color   : #ffffffff;
-    --editor-fg-color   : #000000ff;
-    --editor-shadow     : #00000020;
+    --editor-fg-color   : #1f2328ff;
+    --bar-bg            : #f1f3f6;
+    --bar-fg            : #4b5563;
+    --bar-divider       : #d9dde3;
+    --note-border       : #cdd3dc;
+    --pin               : #1f6fe5;
     --thumb-color       : #64646466;
     --thumb-hover-color : #646464b3;
   }
@@ -17,9 +21,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --editor-bg-color   : #1e1e1eff;
-    --editor-fg-color   : #d4d4d4ff;
-    --editor-shadow     : #0000005c;
+    --editor-bg-color   : #14171dff;
+    --editor-fg-color   : #e6e8ecff;
+    --bar-bg            : #23272f;
+    --bar-fg            : #c9ced6;
+    --bar-divider       : #373c46;
+    --note-border       : #3a3f4a;
+    --pin               : #2f9bff;
     --thumb-color       : #79797966;
     --thumb-hover-color : #646464b3;
   }
@@ -35,21 +43,19 @@ html, body {
   padding: 0px;
 }
 
-#root {
-  box-shadow: var(--editor-shadow) 0px 3px 8px;
-  overflow: hidden;
-  height: calc(100% - 10px);
-  width: calc(100% - 10px);
-  margin: 8px;
-  border-radius: 8px;
+body {
+  font-family: system-ui, "Segoe UI Variable", "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
-html[data-maximized] #root {
-  box-shadow: none;
+#root {
+  overflow: hidden;
+  box-sizing: border-box;
   height: 100%;
   width: 100%;
-  margin: 0;
-  border-radius: 0;
+  border: 1px solid var(--note-border);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar {

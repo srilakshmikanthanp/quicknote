@@ -21,6 +21,7 @@ import { CHECK_LIST, ORDERED_LIST, UNORDERED_LIST } from "@lexical/markdown";
 import styled from 'styled-components';
 import type { EditorState } from "lexical";
 import LinkOpenPlugin from "./LinkOpenPlugin";
+import Toolbar from "./Toolbar";
 import styles from "./NoteEditor.module.css"
 
 // NoteEditor Props Interface Definition
@@ -30,13 +31,23 @@ interface INoteEditorProps {
   onUpdate?: (content: string) => void;
   onError: (content: Error) => void;
   autoFocus?: boolean;
+  toolbar?: boolean;
 }
+
+// fills the space it is given, the note scrolls and the toolbar stays below it
+const Shell = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 
 // top level container For Scrolling
 const RootLevelContainer = styled.div`
   overflow: auto;
   width: 100%;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
 `;
 
 // Editor Container
@@ -103,6 +114,7 @@ export default function NoteEditor({
   placeHolder,
   onError,
   autoFocus = true,
+  toolbar = false,
 }: INoteEditorProps) {
   // editor config
   const editorConfig = (initialContent != null && initialContent != '') ? {
@@ -132,25 +144,28 @@ export default function NoteEditor({
 
   // render
   return (
-    <RootLevelContainer>
-      <LexicalComposer initialConfig={editorConfig}>
-        <EditorContainer>
-          <RichTextPlugin
-            ErrorBoundary={LexicalErrorBoundary}
-            placeholder={placeholder}
-            contentEditable={<Editable />}
-          />
-          <OnChangePlugin onChange={onChange} />
-          <HistoryPlugin />
-          {autoFocus && <AutoFocusPlugin />}
-          <ListPlugin />
-          <CheckListPlugin />
-          <TabIndentationPlugin />
-          <MarkdownShortcutPlugin transformers={markdownTransformers} />
-          <AutoLinkPlugin matchers={linkMatchers} />
-          <LinkOpenPlugin />
-        </EditorContainer>
-      </LexicalComposer>
-    </RootLevelContainer>
+    <LexicalComposer initialConfig={editorConfig}>
+      <Shell>
+        <RootLevelContainer>
+          <EditorContainer>
+            <RichTextPlugin
+              ErrorBoundary={LexicalErrorBoundary}
+              placeholder={placeholder}
+              contentEditable={<Editable />}
+            />
+            <OnChangePlugin onChange={onChange} />
+            <HistoryPlugin />
+            {autoFocus && <AutoFocusPlugin />}
+            <ListPlugin />
+            <CheckListPlugin />
+            <TabIndentationPlugin />
+            <MarkdownShortcutPlugin transformers={markdownTransformers} />
+            <AutoLinkPlugin matchers={linkMatchers} />
+            <LinkOpenPlugin />
+          </EditorContainer>
+        </RootLevelContainer>
+        {toolbar && <Toolbar />}
+      </Shell>
+    </LexicalComposer>
   );
 }

@@ -4,3 +4,4 @@
 // https://opensource.org/licenses/MIT
 
 declare module "*.module.css";
+declare module "*.png";

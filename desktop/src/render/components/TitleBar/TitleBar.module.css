@@ -9,60 +9,70 @@
   display: flex;
   flex: none;
   align-items: center;
-  justify-content: space-between;
-  height: 26px;
-  padding: 0 6px 0 10px;
-  background: var(--editor-bg-color);
-  color: var(--editor-fg-color);
-  border-bottom: 1px solid var(--thumb-color);
-  -webkit-app-region: drag;
+  justify-content: flex-end;
+  height: 36px;
+  padding: 0 8px 0 12px;
+  background: var(--bar-bg);
+  color: var(--bar-fg);
+  border-bottom: 1px solid var(--bar-divider);
   user-select: none;
+}
+
+/* only a pinned window can be moved, see NoteWindow */
+.draggable {
+  -webkit-app-region: drag;
+  cursor: grab;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--editor-fg-color);
 }
 
 .grip {
   flex: 1;
   text-align: center;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   font-size: 10px;
-  opacity: 0.35;
+  opacity: 0.45;
 }
 
 .pin {
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
   padding: 0;
   border: 0;
-  border-radius: 4px;
+  border-radius: 6px;
   background: transparent;
   color: inherit;
-  opacity: 0.5;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
   -webkit-app-region: no-drag;
 }
 
+.pin:first-of-type {
+  margin-left: auto;
+}
+
+/* an unpinned pin lies on its side and straightens when pinned */
+.pin svg {
+  transition: transform 0.2s;
+}
+
 .pin:hover {
-  opacity: 1;
-  background: var(--thumb-color);
+  background: color-mix(in srgb, currentColor 14%, transparent);
 }
 
 .pinned {
-  opacity: 1;
-  color: #2f86f6;
+  color: var(--pin);
 }
 
-.corner {
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  z-index: 1;
-  color: var(--editor-fg-color);
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-
-:global(#root):hover .corner,
-.corner:focus-within {
-  opacity: 1;
+.pinned svg {
+  transform: none;
 }

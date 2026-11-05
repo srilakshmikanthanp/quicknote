@@ -32,7 +32,7 @@ export default class NoteWindow extends BrowserWindow {
   }
 
   public setPinned(pinned: boolean): void {
-    this.pinned = pinned;
+    this.setResizable(this.pinned = pinned);
   }
 
   public showNearPoint(p: Point): void {

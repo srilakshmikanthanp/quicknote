@@ -18,11 +18,8 @@ export const ONER_IN_MAIN_CHAN = "ipc:evt:error";
 // IPC to pin the window on top
 export const PIN_IN_MAIN_CHAN = "ipc:win:pin";
 
+// IPC to hide the window
+export const HIDE_IN_MAIN_CHAN = "ipc:win:hide";
+
 // IPC to get the pinned state of the window
 export const PINNED_IN_MAIN_CHAN = "ipc:win:pinned";
-
-// IPC to get the maximized state of the window
-export const MAXIMIZED_IN_MAIN_CHAN = "ipc:win:maximized";
-
-// IPC sent to the renderer when the window is maximized or restored
-export const MAXIMIZE_CHANGE_CHAN = "ipc:win:maximize-change";
