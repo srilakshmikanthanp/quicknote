@@ -5,28 +5,30 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  --color-bg: #f6f1e7;
-  --color-paper: #fffdf8;
-  --color-fg: #2b2620;
-  --color-muted: #7a7064;
-  --color-line: #e3dac8;
-  --color-accent: #2f86f6;
-  --color-accent-soft: rgb(47 134 246 / 0.12);
-  --color-sticky: #fff1a8;
-  --color-sticky-fg: #4a3f12;
+  --color-bg: #eef1f5;
+  --color-paper: #ffffff;
+  --color-bar: #f1f3f6;
+  --color-fg: #1f2328;
+  --color-muted: #5b6472;
+  --color-line: #d9dde3;
+  --color-accent: #1f6fe5;
+  --color-accent-soft: rgb(31 111 229 / 0.12);
+  --color-sticky: #d6e6fd;
+  --color-sticky-fg: #12356b;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #17150f;
-    --color-paper: #1f1c15;
-    --color-fg: #efe8d8;
-    --color-muted: #a09682;
-    --color-line: #332e22;
-    --color-accent: #5a9cf8;
-    --color-accent-soft: rgb(90 156 248 / 0.16);
-    --color-sticky: #4a4015;
-    --color-sticky-fg: #fbefb0;
+    --color-bg: #0f1217;
+    --color-paper: #14171d;
+    --color-bar: #23272f;
+    --color-fg: #e6e8ec;
+    --color-muted: #9aa3b0;
+    --color-line: #373c46;
+    --color-accent: #2f9bff;
+    --color-accent-soft: rgb(47 155 255 / 0.16);
+    --color-sticky: #1c3354;
+    --color-sticky-fg: #cfe3ff;
   }
 }
 
@@ -57,25 +59,13 @@
   list-style-type: disc;
 }
 
-/* the demo note uses the desktop app's own colours, so it looks the same as the real window */
+/* the site shares the desktop app's colours, so the demo note just reads the site tokens */
 .demo-window {
-  --editor-bg-color: #ffffff;
-  --editor-fg-color: #1f2328;
-  --bar-bg: #f1f3f6;
-  --bar-fg: #4b5563;
-  --bar-divider: #d9dde3;
-  --note-border: #cdd3dc;
-  --pin: #1f6fe5;
-}
-
-@media (prefers-color-scheme: dark) {
-  .demo-window {
-    --editor-bg-color: #14171d;
-    --editor-fg-color: #e6e8ec;
-    --bar-bg: #23272f;
-    --bar-fg: #c9ced6;
-    --bar-divider: #373c46;
-    --note-border: #3a3f4a;
-    --pin: #2f9bff;
-  }
+  --editor-bg-color: var(--color-paper);
+  --editor-fg-color: var(--color-fg);
+  --bar-bg: var(--color-bar);
+  --bar-fg: var(--color-muted);
+  --bar-divider: var(--color-line);
+  --note-border: var(--color-line);
+  --pin: var(--color-accent);
 }
