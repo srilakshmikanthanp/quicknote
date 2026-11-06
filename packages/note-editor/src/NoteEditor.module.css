@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2023 Sri Lakshmi Kanthan P
- * 
+ *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
@@ -71,10 +71,23 @@
 }
 
 .editorChecked::before {
-  background: #2f86f6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M3 7.5l2.5 2.5L11 4.5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% no-repeat;
-  border-color: #2f86f6;
+  border-color: var(--editor-accent-color, #2f86f6);
+  background: var(--editor-accent-color, #2f86f6);
 }
 
-.editorNestedItem::before {
+.editorChecked::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  mask: url("./assets/check.svg") center / 100% no-repeat;
+  pointer-events: none;
+}
+
+.editorNestedItem::before,
+.editorNestedItem::after {
   display: none;
 }
