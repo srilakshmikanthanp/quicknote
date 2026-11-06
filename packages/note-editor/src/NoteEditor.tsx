@@ -41,7 +41,6 @@ interface INoteEditorProps {
   icon?: ReactNode;
 }
 
-// fills the space it is given, the note scrolls between the title bar and the toolbar
 const Shell = styled.div`
   display: flex;
   flex-direction: column;
