@@ -5,7 +5,7 @@
 
 import type { ReactNode } from "react";
 import { LuPin, LuX } from "react-icons/lu";
-import styles from "./TitleBar.module.css";
+import styled, { css } from "styled-components";
 
 interface ITitleBarProps {
   pinned: boolean;
@@ -16,24 +16,78 @@ interface ITitleBarProps {
   icon?: ReactNode;
 }
 
-export default function TitleBar({ pinned, draggable, onTogglePin, onClose, icon }: ITitleBarProps) {
+const Bar = styled.div<{ $draggable: boolean }>`
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  height: 36px;
+  padding: 0 8px 0 12px;
+  background: var(--bar-bg);
+  color: var(--bar-fg);
+  border-bottom: 1px solid var(--bar-divider);
+  user-select: none;
+
+  & > button:first-of-type {
+    margin-left: auto;
+  }
+
+  ${({ $draggable }) => $draggable && css`
+    -webkit-app-region: drag;
+    cursor: grab;
+  `}
+`;
+
+const Icon = styled.span`
+  display: flex;
+  align-items: center;
+`;
+
+const Grip = styled.span`
+  flex: 1;
+  text-align: center;
+  letter-spacing: 4px;
+  font-size: 10px;
+  opacity: 0.45;
+`;
+
+const IconButton = styled.button<{ $active?: boolean }>`
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: ${({ $active }) => ($active ? "var(--pin)" : "inherit")};
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  -webkit-app-region: no-drag;
+
+  &:hover {
+    background: color-mix(in srgb, currentColor 14%, transparent);
+  }
+`;
+
+export default function TitleBar({ pinned, draggable = false, onTogglePin, onClose, icon }: ITitleBarProps) {
   return (
-    <div className={`${styles.titleBar} ${draggable ? styles.draggable : ""}`}>
-      {icon && <span className={styles.icon}>{icon}</span>}
-      {draggable && <span className={styles.grip} aria-hidden>•••</span>}
-      <button
-        className={`${styles.pin} ${pinned ? styles.pinned : ""}`}
+    <Bar $draggable={draggable}>
+      {icon && <Icon>{icon}</Icon>}
+      {draggable && <Grip aria-hidden>•••</Grip>}
+      <IconButton
+        $active={pinned}
         title={pinned ? "Unpin (hide when focus is lost)" : "Pin to keep open, move and resize"}
         aria-pressed={pinned}
         onClick={onTogglePin}
       >
         <LuPin size={16} fill={pinned ? "currentColor" : "none"} />
-      </button>
+      </IconButton>
       {onClose && (
-        <button className={styles.pin} title="Close" onClick={onClose}>
+        <IconButton title="Close" onClick={onClose}>
           <LuX size={16} />
-        </button>
+        </IconButton>
       )}
-    </div>
+    </Bar>
   );
 }
