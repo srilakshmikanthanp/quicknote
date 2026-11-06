@@ -12,10 +12,8 @@ import * as C from "./constants";
  * The main application component.
  */
 export default function App() {
-  // Get the note from the store.
   const [initialContent, setInitialContent] = React.useState<string | null>(null);
 
-  // Get the note from the store.
   React.useEffect(() => {
     window.QuickNoteAPI.recvNote().then(setInitialContent).catch(onError);
     console.log(initialContent);
@@ -28,17 +26,14 @@ export default function App() {
     window.QuickNoteAPI.setPinned(!pinned).then(setPinned).catch(onError);
   };
 
-  // Set the note in the store.
   const saveNote = (note: string) => {
     initialContent != null && window.QuickNoteAPI.sendNote(note).catch(onError);
   };
 
-  // on error
   const onError = (err: Error) => {
     window.QuickNoteAPI.onError(err.message);
   };
 
-  // render the App
   return (
     <NoteEditor
       placeHolder={C.PLACEHOLDER_TEXT}

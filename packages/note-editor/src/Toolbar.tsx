@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { LuRedo2, LuUndo2 } from "react-icons/lu";
 import styles from "./Toolbar.module.css";
 
-// Undo and redo buttons, shown below the note
 export default function Toolbar() {
   const [editor] = useLexicalComposerContext();
   const [canUndo, setCanUndo] = useState(false);

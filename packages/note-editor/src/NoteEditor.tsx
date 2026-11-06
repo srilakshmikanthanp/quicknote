@@ -26,7 +26,6 @@ import type { ReactNode } from "react";
 import TitleBar from "./TitleBar";
 import styles from "./NoteEditor.module.css"
 
-// NoteEditor Props Interface Definition
 interface INoteEditorProps {
   initialContent: string | null;
   placeHolder: string;
@@ -50,7 +49,6 @@ const Shell = styled.div`
   height: 100%;
 `;
 
-// top level container For Scrolling
 const RootLevelContainer = styled.div`
   overflow: auto;
   width: 100%;
@@ -58,7 +56,6 @@ const RootLevelContainer = styled.div`
   min-height: 0;
 `;
 
-// Editor Container
 const EditorContainer = styled.div`
   background: var(--editor-bg-color);
   color: var(--editor-fg-color);
@@ -74,7 +71,6 @@ const EditorContainer = styled.div`
   justify-content: flex-start;
 `;
 
-// Placeholder
 const Placeholder = styled.div`
   text-overflow: ellipsis;
   position: absolute;
@@ -85,14 +81,12 @@ const Placeholder = styled.div`
   pointer-events: none;
 `;
 
-// Editable
 const Editable = styled(ContentEditable)`
   min-width: 100%;
   outline: 0;
   flex-grow: 1;
 `;
 
-// editor theme
 const editorTheme = {
   paragraph: `${styles.editorParagraph}`,
   link: `${styles.editorLink}`,
@@ -115,7 +109,6 @@ const markdownTransformers = [CHECK_LIST, UNORDERED_LIST, ORDERED_LIST];
 const editorNodes = [ListNode, ListItemNode, AutoLinkNode];
 const linkMatchers = [autoLinkUrlMatcher, autoLinkEmailMatcher];
 
-// Note Editor
 export default function NoteEditor({
   initialContent,
   onUpdate,
@@ -130,7 +123,6 @@ export default function NoteEditor({
   onClose,
   icon,
 }: INoteEditorProps) {
-  // editor config
   const editorConfig = (initialContent != null && initialContent != '') ? {
     editorState: initialContent,
     onError: onError,
@@ -144,19 +136,16 @@ export default function NoteEditor({
     namespace: "note-editor",
   };
 
-  // change handler for note editor
   const onChange = (state: EditorState) => {
     onUpdate?.(JSON.stringify(state.toJSON()));
   }
 
-  // placeholder
   const placeholder = (
     <Placeholder>
       {placeHolder}
     </Placeholder>
   );
 
-  // render
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <Shell>

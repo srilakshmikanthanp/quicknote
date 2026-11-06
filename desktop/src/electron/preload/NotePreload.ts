@@ -16,5 +16,4 @@ const quickNoteAPI: IQuickNoteAPI = {
   onError: (err) => ipcRenderer.send(E.ONER_IN_MAIN_CHAN, err),
 };
 
-// expose the QuickNoteAPI
 contextBridge.exposeInMainWorld(E.QUICKNOTE_API_VAL, quickNoteAPI);

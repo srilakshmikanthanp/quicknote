@@ -56,7 +56,6 @@
   margin-left: auto;
 }
 
-/* an unpinned pin lies on its side and straightens when pinned */
 .pin svg {
   transition: transform 0.2s;
 }
