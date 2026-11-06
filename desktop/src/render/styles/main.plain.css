@@ -13,7 +13,7 @@
     --bar-fg            : #4b5563;
     --bar-divider       : #d9dde3;
     --note-border       : #cdd3dc;
-    --pin               : #1f6fe5;
+    --editor-accent-color: #1f6fe5;
     --thumb-color       : #64646466;
     --thumb-hover-color : #646464b3;
   }
@@ -27,7 +27,7 @@
     --bar-fg            : #c9ced6;
     --bar-divider       : #373c46;
     --note-border       : #3a3f4a;
-    --pin               : #2f9bff;
+    --editor-accent-color: #2f9bff;
     --thumb-color       : #79797966;
     --thumb-hover-color : #646464b3;
   }

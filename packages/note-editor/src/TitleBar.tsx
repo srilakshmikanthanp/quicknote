@@ -9,7 +9,6 @@ import styled, { css } from "styled-components";
 
 interface ITitleBarProps {
   pinned: boolean;
-  /** lets a host such as Electron drag the window by this bar */
   draggable?: boolean;
   onTogglePin?: () => void;
   onClose?: () => void;
@@ -60,7 +59,7 @@ const IconButton = styled.button<{ $active?: boolean }>`
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: ${({ $active }) => ($active ? "var(--pin)" : "inherit")};
+  color: ${({ $active }) => ($active ? "var(--editor-accent-color)" : "inherit")};
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
   -webkit-app-region: no-drag;

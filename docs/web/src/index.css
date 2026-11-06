@@ -67,5 +67,5 @@
   --bar-fg: var(--color-muted);
   --bar-divider: var(--color-line);
   --note-border: var(--color-line);
-  --pin: var(--color-accent);
+  --editor-accent-color: var(--color-accent);
 }
