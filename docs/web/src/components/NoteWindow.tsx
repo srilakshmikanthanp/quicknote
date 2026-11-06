@@ -7,7 +7,7 @@ export default function NoteWindow() {
   const [pinned, setPinned] = useState(false);
 
   return (
-    <div className="relative transition-transform hover:rotate-0 sm:-rotate-2">
+    <div className={`relative transition-transform hover:rotate-0 ${pinned ? '' : 'sm:-rotate-2'}`}>
       <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-xl bg-sticky opacity-70" />
       <div className="demo-window demo-note relative h-80 overflow-hidden rounded-[10px] border border-(--note-border) bg-(--editor-bg-color) shadow-2xl">
         <Suspense fallback={null}>
