@@ -39,7 +39,6 @@ interface INoteEditorProps {
   draggable?: boolean;
   onTogglePin?: () => void;
   onClose?: () => void;
-  title?: string;
   icon?: ReactNode;
 }
 
@@ -129,7 +128,6 @@ export default function NoteEditor({
   draggable = false,
   onTogglePin,
   onClose,
-  title,
   icon,
 }: INoteEditorProps) {
   // editor config
@@ -168,7 +166,6 @@ export default function NoteEditor({
             draggable={draggable}
             onTogglePin={onTogglePin}
             onClose={onClose}
-            title={title}
             icon={icon}
           />
         )}

@@ -20,7 +20,6 @@ export default function NoteWindow() {
             titleBar
             pinned={pinned}
             onTogglePin={() => setPinned(p => !p)}
-            title="QuickNote"
             icon={<img src="/logo.png" width={18} height={18} alt="" />}
           />
         </Suspense>

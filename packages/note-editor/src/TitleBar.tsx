@@ -13,14 +13,13 @@ interface ITitleBarProps {
   draggable?: boolean;
   onTogglePin?: () => void;
   onClose?: () => void;
-  title?: string;
   icon?: ReactNode;
 }
 
-export default function TitleBar({ pinned, draggable, onTogglePin, onClose, title, icon }: ITitleBarProps) {
+export default function TitleBar({ pinned, draggable, onTogglePin, onClose, icon }: ITitleBarProps) {
   return (
     <div className={`${styles.titleBar} ${draggable ? styles.draggable : ""}`}>
-      {(icon || title) && <span className={styles.title}>{icon}{title}</span>}
+      {icon && <span className={styles.icon}>{icon}</span>}
       {draggable && <span className={styles.grip} aria-hidden>•••</span>}
       <button
         className={`${styles.pin} ${pinned ? styles.pinned : ""}`}

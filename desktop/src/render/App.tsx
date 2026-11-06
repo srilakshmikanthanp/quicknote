@@ -51,7 +51,6 @@ export default function App() {
       draggable={pinned}
       onTogglePin={togglePin}
       onClose={() => window.QuickNoteAPI.hide()}
-      title="QuickNote"
       icon={<img src={logo} width={18} height={18} alt="" />}
       key={initialContent}
     />
